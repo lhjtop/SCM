@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2012-08-26 17:53:12.038.pas,C:\Users\Lee\Documents\0-내프로젝트\Unit1.pas=C:\Users\Lee\Documents\0-내프로젝트\0-진행중인\5-2012소사자동차관리프로그램\Main1.pas</Transaction>
+    <Transaction>2012-08-26 17:53:12.074.dfm,C:\Users\Lee\Documents\0-내프로젝트\Unit1.dfm=C:\Users\Lee\Documents\0-내프로젝트\0-진행중인\5-2012소사자동차관리프로그램\Main1.dfm</Transaction>
+    <Transaction>2012-08-26 17:53:40.405.dproj,C:\Users\Lee\Documents\0-내프로젝트\Project1.dproj=C:\Users\Lee\Documents\0-내프로젝트\0-진행중인\5-2012소사자동차관리프로그램\SosaCar1.dproj</Transaction>
+    <Transaction>2013-02-11 15:14:12.920.pas,C:\Users\Lee\Documents\0-내프로젝트\0-진행중인\5-2012소사자동차관리프로그램\LogIn.pas=</Transaction>
+    <Transaction>2013-02-11 15:14:12.920.dfm,C:\Users\Lee\Documents\0-내프로젝트\0-진행중인\5-2012소사자동차관리프로그램\LogIn.dfm=</Transaction>
+    <Transaction>2014-02-04 00:02:22.773.dproj,C:\Users\Lee\Documents\0-내프로젝트\0-진행중인\5-2012소사자동차관리프로그램\9-Delphi\SosaCar1.dproj=C:\Users\Lee\Documents\0-내프로젝트\0-진행중인\6-SosaCarManager-2014\SosaCarManager.dproj</Transaction>
+    <Transaction>2014-02-11 20:43:29.467.dproj,C:\Users\Lee\Documents\0-내프로젝트\0-진행중인\6-SosaCarManager-2014\temp\SosaCarManager.dproj=C:\Users\Lee\Documents\0-내프로젝트\0-진행중인\6-SosaCarManager-2014\SCM1\SCM1.dproj</Transaction>
+    <Transaction>2014-02-11 20:44:19.614.pas,C:\Users\Lee\Documents\0-내프로젝트\0-진행중인\6-SosaCarManager-2014\temp\Main1.pas=</Transaction>
+    <Transaction>2014-02-11 20:44:19.614.dfm,C:\Users\Lee\Documents\0-내프로젝트\0-진행중인\6-SosaCarManager-2014\temp\Main1.dfm=</Transaction>
+  </Transactions>
+</BorlandProject>
