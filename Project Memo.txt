@@ -1,0 +1,1 @@
+Provider=Microsoft.Jet.OLEDB.4.0;Data Source=N:\DataBase\CarList.mdb;Persist Security Info=False;Jet OLEDB:Database Password=sosa2011

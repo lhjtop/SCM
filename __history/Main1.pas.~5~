@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, ImgList, ComCtrls, ToolWin, ExtCtrls, DB, ADODB,
   ZAbstractConnection, ZConnection, ZAbstractRODataset, ZAbstractDataset,
-  ZAbstractTable, ZDataset, StdCtrls;
+  ZAbstractTable, ZDataset;
 
 type
   TFormMain = class(TForm)
@@ -75,7 +75,6 @@ type
     N51: TMenuItem;
     N52: TMenuItem;
     N53: TMenuItem;
-    ButtonClose: TButton;
     procedure N2Click(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -83,22 +82,14 @@ type
     procedure ZConnection1AfterConnect(Sender: TObject);
     procedure N5Click(Sender: TObject);
     procedure N33Click(Sender: TObject);
-    procedure ButtonCloseClick(Sender: TObject);
-
   private
     { Private declarations }
   public
     { Public declarations }
   end;
 
-const
-  MyOver=  -9999;
-  MyMax = 100000;
-  pPW = '22';
-
 var
   FormMain: TFormMain;
-  ResultReturn : Integer;
 
 implementation
 
@@ -120,11 +111,6 @@ implementation
 // Parameter : 없음
 // Return    : 없음
 //==================================================================
-
-procedure TFormMain.ButtonCloseClick(Sender: TObject);
-begin
-  Close;
-end;
 
 procedure TFormMain.FormCreate(Sender: TObject);
 begin

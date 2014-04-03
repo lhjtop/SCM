@@ -1,7 +1,7 @@
 object FormMain: TFormMain
   Left = 166
   Top = 21
-  Caption = '2014'#49548#49324#51088#46041#52264#44288#47532#54532#47196#44536#47016'(Ver2.0)'
+  Caption = '2012'#49548#49324#51088#46041#52264#44288#47532#54532#47196#44536#47016'(Ver2.0)'
   ClientHeight = 637
   ClientWidth = 984
   Color = clBtnFace
@@ -351,15 +351,6 @@ object FormMain: TFormMain
         Width = 50
       end>
   end
-  object ButtonClose: TButton
-    Left = 304
-    Top = 96
-    Width = 293
-    Height = 165
-    Caption = 'Close'
-    TabOrder = 2
-    OnClick = ButtonCloseClick
-  end
   object MainMenu1: TMainMenu
     Left = 12
     Top = 50
@@ -383,7 +374,6 @@ object FormMain: TFormMain
       end
       object N33: TMenuItem
         Caption = #49324#50857#51088#51204#54872
-        OnClick = N33Click
       end
       object N31: TMenuItem
         Caption = #49324#50857#51088#51221#48372#48320#44221
@@ -532,7 +522,7 @@ object FormMain: TFormMain
     Left = 114
     Top = 50
     Bitmap = {
-      494C010103005C00CC0014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103005C00C00014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000001400000001002000000000000019
       000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF

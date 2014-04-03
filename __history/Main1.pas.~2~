@@ -6,10 +6,10 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, ImgList, ComCtrls, ToolWin, ExtCtrls, DB, ADODB,
   ZAbstractConnection, ZConnection, ZAbstractRODataset, ZAbstractDataset,
-  ZAbstractTable, ZDataset, StdCtrls;
+  ZAbstractTable, ZDataset;
 
 type
-  TFormMain = class(TForm)
+  TMainFrm = class(TForm)
     MainMenu1: TMainMenu;
     N1: TMenuItem;
     N2: TMenuItem;
@@ -75,36 +75,24 @@ type
     N51: TMenuItem;
     N52: TMenuItem;
     N53: TMenuItem;
-    ButtonClose: TButton;
     procedure N2Click(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     Function INI_Read(FileNames,Section,Key: string): string;
     procedure ZConnection1AfterConnect(Sender: TObject);
-    procedure N5Click(Sender: TObject);
-    procedure N33Click(Sender: TObject);
-    procedure ButtonCloseClick(Sender: TObject);
-
   private
     { Private declarations }
   public
     { Public declarations }
   end;
 
-const
-  MyOver=  -9999;
-  MyMax = 100000;
-  pPW = '22';
-
 var
-  FormMain: TFormMain;
-  ResultReturn : Integer;
+  MainFrm: TMainFrm;
 
 implementation
 
 //uses LogInForMain;
- uses Booth,LogIn;
- //uses LogIn;
+
 //uses LogInForMain;
 
 {$R *.dfm}
@@ -121,12 +109,7 @@ implementation
 // Return    : 없음
 //==================================================================
 
-procedure TFormMain.ButtonCloseClick(Sender: TObject);
-begin
-  Close;
-end;
-
-procedure TFormMain.FormCreate(Sender: TObject);
+procedure TMainFrm.FormCreate(Sender: TObject);
 begin
   // 메인 폼
   //showmessage ('서버와 연결을 체크해야 함');
@@ -141,33 +124,16 @@ end;
 // Name      : TMainFrm.N2Click
 // Desc      : end
 //==================================================================
-procedure TFormMain.N2Click(Sender: TObject);    // end
+procedure TMainFrm.N2Click(Sender: TObject);    // end
 begin
   close;
-end;
-//==================================================================
-// Name      : TMainFrm.N5Click
-// Desc      : 사용자 전환
-//==================================================================
-procedure TFormMain.N33Click(Sender: TObject);
-begin
-  FormLogIn.ShowModal;
-end;
-
-//==================================================================
-// Name      : TMainFrm.N5Click
-// Desc      : 배출시설 방지시설 일지
-//==================================================================
-procedure TFormMain.N5Click(Sender: TObject);
-begin
-  FormBooth.Show;
 end;
 
 //==================================================================
 // Name      : TMainFrm.Timer1Timer
 // Desc      : Timer로 시간 표현
 //==================================================================
-procedure TFormMain.Timer1Timer(Sender: TObject);
+procedure TMainFrm.Timer1Timer(Sender: TObject);
 begin
   statusbar1.Panels[0].Text:=datetostr(date); //상태바에 날짜 표시
   statusBar1.Panels[1].Text :=timetostr(time); //상태바에 시간 표시
@@ -175,7 +141,7 @@ begin
 
 
 end;
-procedure TFormMain.ZConnection1AfterConnect(Sender: TObject);
+procedure TMainFrm.ZConnection1AfterConnect(Sender: TObject);
 begin
 
 end;
@@ -184,7 +150,7 @@ end;
 // Name      : TMainFrm.Timer1Timer
 // Desc      : Timer로 시간 표현
 //==================================================================
-Function TFormMain.INI_Read(FileNames,Section,Key: string): string;
+Function TMainFrm.INI_Read(FileNames,Section,Key: string): string;
 begin
   //Function INI_Read(FileNames,Section,Key: string): string;
 end;

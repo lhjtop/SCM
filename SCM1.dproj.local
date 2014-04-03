@@ -10,5 +10,13 @@
     <Transaction>2014-02-11 20:43:29.467.dproj,C:\Users\Lee\Documents\0-내프로젝트\0-진행중인\6-SosaCarManager-2014\temp\SosaCarManager.dproj=C:\Users\Lee\Documents\0-내프로젝트\0-진행중인\6-SosaCarManager-2014\SCM1\SCM1.dproj</Transaction>
     <Transaction>2014-02-11 20:44:19.614.pas,C:\Users\Lee\Documents\0-내프로젝트\0-진행중인\6-SosaCarManager-2014\temp\Main1.pas=</Transaction>
     <Transaction>2014-02-11 20:44:19.614.dfm,C:\Users\Lee\Documents\0-내프로젝트\0-진행중인\6-SosaCarManager-2014\temp\Main1.dfm=</Transaction>
+    <Transaction>2014-02-27 20:51:48.736.pas,C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Booth.pas=</Transaction>
+    <Transaction>2014-02-27 20:51:48.736.dfm,C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Booth.dfm=</Transaction>
+    <Transaction>2014-02-27 20:53:54.386.pas,C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Unit1.pas=C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Booth.pas</Transaction>
+    <Transaction>2014-02-27 20:53:54.386.dfm,C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Unit1.dfm=C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Booth.dfm</Transaction>
+    <Transaction>2014-03-06 00:07:48.696.pas,C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Unit1.pas=C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\LogIn.pas</Transaction>
+    <Transaction>2014-03-06 00:07:48.696.dfm,C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Unit1.dfm=C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\LogIn.dfm</Transaction>
+    <Transaction>2014-04-03 10:57:55.053.pas,C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Unit1.pas=C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Security.pas</Transaction>
+    <Transaction>2014-04-03 10:57:55.053.dfm,C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Unit1.dfm=C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Security.dfm</Transaction>
   </Transactions>
 </BorlandProject>

@@ -1,0 +1,81 @@
+object FormBooth: TFormBooth
+  Left = 0
+  Top = 0
+  Caption = #48176#52636#49884#49444' '#48169#51648#49884#49444' '#51068#51648
+  ClientHeight = 442
+  ClientWidth = 744
+  Color = clBtnFace
+  Font.Charset = HANGEUL_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = #44404#47548
+  Font.Style = []
+  OldCreateOrder = False
+  OnActivate = FormActivate
+  PixelsPerInch = 96
+  TextHeight = 11
+  object LabelDate: TLabel
+    Left = 250
+    Top = 19
+    Width = 447
+    Height = 27
+    Alignment = taCenter
+    AutoSize = False
+    Caption = '2014 '#45380' 02'#50900' 28'#51068' '#44552#50836#51068
+    Font.Charset = HANGEUL_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -24
+    Font.Name = #55092#47676#50641#49828#54252
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object MonthCalendar1: TMonthCalendar
+    Left = 3
+    Top = 19
+    Width = 222
+    Height = 160
+    Date = 41697.812176539350000000
+    ImeName = 'Microsoft Office IME 2007'
+    TabOrder = 0
+    OnClick = MonthCalendar1Click
+  end
+  object NiceGrid1: TNiceGrid
+    Left = 3
+    Top = 185
+    Width = 730
+    Height = 249
+    Cursor = 101
+    ColCount = 0
+    HeaderFont.Charset = DEFAULT_CHARSET
+    HeaderFont.Color = clWindowText
+    HeaderFont.Height = -11
+    HeaderFont.Name = 'Tahoma'
+    HeaderFont.Style = []
+    FooterFont.Charset = DEFAULT_CHARSET
+    FooterFont.Color = clWindowText
+    FooterFont.Height = -11
+    FooterFont.Name = 'Tahoma'
+    FooterFont.Style = []
+    Columns = <>
+    GutterFont.Charset = DEFAULT_CHARSET
+    GutterFont.Color = clWindowText
+    GutterFont.Height = -11
+    GutterFont.Name = 'Tahoma'
+    GutterFont.Style = []
+    ShowFooter = False
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    TabOrder = 1
+  end
+  object GroupBox1: TGroupBox
+    Left = 231
+    Top = 48
+    Width = 498
+    Height = 131
+    Caption = 'GroupBox1'
+    TabOrder = 2
+  end
+end

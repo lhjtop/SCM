@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, ImgList, ComCtrls, ToolWin, ExtCtrls, DB, ADODB,
   ZAbstractConnection, ZConnection, ZAbstractRODataset, ZAbstractDataset,
-  ZAbstractTable, ZDataset, StdCtrls;
+  ZAbstractTable, ZDataset;
 
 type
   TFormMain = class(TForm)
@@ -75,36 +75,25 @@ type
     N51: TMenuItem;
     N52: TMenuItem;
     N53: TMenuItem;
-    ButtonClose: TButton;
     procedure N2Click(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     Function INI_Read(FileNames,Section,Key: string): string;
     procedure ZConnection1AfterConnect(Sender: TObject);
     procedure N5Click(Sender: TObject);
-    procedure N33Click(Sender: TObject);
-    procedure ButtonCloseClick(Sender: TObject);
-
   private
     { Private declarations }
   public
     { Public declarations }
   end;
 
-const
-  MyOver=  -9999;
-  MyMax = 100000;
-  pPW = '22';
-
 var
   FormMain: TFormMain;
-  ResultReturn : Integer;
 
 implementation
 
 //uses LogInForMain;
- uses Booth,LogIn;
- //uses LogIn;
+ uses Booth;
 //uses LogInForMain;
 
 {$R *.dfm}
@@ -120,11 +109,6 @@ implementation
 // Parameter : 없음
 // Return    : 없음
 //==================================================================
-
-procedure TFormMain.ButtonCloseClick(Sender: TObject);
-begin
-  Close;
-end;
 
 procedure TFormMain.FormCreate(Sender: TObject);
 begin
@@ -145,15 +129,6 @@ procedure TFormMain.N2Click(Sender: TObject);    // end
 begin
   close;
 end;
-//==================================================================
-// Name      : TMainFrm.N5Click
-// Desc      : 사용자 전환
-//==================================================================
-procedure TFormMain.N33Click(Sender: TObject);
-begin
-  FormLogIn.ShowModal;
-end;
-
 //==================================================================
 // Name      : TMainFrm.N5Click
 // Desc      : 배출시설 방지시설 일지
