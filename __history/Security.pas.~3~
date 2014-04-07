@@ -44,6 +44,10 @@ end;
 procedure TFormSecurity.ButtonOKClick(Sender: TObject);
 begin
   close;
+  //if editPW.Text=pPW then ResultReturn:='OK' else ResultReturn:='FAIL';
+  ///////////////////////////////////////////////////////////////
+  ///  /////
+  ///
 end;
 //==================================================================
 // Name      : EditPWKeyPress
@@ -51,8 +55,8 @@ end;
 //==================================================================
 procedure TFormSecurity.EditPWKeyPress(Sender: TObject; var Key: Char);
 begin
-  if Key=#13 then ButtonOKClick(self);       // Enter
-  if Key=#27 then ButtonCancelClick(self);         // ESC
+  if Key=#13 then ButtonOKClick;       // Enter
+  if Key=#27 then ButtonCancelClick;         // ESC
 end;
 
 //==================================================================
@@ -61,6 +65,7 @@ end;
 //==================================================================
 procedure TFormSecurity.FormActivate(Sender: TObject);
 begin
+  //
   editPW.Text:='';  // 텍스트 박스 초기화
 end;
 

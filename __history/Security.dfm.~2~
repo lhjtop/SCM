@@ -35,7 +35,6 @@ object FormSecurity: TFormSecurity
     Width = 290
     Height = 21
     ImeName = 'Microsoft Office IME 2007'
-    PasswordChar = '*'
     TabOrder = 0
     Text = 'EditPW'
     OnKeyPress = EditPWKeyPress

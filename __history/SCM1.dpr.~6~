@@ -5,8 +5,7 @@ uses
   Main1 in 'Main1.pas' {FormMain},
   Booth in 'Booth.pas' {FormBooth},
   LogIn in 'LogIn.pas' {FormLogIn},
-  Security in 'Security.pas' {FormSecurity},
-  lhjModule in 'lhjModule.pas';
+  Security in 'Security.pas' {FormSecurity};
 
 {$R *.res}
 

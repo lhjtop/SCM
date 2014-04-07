@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, ImgList, ComCtrls, ToolWin, ExtCtrls, DB, ADODB,
   ZAbstractConnection, ZConnection, ZAbstractRODataset, ZAbstractDataset,
-  ZAbstractTable, ZDataset, StdCtrls, lhjModule;
+  ZAbstractTable, ZDataset, StdCtrls;
 
 type
   TFormMain = class(TForm)

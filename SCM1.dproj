@@ -55,6 +55,7 @@
 			<DCCReference Include="Security.pas">
 				<Form>FormSecurity</Form>
 			</DCCReference>
+			<DCCReference Include="lhjModule.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

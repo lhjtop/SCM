@@ -414,7 +414,7 @@ begin
     FormSecurity.Free;
  //ShowMessage(IntToStr(yn)+'  '+ resultreturn+ datetostr(monthcalendar1.Date));  ///////////////////////////
     sSql := 'DELETE FROM 부스 WHERE Date = #' + ToDay + '#;';
- //clipboard.AsText:=ssql;
+
     try
       try
         ADOConnection1.BeginTrans;                     //트랜젝션 시작
@@ -425,12 +425,12 @@ begin
         ADOConnection1.CommitTrans;                    //트랜젝션 적용
       except
         ADOConnection1.RollbackTrans;                 //트랜젝션 롤백
-        //showmessage(' try exception 예외처리');    ///////////////////////////////////////
+        showmessage(' try exception 예외처리');    ///////////////////////////////////////
       end;
       finally
         //ADOQuery1.Open;
         ADOQuery1.Active:=False;
-        //showmessage(' try finally 예외처리');       ///////////////////////////////////////
+        showmessage(' try finally 예외처리');       ///////////////////////////////////////
       end;
   end;
   Text_Init;
@@ -446,8 +446,6 @@ var
   SaveBooth : TBooth;
   Ssql : AnsiString;
   aDate : AnsiString;
-  myMessage : AnsiString;
-
 begin
   SaveBooth.bDate:=DateToStr(MonthCalendar1.Date);
   SaveBooth.날씨:=IIFs( (length(edit9.Text) = 0) ,'',trim(edit9.Text));
@@ -494,7 +492,7 @@ begin
       ADOQuery1.Close;
       ADOQuery1.SQL.Clear;
       ADOQuery1.SQL.Text:=sSql; //.Add 함수를 사용하면 매우 느려진다. 사용하지 말자.
-      myMessage:=' 저장이 완료 되었습니다. ';
+     // DBParameter_Input;
      except
         ADOConnection1.RollbackTrans;                 //트랜젝션 롤백
         ADOQuery1.Active:=False; // 예외 처리
@@ -519,18 +517,19 @@ begin
       ADOQuery1.Close;
       ADOQuery1.SQL.Clear;
       ADOQuery1.SQL.Text:=sSql; //.Add 함수를 사용하면 매우 느려진다. 사용하지 말자.
-      myMessage:=' 수정이 완료 되었습니다. ';
+      //DBParameter_Input;
      except
         ADOConnection1.RollbackTrans;                 //트랜젝션 롤백
         ADOQuery1.Active:=False; // 예외 처리
      end;
 
    end; // if
- // showmessage (' ssql = ' + ssql+ '    ' );    clipboard.AsText:=ssql;
+  showmessage (' ssql = ' + ssql+ '    ' );
+  clipboard.AsText:=ssql;
   ADOQuery1.ExecSQL;
   ADOConnection1.CommitTrans;                    //트랜젝션 적용
   ADOQuery1.Active:=False;
-  ShowMessage (myMessage);
+
 
 end;
 

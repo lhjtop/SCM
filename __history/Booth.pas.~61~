@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, NiceGrid, ComCtrls, StrUtils, Grids, Outline, DB,
-  ADODB, ClipBrd,
+  ADODB,
   lhjModule;
 
 type
@@ -386,7 +386,6 @@ end;
 //==================================================================
 procedure TFormBooth.ButtonCloseClick(Sender: TObject);
 begin
-  ADOQuery1.Active:=False;
   close;
 end;
 
@@ -414,7 +413,7 @@ begin
     FormSecurity.Free;
  //ShowMessage(IntToStr(yn)+'  '+ resultreturn+ datetostr(monthcalendar1.Date));  ///////////////////////////
     sSql := 'DELETE FROM 부스 WHERE Date = #' + ToDay + '#;';
- //clipboard.AsText:=ssql;
+
     try
       try
         ADOConnection1.BeginTrans;                     //트랜젝션 시작
@@ -425,12 +424,12 @@ begin
         ADOConnection1.CommitTrans;                    //트랜젝션 적용
       except
         ADOConnection1.RollbackTrans;                 //트랜젝션 롤백
-        //showmessage(' try exception 예외처리');    ///////////////////////////////////////
+        showmessage(' try exception 예외처리');    ///////////////////////////////////////
       end;
       finally
         //ADOQuery1.Open;
         ADOQuery1.Active:=False;
-        //showmessage(' try finally 예외처리');       ///////////////////////////////////////
+        showmessage(' try finally 예외처리');       ///////////////////////////////////////
       end;
   end;
   Text_Init;
@@ -446,8 +445,6 @@ var
   SaveBooth : TBooth;
   Ssql : AnsiString;
   aDate : AnsiString;
-  myMessage : AnsiString;
-
 begin
   SaveBooth.bDate:=DateToStr(MonthCalendar1.Date);
   SaveBooth.날씨:=IIFs( (length(edit9.Text) = 0) ,'',trim(edit9.Text));
@@ -459,6 +456,23 @@ begin
   SaveBooth.방지1:=StrToFloat(edit5.Text);
   SaveBooth.방지2:=StrToFloat(edit7.Text);
   SaveBooth.메모:=iifs( (LEngth(Memo1.Text)=0),'',trim(Memo1.Text));
+
+  {
+  with ADOQuery1.Parameters do
+  begin
+      ParamValues['N1'] :=SaveBooth.bDate;
+      ParamValues['N2'] :=SaveBooth.날씨;
+      ParamValues['N3'] :=SaveBooth.온도;
+      ParamValues['N4'] :=SaveBooth.도장1;
+      ParamValues['N5'] :=SaveBooth.건조1;
+      ParamValues['N6'] :=SaveBooth.도장2;
+      ParamValues['N7'] :=SaveBooth.건조2;
+      ParamValues['N8'] :=SaveBooth.방지1;
+      ParamValues['N9'] :=SaveBooth.방지2;
+      ParamValues['N10']:=SaveBooth.메모;
+  end;  }
+
+
 
 
 
@@ -478,23 +492,12 @@ begin
     try
       ADOConnection1.BeginTrans;                     //트랜젝션 시작
       Ssql:='INSERT INTO 부스 ' +
-        '( [Date], 날씨, 온도, 도장1, 건조1, 도장2, 건조2, '+
-        '방지1, 방지2, 메모 )' +
-        ' Values ( ' +
-        '#' + SaveBooth.bDate + '#, ' +
-        MQ + SaveBooth.날씨 + MQ + ', ' +
-        floattostr(SaveBooth.온도) + ', ' +
-        floattostr(SaveBooth.도장1) + ', ' +
-        floattostr(SaveBooth.건조1) + ', ' +
-        floattostr(SaveBooth.도장2) + ', ' +
-        floattostr(SaveBooth.건조2) + ', ' +
-        floattostr(SaveBooth.방지1) + ', ' +
-        floattostr(SaveBooth.방지2) + ', ' +
-        MQ + SaveBooth.메모 + MQ + ') ; ';
+        '( Date, 날씨, 온도, 도장1, 건조1, 도장2, 건조2, 방지1, 방지2, 메모 )' +
+        ' Values ( :N1, :N2, N3, :N4, :N5, :N6, :N7, N8, :N9, :N10 ) ;';
       ADOQuery1.Close;
-      ADOQuery1.SQL.Clear;
+      ADOQuery1.SQL.Clear;                           //SQL문 삭제
       ADOQuery1.SQL.Text:=sSql; //.Add 함수를 사용하면 매우 느려진다. 사용하지 말자.
-      myMessage:=' 저장이 완료 되었습니다. ';
+      DBParameter_Input;
      except
         ADOConnection1.RollbackTrans;                 //트랜젝션 롤백
         ADOQuery1.Active:=False; // 예외 처리
@@ -505,7 +508,7 @@ begin
     try      // ' + MQ + '
       ADOConnection1.BeginTrans;                     //트랜젝션 시작
       Ssql:='UPDATE 부스 SET ' +
-        ' 부스.[Date] = #' + SaveBooth.bDate + '#, ' +
+        ' Date = #' + SaveBooth.bDate + '#, ' +
         '날씨 = ' + MQ + SaveBooth.날씨 + MQ + ', ' +
         '온도 = ' +  floattostr(SaveBooth.온도) + ', ' +
         '도장1 = ' + floattostr(SaveBooth.도장1) + ', ' +
@@ -515,22 +518,21 @@ begin
         '방지1 = ' + floattostr(SaveBooth.방지1) + ', ' +
         '방지2 = ' + floattostr(SaveBooth.방지2) + ', ' +
         '메모 = '+ MQ + SaveBooth.메모 + MQ + ' ' +
-        ' Where 부스.[Date] = #' + SaveBooth.bDate + '# ; ';
+        ' Where Date = #' + SaveBooth.bDate + '# ; ';
       ADOQuery1.Close;
-      ADOQuery1.SQL.Clear;
+      ADOQuery1.SQL.Clear;                           //SQL문 삭제
       ADOQuery1.SQL.Text:=sSql; //.Add 함수를 사용하면 매우 느려진다. 사용하지 말자.
-      myMessage:=' 수정이 완료 되었습니다. ';
+      //DBParameter_Input;
      except
         ADOConnection1.RollbackTrans;                 //트랜젝션 롤백
         ADOQuery1.Active:=False; // 예외 처리
      end;
 
    end; // if
- // showmessage (' ssql = ' + ssql+ '    ' );    clipboard.AsText:=ssql;
+  showmessage (' ssql = ' + ssql+ '    ' );
   ADOQuery1.ExecSQL;
-  ADOConnection1.CommitTrans;                    //트랜젝션 적용
-  ADOQuery1.Active:=False;
-  ShowMessage (myMessage);
+
+
 
 end;
 

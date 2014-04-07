@@ -33,17 +33,17 @@ object FormBooth: TFormBooth
     Left = 3
     Top = 19
     Width = 222
-    Height = 181
-    Date = 41697.866349953710000000
+    Height = 228
+    Date = 41697.549999317130000000
     ImeName = 'Microsoft Office IME 2007'
     TabOrder = 0
     OnClick = MonthCalendar1Click
   end
   object NiceGrid1: TNiceGrid
     Left = 3
-    Top = 206
+    Top = 256
     Width = 726
-    Height = 269
+    Height = 235
     Cursor = 101
     ColCount = 0
     HeaderFont.Charset = DEFAULT_CHARSET
@@ -74,13 +74,13 @@ object FormBooth: TFormBooth
     Left = 231
     Top = 50
     Width = 498
-    Height = 150
+    Height = 202
     TabOrder = 2
     object GroupBox2: TGroupBox
       Left = 5
-      Top = 49
+      Top = 52
       Width = 187
-      Height = 90
+      Height = 92
       Caption = '[ '#44032#46041' '#49884#44036' (Hr) ]'
       Font.Charset = HANGEUL_CHARSET
       Font.Color = clWindowText
@@ -98,7 +98,7 @@ object FormBooth: TFormBooth
       end
       object Label4: TLabel
         Left = 6
-        Top = 65
+        Top = 70
         Width = 44
         Height = 14
         Caption = '2 '#54840' '#44592
@@ -126,8 +126,16 @@ object FormBooth: TFormBooth
         Top = 36
         Width = 57
         Height = 22
+        TabStop = False
         Alignment = taRightJustify
+        Color = clMenu
+        Font.Charset = HANGEUL_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = #55092#47676#50641#49828#54252
+        Font.Style = [fsBold]
         ImeName = 'Microsoft Office IME 2007'
+        ParentFont = False
         TabOrder = 0
         Text = 'Edit1'
       end
@@ -136,37 +144,61 @@ object FormBooth: TFormBooth
         Top = 36
         Width = 57
         Height = 22
+        TabStop = False
         Alignment = taRightJustify
+        Color = clMenu
+        Font.Charset = HANGEUL_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = #55092#47676#50641#49828#54252
+        Font.Style = [fsBold]
         ImeName = 'Microsoft Office IME 2007'
+        ParentFont = False
         TabOrder = 1
         Text = 'Edit2'
       end
       object Edit3: TEdit
         Left = 57
-        Top = 60
+        Top = 65
         Width = 57
         Height = 22
+        TabStop = False
         Alignment = taRightJustify
+        Color = clMenu
+        Font.Charset = HANGEUL_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = #55092#47676#50641#49828#54252
+        Font.Style = [fsBold]
         ImeName = 'Microsoft Office IME 2007'
+        ParentFont = False
         TabOrder = 2
         Text = 'Edit3'
       end
       object Edit4: TEdit
         Left = 120
-        Top = 60
+        Top = 65
         Width = 57
         Height = 22
+        TabStop = False
         Alignment = taRightJustify
+        Color = clMenu
+        Font.Charset = HANGEUL_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = #55092#47676#50641#49828#54252
+        Font.Style = [fsBold]
         ImeName = 'Microsoft Office IME 2007'
+        ParentFont = False
         TabOrder = 3
         Text = 'Edit4'
       end
     end
     object GroupBox3: TGroupBox
       Left = 191
-      Top = 49
+      Top = 52
       Width = 215
-      Height = 90
+      Height = 92
       Caption = '[ '#51204#47141' '#49324#50857#47049' (KW) ]'
       Font.Charset = HANGEUL_CHARSET
       Font.Color = clWindowText
@@ -184,7 +216,7 @@ object FormBooth: TFormBooth
       end
       object Label8: TLabel
         Left = 5
-        Top = 65
+        Top = 70
         Width = 44
         Height = 14
         Caption = '2 '#54840' '#44592
@@ -209,38 +241,60 @@ object FormBooth: TFormBooth
         Width = 71
         Height = 22
         Alignment = taRightJustify
+        ImeMode = imSAlpha
         ImeName = 'Microsoft Office IME 2007'
-        TabOrder = 0
+        NumbersOnly = True
+        TabOrder = 2
         Text = 'Edit1'
+        OnKeyPress = Edit5KeyPress
       end
       object Edit6: TEdit
         Left = 129
         Top = 36
         Width = 78
         Height = 22
+        TabStop = False
         Alignment = taRightJustify
+        Color = clMenu
+        Font.Charset = HANGEUL_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = #55092#47676#50641#49828#54252
+        Font.Style = [fsBold]
         ImeName = 'Microsoft Office IME 2007'
-        TabOrder = 1
+        ParentFont = False
+        TabOrder = 0
         Text = 'Edit2'
       end
       object Edit7: TEdit
         Left = 52
-        Top = 60
+        Top = 65
         Width = 71
         Height = 22
         Alignment = taRightJustify
+        ImeMode = imSAlpha
         ImeName = 'Microsoft Office IME 2007'
-        TabOrder = 2
+        NumbersOnly = True
+        TabOrder = 3
         Text = 'Edit3'
+        OnKeyPress = Edit7KeyPress
       end
       object Edit8: TEdit
         Left = 129
-        Top = 60
+        Top = 65
         Width = 78
         Height = 22
+        TabStop = False
         Alignment = taRightJustify
+        Color = clMenu
+        Font.Charset = HANGEUL_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = #55092#47676#50641#49828#54252
+        Font.Style = [fsBold]
         ImeName = 'Microsoft Office IME 2007'
-        TabOrder = 3
+        ParentFont = False
+        TabOrder = 1
         Text = 'Edit4'
       end
     end
@@ -248,7 +302,7 @@ object FormBooth: TFormBooth
       Left = 5
       Top = 8
       Width = 401
-      Height = 33
+      Height = 35
       Font.Charset = HANGEUL_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -282,51 +336,112 @@ object FormBooth: TFormBooth
         Top = 6
         Width = 211
         Height = 22
+        ImeMode = imSHanguel
         ImeName = 'Microsoft Office IME 2007'
         TabOrder = 0
         Text = 'Edit9'
+        OnKeyPress = Edit9KeyPress
       end
       object Edit10: TEdit
         Left = 315
         Top = 8
         Width = 46
         Height = 22
+        Alignment = taCenter
+        Font.Charset = HANGEUL_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = #55092#47676#50641#49828#54252
+        Font.Style = []
+        ImeMode = imSAlpha
         ImeName = 'Microsoft Office IME 2007'
+        NumbersOnly = True
+        ParentFont = False
         TabOrder = 1
         Text = 'Edit9'
+        OnKeyPress = Edit10KeyPress
       end
     end
-    object Button1: TButton
+    object ButtonClear: TButton
       Left = 418
-      Top = 15
+      Top = 9
       Width = 69
       Height = 27
       Caption = 'Clear'
       TabOrder = 3
+      OnClick = ButtonClearClick
     end
-    object Button2: TButton
+    object ButtonTimeComp: TButton
       Left = 418
-      Top = 46
+      Top = 39
       Width = 69
       Height = 27
       Caption = #49884#44036#44228#49328
       TabOrder = 4
+      OnClick = ButtonTimeCompClick
     end
-    object Button3: TButton
+    object ButtonSave: TButton
       Left = 418
-      Top = 77
+      Top = 69
       Width = 69
       Height = 27
       Caption = #51200#51109
       TabOrder = 5
+      OnClick = ButtonSaveClick
     end
-    object Button4: TButton
+    object ButtonDelete: TButton
       Left = 418
-      Top = 111
+      Top = 100
       Width = 69
       Height = 27
       Caption = #49325#51228
       TabOrder = 6
+      OnClick = ButtonDeleteClick
     end
+    object ButtonClose: TButton
+      Left = 418
+      Top = 133
+      Width = 69
+      Height = 27
+      Caption = #45803#44592
+      TabOrder = 7
+      OnClick = ButtonCloseClick
+    end
+    object Memo1: TMemo
+      Left = 5
+      Top = 148
+      Width = 401
+      Height = 48
+      Font.Charset = HANGEUL_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = #44404#47548
+      Font.Style = []
+      ImeMode = imSHanguel
+      ImeName = 'Microsoft Office IME 2007'
+      Lines.Strings = (
+        'Memo1')
+      ParentFont = False
+      TabOrder = 8
+    end
+  end
+  object ADOConnection1: TADOConnection
+    ConnectionString = 
+      'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=N:\DataBase\CarList' +
+      '.mdb;Persist Security Info=False;Jet OLEDB:Database Password=sos' +
+      'a2011'
+    Provider = 'Microsoft.Jet.OLEDB.4.0'
+    Left = 522
+    Top = 302
+  end
+  object ADOQuery1: TADOQuery
+    Connection = ADOConnection1
+    Parameters = <>
+    Left = 588
+    Top = 306
+  end
+  object DataSource1: TDataSource
+    Left = 656
+    Top = 310
   end
 end

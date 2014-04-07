@@ -35,27 +35,24 @@ object FormSecurity: TFormSecurity
     Width = 290
     Height = 21
     ImeName = 'Microsoft Office IME 2007'
-    PasswordChar = '*'
     TabOrder = 0
     Text = 'EditPW'
-    OnKeyPress = EditPWKeyPress
   end
-  object ButtonOK: TButton
+  object Button1: TButton
     Left = 47
     Top = 92
     Width = 85
     Height = 29
     Caption = 'OK'
     TabOrder = 1
-    OnClick = ButtonOKClick
+    OnClick = Button1Click
   end
-  object ButtonCancel: TButton
+  object Button2: TButton
     Left = 252
     Top = 92
     Width = 85
     Height = 29
     Caption = 'Cancel'
     TabOrder = 2
-    OnClick = ButtonCancelClick
   end
 end
