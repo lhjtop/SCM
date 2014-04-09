@@ -6,8 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, ImgList, ComCtrls, ToolWin, ExtCtrls, DB, ADODB,
   ZAbstractConnection, ZConnection, ZAbstractRODataset, ZAbstractDataset,
-  ZAbstractTable, ZDataset, StdCtrls,
-  lhjModule;
+  ZAbstractTable, ZDataset, StdCtrls, lhjModule;
 
 type
   TFormMain = class(TForm)
@@ -77,8 +76,6 @@ type
     N52: TMenuItem;
     N53: TMenuItem;
     ButtonClose: TButton;
-    N54: TMenuItem;
-    N55: TMenuItem;
     procedure N2Click(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -87,7 +84,6 @@ type
     procedure N5Click(Sender: TObject);
     procedure N33Click(Sender: TObject);
     procedure ButtonCloseClick(Sender: TObject);
-    procedure N55Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -102,13 +98,13 @@ const
 
 var
   FormMain: TFormMain;
-  FormSecurity : TFormMain;
   ResultReturn : Integer;
 
 implementation
 
- uses
-  Booth,LogIn, CoManager, Security;
+//uses LogInForMain;
+ uses Booth,LogIn;
+ //uses LogIn;
 //uses LogInForMain;
 
 {$R *.dfm}
@@ -159,40 +155,12 @@ begin
 end;
 
 //==================================================================
-// Name      : TFormMain.N5Click
+// Name      : TMainFrm.N5Click
 // Desc      : 배출시설 방지시설 일지
 //==================================================================
 procedure TFormMain.N5Click(Sender: TObject);
-{var
-  FormSecurity:TFormSecurity; }
 begin
-  {
-  FormSecurity:=TFormSecurity.Create(self);
-  FormSecurity.ShowModal;
-  if FormSecurity.EditPW.Text=pPW then ResultReturn:='OK'
-                                  else ResultReturn:='FAIL';
-  FormSecurity.Free;
-  if ResultReturn='OK' then }FormBooth.Show;
-
-end;
-
-//==================================================================
-// Name      : TFormMain.N55Click
-// Desc      : 회사 정보 관리
-//==================================================================
-procedure TFormMain.N55Click(Sender: TObject);
-{var
-  FormSecurity:TFormSecurity;}
-
-begin
-  {
-  FormSecurity:=TFormSecurity.Create(self);
-  FormSecurity.ShowModal;
-  if FormSecurity.EditPW.Text=pPW then ResultReturn:='OK'
-                                  else ResultReturn:='FAIL';
-  FormSecurity.Free;
-  if ResultReturn='OK' then} FormCoManager.ShowModal;
-
+  FormBooth.Show;
 end;
 
 //==================================================================

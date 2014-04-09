@@ -13,7 +13,7 @@ interface
  uses
   SysUtils, Classes;
   Function IIFs(c: Boolean; str1,str2: Ansistring): Ansistring;
-  Function IFEmpty(str1,str2: Ansistring): Ansistring;
+
 const
   MyOver=  -9999;
   MyMax = 100000;
@@ -33,7 +33,7 @@ var
 
 uses Booth, Main1, Security, CoManager;
 
-//==================================================================
+ //==================================================================
 // Name      : IIFs
 // Desc      :  VB의 IIF문장을 응용 (String)
 //   델파이에서도 삼항연산자가 있다(IFThen - uses: Math)
@@ -46,19 +46,6 @@ uses Booth, Main1, Security, CoManager;
     Result:=str1
    else
     Result:=str2;
- end;
-
- //==================================================================
-// Name      : IFEmpty
-// Desc      :  문자열이 빈것인지 검사해서 원하는 값을 리턴 ( 2014.4.9)
-//==================================================================
- Function IFEmpty(str1,str2: Ansistring): Ansistring;
- begin
-   if  length(trim(str1)) = 0 then
-      Result:=str2
-   else
-      Result:=str1;
-
  end;
 
  end.

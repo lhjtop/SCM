@@ -25,6 +25,7 @@ object FormBooth: TFormBooth
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = #48176#52636#49884#49444#48169#51648#49884#49444' '#51068#51648
+      ExplicitWidth = 733
       object LabelDate: TLabel
         Left = 1
         Top = 10
@@ -45,7 +46,7 @@ object FormBooth: TFormBooth
         Top = 41
         Width = 222
         Height = 171
-        Date = 41697.432539143520000000
+        Date = 41697.903488750000000000
         ImeName = 'Microsoft Office IME 2007'
         TabOrder = 0
         OnClick = MonthCalendar1Click
@@ -440,7 +441,6 @@ object FormBooth: TFormBooth
     object TabSheet2: TTabSheet
       Caption = #54596#53552' '#44288#47532' '#44592#47197#48512
       ImageIndex = 1
-      ExplicitLeft = 0
       ExplicitTop = 25
       ExplicitWidth = 551
       ExplicitHeight = 372
@@ -448,7 +448,6 @@ object FormBooth: TFormBooth
     object TabSheet3: TTabSheet
       Caption = #54876#49457#53444' '#44288#47532' '#44592#47197#48512
       ImageIndex = 2
-      ExplicitLeft = 0
       ExplicitTop = 25
       ExplicitWidth = 551
       ExplicitHeight = 372
@@ -459,7 +458,6 @@ object FormBooth: TFormBooth
       ExplicitLeft = 8
       ExplicitTop = 31
       ExplicitWidth = 775
-      ExplicitHeight = 0
     end
   end
   object ADOConnection1: TADOConnection
@@ -485,7 +483,7 @@ object FormBooth: TFormBooth
     Left = 50
     Top = 302
     Bitmap = {
-      494C010103000800380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103000800300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       00000000000000000000000000000000000000000000000000060000004E0000
       0060000000600000006000000060000000600000006000000060000000600000

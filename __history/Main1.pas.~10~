@@ -163,17 +163,15 @@ end;
 // Desc      : 배출시설 방지시설 일지
 //==================================================================
 procedure TFormMain.N5Click(Sender: TObject);
-{var
-  FormSecurity:TFormSecurity; }
+var
+  FormSecurity:TFormSecurity;
 begin
-  {
   FormSecurity:=TFormSecurity.Create(self);
   FormSecurity.ShowModal;
   if FormSecurity.EditPW.Text=pPW then ResultReturn:='OK'
                                   else ResultReturn:='FAIL';
   FormSecurity.Free;
-  if ResultReturn='OK' then }FormBooth.Show;
-
+  if ResultReturn='OK' then FormBooth.Show;
 end;
 
 //==================================================================
@@ -181,17 +179,16 @@ end;
 // Desc      : 회사 정보 관리
 //==================================================================
 procedure TFormMain.N55Click(Sender: TObject);
-{var
-  FormSecurity:TFormSecurity;}
+var
+  FormSecurity:TFormSecurity;
 
 begin
-  {
   FormSecurity:=TFormSecurity.Create(self);
   FormSecurity.ShowModal;
   if FormSecurity.EditPW.Text=pPW then ResultReturn:='OK'
                                   else ResultReturn:='FAIL';
   FormSecurity.Free;
-  if ResultReturn='OK' then} FormCoManager.ShowModal;
+  if ResultReturn='OK' then FormCoManager.ShowModal;
 
 end;
 

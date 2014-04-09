@@ -6,10 +6,15 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, NiceGrid, ComCtrls, StrUtils, Grids, Outline, DB,
   ADODB, ClipBrd,
-  lhjModule;
+  lhjModule, ImgList;
 
 type
   TFormBooth = class(TForm)
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    TabSheet3: TTabSheet;
+    TabSheet4: TTabSheet;
     LabelDate: TLabel;
     MonthCalendar1: TMonthCalendar;
     NiceGrid1: TNiceGrid;
@@ -18,6 +23,7 @@ type
     Label3: TLabel;
     Label4: TLabel;
     Label6: TLabel;
+    Label5: TLabel;
     Edit1: TEdit;
     Edit2: TEdit;
     Edit3: TEdit;
@@ -31,14 +37,10 @@ type
     Edit6: TEdit;
     Edit7: TEdit;
     Edit8: TEdit;
-    Label5: TLabel;
     ButtonClear: TButton;
     ButtonTimeComp: TButton;
     ButtonSave: TButton;
     ButtonDelete: TButton;
-    ADOConnection1: TADOConnection;
-    ADOQuery1: TADOQuery;
-    DataSource1: TDataSource;
     ButtonClose: TButton;
     Memo1: TMemo;
     GroupBox4: TGroupBox;
@@ -47,6 +49,10 @@ type
     Label11: TLabel;
     Edit9: TEdit;
     Edit10: TEdit;
+    ADOConnection1: TADOConnection;
+    ADOQuery1: TADOQuery;
+    DataSource1: TDataSource;
+    ImageList2: TImageList;
     procedure FormActivate(Sender: TObject);
     procedure MonthCalendar1Click(Sender: TObject);
     Function DateView(dDate:TDateTime): ansistring; // 날짜를 문자형으로변환
@@ -412,7 +418,8 @@ begin
     if FormSecurity.EditPW.Text=pPW then ResultReturn:='OK'
                                     else ResultReturn:='FAIL';
     FormSecurity.Free;
- //ShowMessage(IntToStr(yn)+'  '+ resultreturn+ datetostr(monthcalendar1.Date));  ///////////////////////////
+    if ResultReturn='FAIL' then close;
+
     sSql := 'DELETE FROM 부스 WHERE Date = #' + ToDay + '#;';
  //clipboard.AsText:=ssql;
     try
@@ -427,11 +434,11 @@ begin
         ADOConnection1.RollbackTrans;                 //트랜젝션 롤백
         //showmessage(' try exception 예외처리');    ///////////////////////////////////////
       end;
-      finally
+    finally
         //ADOQuery1.Open;
         ADOQuery1.Active:=False;
         //showmessage(' try finally 예외처리');       ///////////////////////////////////////
-      end;
+    end;
   end;
   Text_Init;
   Grid_Init;

@@ -6,8 +6,7 @@ uses
   Booth in 'Booth.pas' {FormBooth},
   LogIn in 'LogIn.pas' {FormLogIn},
   Security in 'Security.pas' {FormSecurity},
-  lhjModule in 'lhjModule.pas',
-  CoManager in 'CoManager.pas' {FormCoManager};
+  lhjModule in 'lhjModule.pas';
 
 {$R *.res}
 
@@ -18,6 +17,5 @@ begin
   Application.CreateForm(TFormBooth, FormBooth);
   Application.CreateForm(TFormLogIn, FormLogIn);
   Application.CreateForm(TFormSecurity, FormSecurity);
-  Application.CreateForm(TFormCoManager, FormCoManager);
   Application.Run;
 end.

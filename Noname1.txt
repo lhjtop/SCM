@@ -1,0 +1,22 @@
+  '교환1코트      = ' + IFEmpty(VarToStr(Edit12.Text),'0') + ', ' + // 교환1코트
+  '판금1코트      = ' + IFEmpty(VarToStr(Edit13.Text),'0') + ', ' + // 판금1코트
+  '교환2코트      = ' + IFEmpty(VarToStr(Edit14.Text),'0') + ', ' + // 교환2코트
+  '판금2코트      = ' + IFEmpty(VarToStr(Edit15.Text),'0') + ', ' + // 판금2코트
+  '교환2불소      = ' + IFEmpty(VarToStr(Edit16.Text),'0') + ', ' + // 교환2불소
+  '판금2불소      = ' + IFEmpty(VarToStr(Edit17.Text),'0') + ', ' + // 판금2불소
+  '교환3코트      = ' + IFEmpty(VarToStr(Edit18.Text),'0') + ', ' + // 교환3코트
+  '판금3코트      = ' + IFEmpty(VarToStr(Edit19.Text),'0') + ', ' + // 판금3코트
+  '교환3불소      = ' + IFEmpty(VarToStr(Edit20.Text),'0') + ', ' + // 교환3불소
+  '판금3불소      = ' + IFEmpty(VarToStr(Edit21.Text),'0') + ', ' + // 판금3불소
+
+IFEmpty(
+
+
+
+  '가열건조비     = ' + IFEmpty(VarToStr(MaskEdit13.Text),'0') + ', ' +  //가열건조비
+  '탈부착공임     = ' + IFEmpty(VarToStr(MaskEdit7.Text) ,'0') + ', ' +  //탈부착공임
+  '판금공임       = ' + IFEmpty(VarToStr(MaskEdit8.Text) ,'0') + ', ' +  //판금공임
+  '도장공임       = ' + IFEmpty(VarToStr(MaskEdit9.Text) ,'0') + ', ' +  //도장공임
+  '부분판금도장율 = ' + IFEmpty(VarToStr(MaskEdit10.Text),'0') + ', ' +  //부분판금도장율
+  '수입차판금공임 = ' + IFEmpty(VarToStr(MaskEdit11.Text),'0') + ', ' +  //수입차판금공임
+  '수입차도장공임 = ' + IFEmpty(VarToStr(MaskEdit12.Text),'0') + ', ' +  // 수입차도장공임
