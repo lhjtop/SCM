@@ -20,5 +20,7 @@
     <Transaction>2014-04-03 10:57:55.053.dfm,C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Unit1.dfm=C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Security.dfm</Transaction>
     <Transaction>2014-04-07 23:36:42.470.pas,C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Unit1.pas=C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\CoManager.pas</Transaction>
     <Transaction>2014-04-07 23:36:42.475.dfm,C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Unit1.dfm=C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\CoManager.dfm</Transaction>
+    <Transaction>2014-04-12 10:36:18.227.pas,C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Unit1.pas=C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\DailyReport.pas</Transaction>
+    <Transaction>2014-04-12 10:36:18.227.dfm,C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Unit1.dfm=C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\DailyReport.dfm</Transaction>
   </Transactions>
 </BorlandProject>

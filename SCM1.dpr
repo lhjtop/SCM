@@ -7,7 +7,8 @@ uses
   LogIn in 'LogIn.pas' {FormLogIn},
   Security in 'Security.pas' {FormSecurity},
   lhjModule in 'lhjModule.pas',
-  CoManager in 'CoManager.pas' {FormCoManager};
+  CoManager in 'CoManager.pas' {FormCoManager},
+  DailyReport in 'DailyReport.pas' {FormDailyReport};
 
 {$R *.res}
 
@@ -19,5 +20,6 @@ begin
   Application.CreateForm(TFormLogIn, FormLogIn);
   Application.CreateForm(TFormSecurity, FormSecurity);
   Application.CreateForm(TFormCoManager, FormCoManager);
+  Application.CreateForm(TFormDailyReport, FormDailyReport);
   Application.Run;
 end.

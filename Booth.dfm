@@ -45,14 +45,14 @@ object FormBooth: TFormBooth
         Top = 41
         Width = 222
         Height = 171
-        Date = 41697.432539143520000000
+        Date = 41697.438964988430000000
         ImeName = 'Microsoft Office IME 2007'
         TabOrder = 0
         OnClick = MonthCalendar1Click
       end
       object NiceGrid1: TNiceGrid
         Left = 1
-        Top = 213
+        Top = 208
         Width = 726
         Height = 269
         Cursor = 101
@@ -84,7 +84,7 @@ object FormBooth: TFormBooth
       object GroupBox1: TGroupBox
         Left = 226
         Top = 45
-        Width = 498
+        Width = 501
         Height = 162
         TabOrder = 2
         object GroupBox2: TGroupBox
@@ -357,7 +357,7 @@ object FormBooth: TFormBooth
         object Memo1: TMemo
           Left = 5
           Top = 104
-          Width = 401
+          Width = 310
           Height = 52
           Font.Charset = HANGEUL_CHARSET
           Font.Color = clWindowText
@@ -370,6 +370,15 @@ object FormBooth: TFormBooth
             'Memo1')
           ParentFont = False
           TabOrder = 7
+        end
+        object ButtonPrint1: TButton
+          Left = 323
+          Top = 131
+          Width = 79
+          Height = 26
+          Caption = #51068#51648#52636#47141
+          TabOrder = 8
+          OnClick = ButtonPrint1Click
         end
       end
       object GroupBox4: TGroupBox
@@ -440,25 +449,21 @@ object FormBooth: TFormBooth
     object TabSheet2: TTabSheet
       Caption = #54596#53552' '#44288#47532' '#44592#47197#48512
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 25
-      ExplicitWidth = 551
-      ExplicitHeight = 372
     end
     object TabSheet3: TTabSheet
       Caption = #54876#49457#53444' '#44288#47532' '#44592#47197#48512
       ImageIndex = 2
       ExplicitLeft = 0
-      ExplicitTop = 25
-      ExplicitWidth = 551
-      ExplicitHeight = 372
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
     end
     object TabSheet4: TTabSheet
       Caption = #51064#49604
       ImageIndex = 3
-      ExplicitLeft = 8
-      ExplicitTop = 31
-      ExplicitWidth = 775
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
       ExplicitHeight = 0
     end
   end
@@ -468,24 +473,24 @@ object FormBooth: TFormBooth
       '.mdb;Persist Security Info=False;Jet OLEDB:Database Password=sos' +
       'a2011'
     Provider = 'Microsoft.Jet.OLEDB.4.0'
-    Left = 522
-    Top = 302
+    Left = 34
+    Top = 448
   end
   object ADOQuery1: TADOQuery
     Connection = ADOConnection1
     Parameters = <>
-    Left = 588
-    Top = 306
+    Left = 100
+    Top = 452
   end
   object DataSource1: TDataSource
-    Left = 656
-    Top = 310
+    Left = 168
+    Top = 456
   end
   object ImageList2: TImageList
     Left = 50
     Top = 302
     Bitmap = {
-      494C010103000800380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103000800480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       00000000000000000000000000000000000000000000000000060000004E0000
       0060000000600000006000000060000000600000006000000060000000600000
@@ -623,5 +628,10 @@ object FormBooth: TFormBooth
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000}
+  end
+  object RvProject1: TRvProject
+    ProjectFile = '.\SCM1-Booth1.rav'
+    Left = 238
+    Top = 452
   end
 end

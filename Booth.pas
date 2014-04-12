@@ -5,9 +5,14 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, NiceGrid, ComCtrls, StrUtils, Grids, Outline, DB,
-  ADODB, ClipBrd,
-  lhjModule, ImgList;
+  ADODB, ClipBrd, ImgList,
+  lhjModule,
+  RVClass, RVProj, RVCsStd, RpRenderPreview,
+  RpDefine, RpBase , RpRave  ;
 
+   {RPTChart,
+  RpCon, TeEngine, Series, TeeProcs, Chart, RpRender, RpRenderCanvas,
+  RpRenderPreview}
 type
   TFormBooth = class(TForm)
     PageControl1: TPageControl;
@@ -53,6 +58,9 @@ type
     ADOQuery1: TADOQuery;
     DataSource1: TDataSource;
     ImageList2: TImageList;
+    RvProject1: TRvProject;
+    ButtonPrint1: TButton;
+
     procedure FormActivate(Sender: TObject);
     procedure MonthCalendar1Click(Sender: TObject);
     Function DateView(dDate:TDateTime): ansistring; // 날짜를 문자형으로변환
@@ -71,6 +79,7 @@ type
     procedure Edit7KeyPress(Sender: TObject; var Key: Char);
     procedure ButtonSaveClick(Sender: TObject); // 시설가동시간 구하기
     Procedure DBParameter_Input;
+    procedure ButtonPrint1Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -103,6 +112,9 @@ type
     방지2 : Double;
     메모  : AnsiString;
   end;
+var
+  aDate,yy,mm,dd,ww : ansistring;
+  const days: array[1..7] of string = ('일','월','화','수','목','금','토');
 
 //==================================================================
 // Name      : FormActivate(Sender: TObject)
@@ -141,9 +153,10 @@ end;
 // Desc      : 날짜형을 년 월 일 요일로 표시
 //==================================================================
 Function TFormBooth.DateView(dDate:TDateTime): ansistring;
-var
+{var
   aDate,yy,mm,dd,ww : ansistring;
   const days: array[1..7] of string = ('일','월','화','수','목','금','토');
+  }
 begin
   aDate:=DatetoStr(dDate);
   yy:=ansiMidStr(aDate,1,4);
@@ -443,6 +456,71 @@ begin
   Text_Init;
   Grid_Init;
 end;
+
+
+//==================================================================
+// Name      : ButtonPrint1Click
+// Desc      : 일지 출력 - Print
+//==================================================================
+procedure TFormBooth.ButtonPrint1Click(Sender: TObject);
+var
+  // BoothPage : TRavePage;
+
+  i         : Integer;
+  Text1     : TRaveText;
+  MyPage    : TRavePage;
+
+begin
+   RvProject1 := TRvProject.Create((nil));
+   RvProject1.ProjectFile:='.\SCM1-Booth1.rav';
+   Mypage := RvProject1.ProjMan.FindRaveComponent('Report1.Page1',nil) as TRavePage;
+
+
+  // 출력하기 전에 빈 Data가 있는지 체크
+
+
+   with RvProject1 do
+   begin
+    Open;
+    SelectReport('Report1',False);
+    SetParam('BYear',yy);    // 년
+    SetParam('BMonth',mm);    // 월
+    SetParam('BDay',dd);    //  일
+    SetParam('BWeek',ww);    // 요일
+    SetParam('BWeather',edit9.Text);    // 날씨
+    SetParam('BTemp',edit10.Text);    //   온도
+
+    SetParam('Bbooth11',edit1.Text);    //   온도
+    SetParam('Bbooth12',edit2.Text);    //   온도
+    SetParam('Bbooth21',edit3.Text);    //   온도
+    SetParam('Bbooth22',edit4.Text);    //   온도
+    SetParam('BStatus1','정상');         //   1 상태
+    SetParam('BStatus2','정상');         //   2 상태
+
+    SetParam('BKw1',edit5.Text);    //   온도
+    SetParam('BKw2',edit7.Text);    //   온도
+
+
+
+   end;
+   //self.RvProject1.Execute;
+   RvProject1.ExecuteReport('Report1');
+   RvProject1.Close;
+
+
+end;
+
+
+
+
+
+
+
+
+
+
+
+
 
 //==================================================================
 // Name      : ButtonSaveClick
