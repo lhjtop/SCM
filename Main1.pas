@@ -88,6 +88,7 @@ type
     procedure N33Click(Sender: TObject);
     procedure ButtonCloseClick(Sender: TObject);
     procedure N55Click(Sender: TObject);
+    procedure N8Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -103,12 +104,13 @@ const
 var
   FormMain: TFormMain;
   FormSecurity : TFormMain;
+  //FormDailyReport : TFormMain;
   ResultReturn : Integer;
 
 implementation
 
  uses
-  Booth,LogIn, CoManager, Security;
+  Booth,LogIn, CoManager, Security, DailyReport;
 //uses LogInForMain;
 
 {$R *.dfm}
@@ -174,6 +176,16 @@ begin
   FormSecurity.Free;
   if ResultReturn='OK' then }FormBooth.Show;
 
+end;
+
+//==================================================================
+// Name      : TFormMain.N8Click
+// Desc      : 일계표 일지
+//==================================================================
+procedure TFormMain.N8Click(Sender: TObject);
+begin
+  // 일계표
+  FormDailyReport.Show;
 end;
 
 //==================================================================

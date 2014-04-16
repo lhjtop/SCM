@@ -1,0 +1,253 @@
+unit DailyReport;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ComCtrls, ExtCtrls, NiceGrid,
+  lhjModule;
+
+type
+  TFormDailyReport = class(TForm)
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    Panel1: TPanel;
+    TabSheet2: TTabSheet;
+    TabSheet3: TTabSheet;
+    TabSheet4: TTabSheet;
+    GroupBox1: TGroupBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    Edit4: TEdit;
+    Edit5: TEdit;
+    Edit6: TEdit;
+    Edit7: TEdit;
+    Edit8: TEdit;
+    Edit9: TEdit;
+    Edit10: TEdit;
+    Button19: TButton;
+    GroupBox2: TGroupBox;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    Button5: TButton;
+    Button6: TButton;
+    NiceGrid1: TNiceGrid;
+    Button13: TButton;
+    Label12: TLabel;
+    Button7: TButton;
+    Button8: TButton;
+    Label13: TLabel;
+    Button9: TButton;
+    Button10: TButton;
+    Label14: TLabel;
+    Button11: TButton;
+    Button12: TButton;
+    Label15: TLabel;
+    Panel2: TPanel;
+    RadioGroup1: TRadioGroup;
+    GroupBox3: TGroupBox;
+    Label16: TLabel;
+    RadioButton1: TRadioButton;
+    RadioButton2: TRadioButton;
+    RadioButton3: TRadioButton;
+    RadioButton4: TRadioButton;
+    Edit11: TEdit;
+    Button14: TButton;
+    Edit12: TEdit;
+    Button15: TButton;
+    GroupBox6: TGroupBox;
+    Label18: TLabel;
+    Edit13: TEdit;
+    GroupBox4: TGroupBox;
+    Label17: TLabel;
+    Button16: TButton;
+    Button17: TButton;
+    NiceGrid2: TNiceGrid;
+    GroupBox5: TGroupBox;
+    Button18: TButton;
+    MonthCalendar1: TMonthCalendar;
+    procedure FormActivate(Sender: TObject);
+
+    Procedure Text_Init;
+    procedure Grid_Init;
+    procedure Button6Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure Button13Click(Sender: TObject);
+    Function Calendar_View(Index,x,y: integer): AnsiString;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    CLDr : TMonthCalendar;
+
+  end;
+
+var
+  FormDailyReport: TFormDailyReport;
+
+implementation
+
+{$R *.dfm}
+
+
+
+
+
+//==================================================================
+// Name      : Button13Click
+// Desc      :   Canendar view
+//==================================================================
+procedure TFormDailyReport.Button13Click(Sender: TObject);
+var
+  dDate : Ansistring;
+
+begin
+  dDate := Calendar_view(1,Button13.Left,Button13.Top);
+end;
+
+
+//==================================================================
+// Name      : Calendar_View
+// Desc      :   Canendar view
+//==================================================================
+Function TFormDailyReport.Calendar_View(Index,x,y: integer): AnsiString;
+
+begin
+  with CLDr.Create(self) do begin
+    Left :=X+10;
+    Top:=y+10;
+
+  end;
+  result:=
+end;
+
+
+//==================================================================
+// Name      : FormActivate(Sender: TObject)
+// Desc      :
+//==================================================================
+procedure TFormDailyReport.FormActivate(Sender: TObject);
+begin
+  Text_Init;
+  Grid_Init;
+
+end;
+
+
+//==================================================================
+// Name      : FormShow
+// Desc      : 폼 초기화
+//==================================================================
+procedure TFormDailyReport.FormShow(Sender: TObject);
+begin
+  PageControl1.Tabindex:=0;
+  MonthCalendar1.Visible:=False;
+
+end;
+
+//==================================================================
+// Name      : Text_Init
+// Desc      : 텍스트 박스 초기화
+//==================================================================
+Procedure TFormDailyReport.Text_Init;
+begin
+  // ------------------------ tab 1
+  Edit1.Text:='';
+  Edit2.Text:='';
+  Edit3.Text:='';
+  Edit4.Text:='';
+  Edit5.Text:='';
+  Edit6.Text:='';
+  Edit7.Text:='';
+  Edit8.Text:='';
+  Edit9.Text:='';
+  Edit10.Text:='';
+  //---------------------- tab 2
+  Edit11.Text:='';
+  Edit12.Text:='';
+  Edit13.Text:='';
+
+
+end;
+
+//==================================================================
+// Name      : Grid_Init
+// Desc      : 그리드 초기화
+//==================================================================
+procedure TFormDailyReport.Grid_Init;
+begin
+  with NiceGrid1 do begin    // NiceGrid1 제목 디자인
+    headerline:=1;
+    colcount:=9;
+    ShowFooter:=True;               FooterFont.Style :=[fsBold];
+    //--------------------------------------------------------
+    columns[0].Title:='No';         columns[0].Width:=20;
+      columns[0].HorzAlign:=haCenter;
+    columns[1].Title:='차 종';      columns[1].Width:=120;
+    columns[2].Title:='차량번호';   columns[2].Width:=80;
+    columns[3].Title:='내   용';    columns[3].Width:=150;
+    columns[4].Title:='(청구액)';   columns[4].Width:=78;
+      columns[4].HorzAlign:=haRight;
+    columns[5].Title:='입금액';     columns[5].Width:=78;
+      columns[5].HorzAlign:=haRight;
+      columns[5].Color:=$00F0F0FF;
+    columns[6].Title:='지급율';     columns[6].Width:=40;
+      columns[6].HorzAlign:=haRight;
+    columns[7].Title:='출금액';     columns[7].Width:=78;
+      columns[7].HorzAlign:=haRight;
+      columns[7].Color:=$00FFFAF4;
+    columns[8].Title:= '비고';      columns[8].Width:=80;
+    //------------------------------------------------------
+    Columns[0].Footer:='계';
+  end;
+  nicegrid1.RowCount:=40;
+
+  // test  line
+
+  nicegrid1[0,1]:='01';
+  nicegrid1[1,1]:='그랜드스타렉스12인';
+  nicegrid1[2,1]:='경기12하9876';
+  nicegrid1[3,1]:='보험 - 테스트 라인임..';
+  nicegrid1[4,1]:='99,000,000';
+  nicegrid1[5,1]:='98,500,000';
+  nicegrid1[6,1]:='89.65';
+  nicegrid1[7,1]:='99,999,999';
+  nicegrid1[8,1]:='테스트 라인';
+
+  nicegrid1.Columns[0].Footer:='계';
+
+end;
+
+
+
+
+
+
+
+
+
+
+//==================================================================
+// Name      : Button6Click
+// Desc      :   종료  close
+//==================================================================
+procedure TFormDailyReport.Button6Click(Sender: TObject);
+begin
+  close;
+end;
+
+end.

@@ -21,7 +21,7 @@ object FormCoManager: TFormCoManager
     Top = 15
     Width = 665
     Height = 329
-    ActivePage = TabSheet3
+    ActivePage = TabSheet2
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = #44592#52488' '#51221#48372
