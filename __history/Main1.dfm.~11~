@@ -1,11 +1,11 @@
-object MainFrm: TMainFrm
+object FormMain: TFormMain
   Left = 166
   Top = 21
-  Caption = '2012'#49548#49324#51088#46041#52264#44288#47532#54532#47196#44536#47016'(Ver2.0)'
+  Caption = '2014'#49548#49324#51088#46041#52264#44288#47532#54532#47196#44536#47016'(Ver2.0)'
   ClientHeight = 637
   ClientWidth = 984
   Color = clBtnFace
-  Font.Charset = ANSI_CHARSET
+  Font.Charset = HANGEUL_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
   Font.Name = #44404#47548
@@ -351,11 +351,23 @@ object MainFrm: TMainFrm
         Width = 50
       end>
   end
+  object ButtonClose: TButton
+    Left = 286
+    Top = 182
+    Width = 293
+    Height = 165
+    Caption = 'Close'
+    TabOrder = 2
+    OnClick = ButtonCloseClick
+  end
   object MainMenu1: TMainMenu
-    Left = 36
-    Top = 46
+    Left = 12
+    Top = 50
     object N1: TMenuItem
       Caption = #54028#51068
+      object N37: TMenuItem
+        Caption = #54028#51068' '#44288#47532
+      end
       object N3: TMenuItem
         Caption = '-'
       end
@@ -366,38 +378,56 @@ object MainFrm: TMainFrm
     end
     object N32: TMenuItem
       Caption = #49324#50857#51088
+      object N38: TMenuItem
+        Caption = #47196#44536#50500#50883
+      end
       object N33: TMenuItem
         Caption = #49324#50857#51088#51204#54872
+        OnClick = N33Click
       end
       object N31: TMenuItem
-        Caption = #49324#50857#51088#44288#47532
+        Caption = #49324#50857#51088#51221#48372#48320#44221
       end
       object N34: TMenuItem
         Caption = '-'
       end
       object N35: TMenuItem
-        Caption = #44288#47532#51088#47700#45684'(Level0)'
+        Caption = #44288#47532#51088#47700#45684
       end
     end
     object N4: TMenuItem
-      Caption = #51068#51068#50629#47924
+      Caption = #50629#47924
       object N5: TMenuItem
         Caption = #48176#52636#49884#49444' '#48169#51648#49884#49444#51068#51648
+        OnClick = N5Click
+      end
+      object N36: TMenuItem
+        Caption = '-'
       end
       object N6: TMenuItem
         Caption = #52264#47049#44288#47532
+      end
+      object N50: TMenuItem
+        Caption = #49436#47448#48156#44553
       end
       object N7: TMenuItem
         Caption = '-'
       end
       object N8: TMenuItem
         Caption = #51068#44228#54364
+        OnClick = N8Click
       end
       object N9: TMenuItem
         Caption = '-'
       end
       object N10: TMenuItem
-        Caption = #45824#52264#44288#47532
+        Caption = #47588#51077#44284' '#44208#51228
+      end
+      object N51: TMenuItem
+        Caption = '-'
+      end
+      object N52: TMenuItem
+        Caption = #50741#49496#49444#51221
       end
     end
     object N11: TMenuItem
@@ -436,28 +466,71 @@ object MainFrm: TMainFrm
     object N22: TMenuItem
       Caption = #53685#44228#48372#44592
       object N23: TMenuItem
-        Caption = #50900#48324#47588#52636#54788#54889
+        Caption = #52264#47049#48324' '#54788#54889
+        object N39: TMenuItem
+          Caption = #44592#44036#48324' '#54788#54889
+        end
+        object N40: TMenuItem
+          Caption = #44144#47000#52376#48324' '#54788#54889
+        end
+        object N41: TMenuItem
+          Caption = #48372#54744#49324#48324' '#54788#54889
+        end
+        object N42: TMenuItem
+          Caption = '-'
+        end
+        object N43: TMenuItem
+          Caption = #52264#51333#48324' '#54788#54889
+        end
+        object N44: TMenuItem
+          Caption = #49688#47532#48512#50948#48324' '#54788#54889
+        end
       end
       object N24: TMenuItem
-        Caption = #44144#47000#52384#48324#47588#52636#54788#54889
-      end
-      object N25: TMenuItem
-        Caption = #48512#54408#49324#50857#54788#54889
-      end
-      object N27: TMenuItem
         Caption = '-'
       end
-      object N26: TMenuItem
-        Caption = #44228#51221#48324' '#54788#54889'('#51068#44228#54364')'
+      object N25: TMenuItem
+        Caption = #51068#44228#54364
+        object N45: TMenuItem
+          Caption = #44592#44036#48324' '#54788#54889
+        end
+        object N46: TMenuItem
+          Caption = #44228#51221#48324' '#54788#54889
+        end
       end
     end
     object N28: TMenuItem
-      Caption = #54532#47196#44536#47016
+      Caption = #44288#47532#48512
       object N29: TMenuItem
-        Caption = #48260#51204#51221#48372
+        Caption = #51649#50896#44288#47532
       end
       object N30: TMenuItem
-        Caption = #54532#47196#44536#47016#50504#45236
+        Caption = #51613#47749#49436#44288#47532
+      end
+      object N53: TMenuItem
+        Caption = #48372#54744#49688#44032' '#44288#47532
+      end
+      object N54: TMenuItem
+        Caption = '-'
+      end
+      object N55: TMenuItem
+        Caption = #54924#49324#51221#48372' '#44288#47532
+        OnClick = N55Click
+      end
+    end
+    object N26: TMenuItem
+      Caption = #51221#48372
+      object N27: TMenuItem
+        Caption = #54532#47196#44536#47016#51221#48372
+      end
+      object N47: TMenuItem
+        Caption = #46020#50880#47568
+      end
+      object N48: TMenuItem
+        Caption = '-'
+      end
+      object N49: TMenuItem
+        Caption = #50724#47448#48372#44256' '#48143' '#51228#50504
       end
     end
   end
@@ -467,7 +540,7 @@ object MainFrm: TMainFrm
     Left = 114
     Top = 50
     Bitmap = {
-      494C010103005C00B40014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103005C00E00014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000001400000001002000000000000019
       000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
@@ -683,8 +756,8 @@ object MainFrm: TMainFrm
   end
   object Timer1: TTimer
     OnTimer = Timer1Timer
-    Left = 78
-    Top = 48
+    Left = 66
+    Top = 52
   end
   object OpenDialog1: TOpenDialog
     Left = 160
@@ -693,7 +766,8 @@ object MainFrm: TMainFrm
   object ADOConnection1: TADOConnection
     ConnectionString = 
       'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=N:\DataBase\CarList' +
-      '.mdb;Persist Security Info=False'
+      '.mdb;Persist Security Info=False;Jet OLEDB:Database Password=sos' +
+      'a2011'
     Provider = 'Microsoft.Jet.OLEDB.4.0'
     Left = 30
     Top = 162
@@ -705,7 +779,7 @@ object MainFrm: TMainFrm
     Top = 158
   end
   object DataSource1: TDataSource
-    Left = 176
-    Top = 162
+    Left = 160
+    Top = 158
   end
 end

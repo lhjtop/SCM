@@ -460,16 +460,19 @@ object FormBooth: TFormBooth
     end
   end
   object ADOConnection1: TADOConnection
-    Connected = True
     ConnectionString = 
       'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=N:\DataBase\CarList' +
       '.mdb;Persist Security Info=False;Jet OLEDB:Database Password=sos' +
       'a2011'
-    LoginPrompt = False
-    Mode = cmShareDenyNone
     Provider = 'Microsoft.Jet.OLEDB.4.0'
     Left = 34
     Top = 448
+  end
+  object ADOQuery1: TADOQuery
+    Connection = ADOConnection1
+    Parameters = <>
+    Left = 100
+    Top = 452
   end
   object DataSource1: TDataSource
     Left = 168
@@ -622,11 +625,5 @@ object FormBooth: TFormBooth
     ProjectFile = '.\SCM1-Booth1.rav'
     Left = 238
     Top = 452
-  end
-  object ADOQuery1: TADOQuery
-    Connection = ADOConnection1
-    Parameters = <>
-    Left = 102
-    Top = 450
   end
 end

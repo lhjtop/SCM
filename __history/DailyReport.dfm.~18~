@@ -21,14 +21,11 @@ object FormDailyReport: TFormDailyReport
     Top = 14
     Width = 781
     Height = 599
-    ActivePage = TabSheet1
+    ActivePage = TabSheet2
     TabOrder = 0
+    OnChange = PageControl1Change
     object TabSheet1: TTabSheet
       Caption = #51068' '#44228' '#54364
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 729
-      ExplicitHeight = 497
       object Panel1: TPanel
         Left = 0
         Top = 0
@@ -38,10 +35,7 @@ object FormDailyReport: TFormDailyReport
         Color = clMoneyGreen
         ParentBackground = False
         TabOrder = 0
-        ExplicitLeft = -1
-        ExplicitWidth = 774
-        ExplicitHeight = 567
-        object Label12: TLabel
+        object LabelYear: TLabel
           Left = 169
           Top = 4
           Width = 81
@@ -54,7 +48,7 @@ object FormDailyReport: TFormDailyReport
           Font.Style = []
           ParentFont = False
         end
-        object Label13: TLabel
+        object LabelMonth: TLabel
           Left = 261
           Top = 4
           Width = 52
@@ -67,7 +61,7 @@ object FormDailyReport: TFormDailyReport
           Font.Style = []
           ParentFont = False
         end
-        object Label14: TLabel
+        object LabelDay: TLabel
           Left = 326
           Top = 4
           Width = 47
@@ -80,7 +74,7 @@ object FormDailyReport: TFormDailyReport
           Font.Style = []
           ParentFont = False
         end
-        object Label15: TLabel
+        object LabelWeek: TLabel
           Left = 386
           Top = 4
           Width = 134
@@ -383,14 +377,14 @@ object FormDailyReport: TFormDailyReport
           Font.Style = []
           TabOrder = 2
         end
-        object Button13: TButton
-          Left = 156
-          Top = 13
+        object ButtonCalView1: TButton
+          Left = 146
+          Top = 4
           Width = 17
           Height = 22
           Caption = '...'
           TabOrder = 3
-          OnClick = Button13Click
+          OnClick = ButtonCalView1Click
         end
         object Button7: TButton
           Left = 176
@@ -440,25 +434,11 @@ object FormDailyReport: TFormDailyReport
           Caption = #9654
           TabOrder = 9
         end
-        object MonthCalendar1: TMonthCalendar
-          Left = 531
-          Top = 365
-          Width = 227
-          Height = 189
-          Date = 41744.890144259260000000
-          ImeName = 'Microsoft Office IME 2007'
-          TabOrder = 10
-          OnDblClick = MonthCalendar1DblClick
-        end
       end
     end
     object TabSheet2: TTabSheet
       Caption = #44160#49353
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 729
-      ExplicitHeight = 497
       object Panel2: TPanel
         Left = 0
         Top = 0
@@ -468,9 +448,6 @@ object FormDailyReport: TFormDailyReport
         Color = clGradientActiveCaption
         ParentBackground = False
         TabOrder = 0
-        ExplicitTop = 10
-        ExplicitWidth = 767
-        ExplicitHeight = 347
         object RadioGroup1: TRadioGroup
           Left = 2
           Top = 19
@@ -499,71 +476,77 @@ object FormDailyReport: TFormDailyReport
             Height = 12
             Caption = '~'
           end
-          object RadioButton1: TRadioButton
+          object RadioDate1: TRadioButton
             Left = 268
             Top = 16
             Width = 52
             Height = 23
             Caption = '1'#44060#50900
             TabOrder = 0
+            OnClick = RadioDate1Click
           end
-          object RadioButton2: TRadioButton
+          object RadioDate2: TRadioButton
             Left = 341
             Top = 16
             Width = 52
             Height = 23
             Caption = '3'#44060#50900
             TabOrder = 1
+            OnClick = RadioDate2Click
           end
-          object RadioButton3: TRadioButton
+          object RadioDate3: TRadioButton
             Left = 414
             Top = 16
             Width = 52
             Height = 23
             Caption = '6'#44060#50900
             TabOrder = 2
+            OnClick = RadioDate3Click
           end
-          object RadioButton4: TRadioButton
+          object RadioDate4: TRadioButton
             Left = 488
             Top = 16
             Width = 52
             Height = 23
             Caption = '1'#45380
             TabOrder = 3
+            OnClick = RadioDate4Click
           end
-          object Edit11: TEdit
+          object EditDate1: TEdit
             Left = 8
             Top = 17
             Width = 73
             Height = 20
             ImeName = 'Microsoft Office IME 2007'
             TabOrder = 4
-            Text = 'Edit11'
+            Text = 'EditDate1'
           end
-          object Button14: TButton
+          object ButtonCalView2: TButton
             Left = 84
             Top = 16
             Width = 17
             Height = 22
             Caption = '...'
             TabOrder = 5
+            OnClick = ButtonCalView2Click
           end
-          object Edit12: TEdit
+          object EditDate2: TEdit
             Left = 127
             Top = 17
             Width = 73
             Height = 20
             ImeName = 'Microsoft Office IME 2007'
             TabOrder = 6
-            Text = 'Edit12'
+            Text = 'EditDate2'
           end
-          object Button15: TButton
+          object ButtonCalView3: TButton
             Left = 206
             Top = 16
             Width = 17
             Height = 22
             Caption = '...'
             TabOrder = 7
+            OnClick = ButtonCalView3Click
           end
         end
         object GroupBox6: TGroupBox

@@ -55,11 +55,11 @@ type
     Edit9: TEdit;
     Edit10: TEdit;
     ADOConnection1: TADOConnection;
-    ADOQuery1: TADOQuery;
     DataSource1: TDataSource;
     ImageList2: TImageList;
     RvProject1: TRvProject;
     ButtonPrint1: TButton;
+    ADOQuery1: TADOQuery;
 
     procedure FormActivate(Sender: TObject);
     procedure MonthCalendar1Click(Sender: TObject);
@@ -128,6 +128,7 @@ begin
   LabelDate.Caption:=DateView(MonthCalendar1.Date);
   Work_Booth(MonthCalendar1.Date);  // 해당일의 부스 정보 조회
   //YesterDayWork_Booth;
+  ADOQuery1.Connection.LoginPrompt:=False;
 end;
 
 
@@ -510,18 +511,6 @@ begin
 
 end;
 
-
-
-
-
-
-
-
-
-
-
-
-
 //==================================================================
 // Name      : ButtonSaveClick
 // Desc      : 저장
@@ -535,16 +524,15 @@ var
 
 begin
   SaveBooth.bDate:=DateToStr(MonthCalendar1.Date);
-  SaveBooth.날씨:=IIFs( (length(edit9.Text) = 0) ,'',trim(edit9.Text));
-  SaveBooth.온도:=StrToFloat(edit10.Text);
+  SaveBooth.날씨 :=IFEmpty(edit9.Text,'');
+  SaveBooth.온도 :=StrToFloat(edit10.Text);
   SaveBooth.도장1:=StrToFloat(edit1.Text);
   SaveBooth.건조1:=StrToFloat(edit2.Text);
   SaveBooth.도장2:=StrToFloat(edit3.Text);
   SaveBooth.건조2:=StrToFloat(edit4.Text);
   SaveBooth.방지1:=StrToFloat(edit5.Text);
   SaveBooth.방지2:=StrToFloat(edit7.Text);
-  SaveBooth.메모:=iifs( (LEngth(Memo1.Text)=0),'',trim(Memo1.Text));
-
+  SaveBooth.메모 :=ifempty(Memo1.Text,'');
 
 
 

@@ -14,7 +14,6 @@ interface
   SysUtils, Classes;
   Function IIFs(c: Boolean; str1,str2: Ansistring): Ansistring;
   Function IFEmpty(str1,str2: Ansistring): Ansistring;
-  Function bNULL(str1: Ansistring): Boolean;
 const
   MyOver=  -9999;
   MyMax = 100000;
@@ -49,33 +48,17 @@ uses Booth, Main1, Security, CoManager;
     Result:=str2;
  end;
 
-//==================================================================
+ //==================================================================
 // Name      : IFEmpty
 // Desc      :  문자열이 빈것인지 검사해서 원하는 값을 리턴 ( 2014.4.9)
-//   str1이 공백이면 str2를 리턴
 //==================================================================
  Function IFEmpty(str1,str2: Ansistring): Ansistring;
  begin
-   if length(trim(str1)) = 0 then
+   if  length(trim(str1)) = 0 then
       Result:=str2
    else
-      Result:=trim(str1);
+      Result:=str1;
 
  end;
- //bNULL
-//==================================================================
-// Name      : bNULL
-// Desc      : 문자열이 빈것인지 검사해서 True/False값을 리턴 ( 2014.4.17)
-//             빈 문자열(NULL) = True
-//==================================================================
- Function bNULL(str1: Ansistring): Boolean;
- begin
-   if  length(trim(str1)) = 0 then
-      Result:= True
-   else
-      Result:=False;
-
- end;
-
 
  end.

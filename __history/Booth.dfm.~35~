@@ -20,7 +20,7 @@ object FormBooth: TFormBooth
     Top = 4
     Width = 738
     Height = 513
-    ActivePage = TabSheet1
+    ActivePage = TabSheet2
     Align = alCustom
     TabOrder = 0
     object TabSheet1: TTabSheet

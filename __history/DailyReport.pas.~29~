@@ -708,7 +708,7 @@ begin
           Edit9.Text:='';
           Edit10.Text:='';
    end;
-   0,2 : begin   //---------------------- tab 2      //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+   0,2 : begin   //---------------------- tab 2
           EditDate1.Text:='';
           EditDate2.Text:='';
           Edit13.Text:='';

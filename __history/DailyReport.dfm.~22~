@@ -21,7 +21,7 @@ object FormDailyReport: TFormDailyReport
     Top = 14
     Width = 781
     Height = 599
-    ActivePage = TabSheet1
+    ActivePage = TabSheet3
     TabOrder = 0
     OnChange = PageControl1Change
     object TabSheet1: TTabSheet
@@ -196,7 +196,6 @@ object FormDailyReport: TFormDailyReport
             Top = 36
             Width = 39
             Height = 20
-            ImeMode = imSAlpha
             ImeName = 'Microsoft Office IME 2007'
             TabOrder = 0
             Text = 'Edit1'
@@ -206,7 +205,6 @@ object FormDailyReport: TFormDailyReport
             Top = 37
             Width = 85
             Height = 20
-            ImeMode = imSHanguel
             ImeName = 'Microsoft Office IME 2007'
             TabOrder = 1
             Text = #44221#44592'12'#45208'3456'
@@ -216,7 +214,6 @@ object FormDailyReport: TFormDailyReport
             Top = 37
             Width = 129
             Height = 20
-            ImeMode = imSHanguel
             ImeName = 'Microsoft Office IME 2007'
             TabOrder = 2
             Text = #44536#47004#46300#49828#53440#47113#49828'12'#51064#49849
@@ -226,7 +223,6 @@ object FormDailyReport: TFormDailyReport
             Top = 37
             Width = 69
             Height = 20
-            ImeMode = imSHanguel
             ImeName = 'Microsoft Office IME 2007'
             TabOrder = 3
             Text = 'Edit4'
@@ -236,7 +232,6 @@ object FormDailyReport: TFormDailyReport
             Top = 37
             Width = 261
             Height = 20
-            ImeMode = imSHanguel
             ImeName = 'Microsoft Office IME 2007'
             TabOrder = 4
             Text = 'Edit5'
@@ -246,7 +241,6 @@ object FormDailyReport: TFormDailyReport
             Top = 37
             Width = 140
             Height = 20
-            ImeMode = imSHanguel
             ImeName = 'Microsoft Office IME 2007'
             TabOrder = 5
             Text = 'Edit6'
@@ -256,7 +250,6 @@ object FormDailyReport: TFormDailyReport
             Top = 64
             Width = 85
             Height = 20
-            ImeMode = imSAlpha
             ImeName = 'Microsoft Office IME 2007'
             TabOrder = 6
             Text = 'Edit7'
@@ -266,7 +259,6 @@ object FormDailyReport: TFormDailyReport
             Top = 64
             Width = 85
             Height = 20
-            ImeMode = imSAlpha
             ImeName = 'Microsoft Office IME 2007'
             TabOrder = 7
             Text = 'Edit8'
@@ -276,7 +268,6 @@ object FormDailyReport: TFormDailyReport
             Top = 64
             Width = 85
             Height = 20
-            ImeMode = imSAlpha
             ImeName = 'Microsoft Office IME 2007'
             TabOrder = 8
             Text = 'Edit9'
@@ -286,7 +277,6 @@ object FormDailyReport: TFormDailyReport
             Top = 64
             Width = 41
             Height = 20
-            ImeMode = imSAlpha
             ImeName = 'Microsoft Office IME 2007'
             TabOrder = 9
             Text = 'Edit10'
@@ -306,16 +296,15 @@ object FormDailyReport: TFormDailyReport
           Width = 768
           Height = 46
           TabOrder = 1
-          object ButtonDaily1: TButton
+          object Button1: TButton
             Left = 64
             Top = 9
             Width = 75
             Height = 25
             Caption = #51077' '#47141
             TabOrder = 0
-            OnClick = ButtonDaily1Click
           end
-          object ButtonDaily2: TButton
+          object Button2: TButton
             Left = 173
             Top = 9
             Width = 75
@@ -323,7 +312,7 @@ object FormDailyReport: TFormDailyReport
             Caption = #52628' '#44032
             TabOrder = 1
           end
-          object ButtonDaily3: TButton
+          object Button3: TButton
             Left = 283
             Top = 9
             Width = 75
@@ -331,16 +320,15 @@ object FormDailyReport: TFormDailyReport
             Caption = #49325' '#51228
             TabOrder = 2
           end
-          object ButtonDaily4: TButton
-            Left = 395
+          object Button4: TButton
+            Left = 393
             Top = 9
             Width = 75
             Height = 25
             Caption = #52712' '#49548
             TabOrder = 3
-            OnClick = ButtonDaily4Click
           end
-          object ButtonDaily5: TButton
+          object Button5: TButton
             Left = 502
             Top = 9
             Width = 75
@@ -736,34 +724,33 @@ object FormDailyReport: TFormDailyReport
           object ButtonAccount1: TButton
             Left = 39
             Top = 12
-            Width = 97
+            Width = 83
             Height = 25
-            Caption = #51077' '#47141' / '#49688' '#51221
+            Caption = #51077' '#47141
             TabOrder = 0
             OnClick = ButtonAccount1Click
           end
           object ButtonAccount3: TButton
-            Left = 222
+            Left = 315
             Top = 12
-            Width = 97
+            Width = 83
             Height = 25
             Caption = #49325' '#51228
             TabOrder = 1
-            OnClick = ButtonAccount3Click
           end
           object ButtonAccount4: TButton
-            Left = 405
+            Left = 453
             Top = 12
-            Width = 97
+            Width = 83
             Height = 25
-            Caption = #52712' '#49548' / Clear'
+            Caption = #52712' '#49548
             TabOrder = 2
             OnClick = ButtonAccount4Click
           end
           object ButtonAccountEnd: TButton
             Left = 589
             Top = 12
-            Width = 97
+            Width = 83
             Height = 25
             Caption = #51333' '#47308
             TabOrder = 3
@@ -809,7 +796,6 @@ object FormDailyReport: TFormDailyReport
             Top = 42
             Width = 49
             Height = 20
-            ImeMode = imSAlpha
             ImeName = 'Microsoft Office IME 2007'
             TabOrder = 0
             Text = 'Edit11'
@@ -819,7 +805,6 @@ object FormDailyReport: TFormDailyReport
             Top = 42
             Width = 121
             Height = 20
-            ImeMode = imSHanguel
             ImeName = 'Microsoft Office IME 2007'
             TabOrder = 1
             Text = 'Edit12'
@@ -829,7 +814,6 @@ object FormDailyReport: TFormDailyReport
             Top = 42
             Width = 451
             Height = 20
-            ImeMode = imSHanguel
             ImeName = 'Microsoft Office IME 2007'
             Lines.Strings = (
               'Memo1')

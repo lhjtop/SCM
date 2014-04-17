@@ -56,24 +56,23 @@ uses Booth, Main1, Security, CoManager;
 //==================================================================
  Function IFEmpty(str1,str2: Ansistring): Ansistring;
  begin
-   if length(trim(str1)) = 0 then
+   if  length(trim(str1)) = 0 then
       Result:=str2
    else
-      Result:=trim(str1);
+      Result:=str1;
 
  end;
  //bNULL
 //==================================================================
 // Name      : bNULL
 // Desc      : 문자열이 빈것인지 검사해서 True/False값을 리턴 ( 2014.4.17)
-//             빈 문자열(NULL) = True
 //==================================================================
  Function bNULL(str1: Ansistring): Boolean;
  begin
    if  length(trim(str1)) = 0 then
-      Result:= True
+      Result:=False
    else
-      Result:=False;
+      Result:=True;
 
  end;
 
