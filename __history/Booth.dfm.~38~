@@ -45,7 +45,7 @@ object FormBooth: TFormBooth
         Top = 41
         Width = 222
         Height = 171
-        Date = 41697.636488634260000000
+        Date = 41697.459590543980000000
         ImeName = 'Microsoft Office IME 2007'
         TabOrder = 0
         OnClick = MonthCalendar1Click
@@ -460,19 +460,16 @@ object FormBooth: TFormBooth
     end
   end
   object ADOConnection1: TADOConnection
+    Connected = True
     ConnectionString = 
       'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=N:\DataBase\CarList' +
       '.mdb;Persist Security Info=False;Jet OLEDB:Database Password=sos' +
       'a2011'
+    LoginPrompt = False
+    Mode = cmShareDenyNone
     Provider = 'Microsoft.Jet.OLEDB.4.0'
     Left = 34
     Top = 448
-  end
-  object ADOQuery1: TADOQuery
-    Connection = ADOConnection1
-    Parameters = <>
-    Left = 100
-    Top = 452
   end
   object DataSource1: TDataSource
     Left = 168
@@ -482,7 +479,7 @@ object FormBooth: TFormBooth
     Left = 50
     Top = 302
     Bitmap = {
-      494C0101030008003C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103000800500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       00000000000000000000000000000000000000000000000000060000004E0000
       0060000000600000006000000060000000600000006000000060000000600000
@@ -622,7 +619,14 @@ object FormBooth: TFormBooth
       000000000000}
   end
   object RvProject1: TRvProject
+    ProjectFile = '.\SCM1-Booth1.rav'
     Left = 238
     Top = 452
+  end
+  object ADOQuery1: TADOQuery
+    Connection = ADOConnection1
+    Parameters = <>
+    Left = 102
+    Top = 450
   end
 end

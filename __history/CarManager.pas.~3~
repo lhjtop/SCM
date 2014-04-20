@@ -1,0 +1,54 @@
+unit CarManager;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ComCtrls, ExtCtrls, StdCtrls;
+
+type
+  TFormCM = class(TForm)
+    Label1: TLabel;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    Timer1: TTimer;
+    PanelMessage: TPanel;
+    LabelMessage: TLabel;
+    procedure Timer1Timer(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormCM: TFormCM;
+  MMsg : Ansistring;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFormCM.FormActivate(Sender: TObject);
+begin
+  labelMessage.Caption  :='*** 공지사항 *** 2014년 4월 18일부터 차량관리 '+
+    '프로그램 제작을 시작하였습니다. 본 공지사항은 소소한 팁입니다....';
+end;
+
+procedure TFormCM.Timer1Timer(Sender: TObject);
+var
+  i,iLen,vLen : Integer;
+begin
+   iLen:=( length(LabelMessage.Caption) + 10 ) * (-1) ;
+   vLen:=PanelMessage.Width-5;
+   if LabelMessage.left > -548 then     // -548
+    begin
+      LabelMessage.left := LabelMessage.left-2;
+      inc(i);
+
+    end else LabelMessage.left := iLen; //800;
+
+end;
+
+end.

@@ -11,12 +11,10 @@ unit lhjModule;
 
 interface
  uses
-  SysUtils, Classes, StrUtils;
-
+  SysUtils, Classes;
   Function IIFs(c: Boolean; str1,str2: Ansistring): Ansistring;
   Function IFEmpty(str1,str2: Ansistring): Ansistring;
   Function bNULL(str1: Ansistring): Boolean;
-  Function DateView(dDate:TDateTime): ansistring;
   function FixedLen(Str : string; Size : integer) : string;
 const
   MyOver=  -9999;
@@ -79,22 +77,7 @@ uses Booth, Main1, Security, CoManager;
       Result:=False;
 
  end;
-//==================================================================
-// Name      : DateView(dDate:TDateTime): ansistring
-// Desc      : 날짜형을 년 월 일 요일로 표시
-//==================================================================
-Function DateView(dDate:TDateTime): ansistring;
-var
-  aDate,yy,mm,dd,ww : ansistring;
-  const days: array[1..7] of string = ('일','월','화','수','목','금','토');
-begin
-  aDate:=DatetoStr(dDate);
-  yy:=ansiMidStr(aDate,1,4);
-  mm:=ansiMidStr(aDate,6,2);
-  dd:=ansiMidStr(aDate,9,2);
-  ww:= days[DayOfWeek(dDate)];
-  DateView:= yy + ' 년 '+mm+' 월 '+dd+' 일 '+ ww+ '요일' ;
-end;
+
 //==================================================================
 // Name      : FixedLen
 // Desc      :  일정한 길이로 만들기 위해 앞에 공백을 채우는 함수

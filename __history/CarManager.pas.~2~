@@ -1,0 +1,51 @@
+unit CarManager;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ComCtrls, ExtCtrls, StdCtrls;
+
+type
+  TFormCM = class(TForm)
+    Label1: TLabel;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    Timer1: TTimer;
+    Panel1: TPanel;
+    LabelMessage: TLabel;
+    procedure Timer1Timer(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormCM: TFormCM;
+  MMsg : Ansistring;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFormCM.Timer1Timer(Sender: TObject);
+var
+  i         : Integer;
+begin
+   if LabelMessage.left > -548 then
+    begin
+      LabelMessage.left := LabelMessage.left-2;
+      inc(i);
+      //label4.left := label4.left-1;
+      {if label3.left = -4 then begin
+            label4.caption := label3.caption;
+            label4.left := 710;
+      end; }
+      //label4.Caption:=inttostr(i);
+
+    end else LabelMessage.left := 672;
+
+end;
+
+end.

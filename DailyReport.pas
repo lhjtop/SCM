@@ -160,10 +160,14 @@ type
 // Desc      :
 //==================================================================
 procedure TFormDailyReport.FormActivate(Sender: TObject);
+var
+  i : Integer;
 begin
-  Text_Init(0);
+  for i := 1 to 3 do begin
+     Text_Init(i);
+     Grid_Init(i);
+   end;
   Radio_Init;
-  Grid_Init(0);
   SelDate :=datetostr(now);
   ADOQuery1.Connection.LoginPrompt:=False;
 end;
@@ -696,7 +700,7 @@ end;
 Procedure TFormDailyReport.Text_Init(Index : Integer);
 begin
   case Index of
-   0,1 : begin    // ------------------------ tab 1
+   1 : begin    // ------------------------ tab 1
           Edit1.Text:='';
           Edit2.Text:='';
           Edit3.Text:='';
@@ -708,12 +712,12 @@ begin
           Edit9.Text:='';
           Edit10.Text:='';
    end;
-   0,2 : begin   //---------------------- tab 2      //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+   2 : begin   //---------------------- tab 2      //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
           EditDate1.Text:='';
           EditDate2.Text:='';
           Edit13.Text:='';
    end;
-   0,3 : begin   //--------------------  tab 3
+   3 : begin   //--------------------  tab 3
           edit11.Text :='';
           edit12.Text :='';
           memo1.Text  :='';
@@ -742,7 +746,7 @@ end;
 procedure TFormDailyReport.Grid_Init(Index : Integer);
 begin
   case index of
-   0,1: begin
+   1: begin
           with NiceGrid1 do begin    // NiceGrid1 제목 디자인
           BeginUpdate; // -------- Start
           headerline:=1;
@@ -771,7 +775,7 @@ begin
           EndUpdate; // -------- End
         end;
         nicegrid1.RowCount:=40;
-
+        Nicegrid1.GutterKind:=gkNumber;
         // test  line
 
         nicegrid1[0,1]:='01';
@@ -786,10 +790,10 @@ begin
 
         nicegrid1.Columns[0].Footer:='계';
    end;
-   0,2: begin
+   2: begin
 
    end;
-   0,3: begin
+   3: begin
         with NiceGrid3 do begin    // NiceGrid3 제목 디자인
           BeginUpdate; // -------- Start
           headerline:=1;
@@ -805,7 +809,7 @@ begin
           EndUpdate; // -------- End
         end;
         nicegrid3.RowCount:=40;
-
+        Nicegrid3.GutterKind:=gkNumber;
         // test line
         NiceGrid3[0,1]:='10001';
         NiceGrid3[1,1]:='계정이름 테스트용';

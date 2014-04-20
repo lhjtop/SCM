@@ -64,6 +64,9 @@
 			<DCCReference Include="DailyReport.pas">
 				<Form>FormDailyReport</Form>
 			</DCCReference>
+			<DCCReference Include="CarManager.pas">
+				<Form>FormCM</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

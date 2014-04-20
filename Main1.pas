@@ -79,6 +79,7 @@ type
     ButtonClose: TButton;
     N54: TMenuItem;
     N55: TMenuItem;
+    N56: TMenuItem;
     procedure N2Click(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -89,6 +90,7 @@ type
     procedure ButtonCloseClick(Sender: TObject);
     procedure N55Click(Sender: TObject);
     procedure N8Click(Sender: TObject);
+    procedure N6Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -110,7 +112,7 @@ var
 implementation
 
  uses
-  Booth,LogIn, CoManager, Security, DailyReport;
+  Booth,LogIn, CoManager, Security, DailyReport, CarManager;
 //uses LogInForMain;
 
 {$R *.dfm}
@@ -176,6 +178,15 @@ begin
   FormSecurity.Free;
   if ResultReturn='OK' then }FormBooth.Show;
 
+end;
+//==================================================================
+// Name      : N6Click
+// Desc      : 瞒樊 包府
+//==================================================================
+procedure TFormMain.N6Click(Sender: TObject);
+begin
+  // 瞒樊包府
+  FormCM.show;
 end;
 
 //==================================================================

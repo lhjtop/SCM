@@ -1,0 +1,136 @@
+unit CarManager;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ComCtrls, ExtCtrls, StdCtrls, NiceGrid,
+  lhjModule;
+
+type
+  TFormCM = class(TForm)
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    Timer1: TTimer;
+    PanelMessage: TPanel;
+    LabelMessage: TLabel;
+    ButtonOK: TButton;
+    GroupBox1: TGroupBox;
+    GroupBox2: TGroupBox;
+    MonthCalendar1: TMonthCalendar;
+    TabSheet2: TTabSheet;
+    NiceGrid1: TNiceGrid;
+    Label1: TLabel;
+    GroupBox3: TGroupBox;
+    GroupBox4: TGroupBox;
+    NiceGrid2: TNiceGrid;
+    GroupBox5: TGroupBox;
+    TabSheet3: TTabSheet;
+    GroupBox7: TGroupBox;
+    GroupBox8: TGroupBox;
+    TabSheet4: TTabSheet;
+    LabelDate: TLabel;
+    GroupBox6: TGroupBox;
+    procedure Timer1Timer(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure ButtonOKClick(Sender: TObject);
+    procedure PageControl1Change(Sender: TObject);
+    procedure MonthCalendar1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormCM: TFormCM;
+  dLen : Double;
+  viLen :Integer;
+
+implementation
+
+{$R *.dfm}
+
+//==================================================================
+// Name      : FormActivate
+// Desc      :
+//==================================================================
+procedure TFormCM.FormActivate(Sender: TObject);
+begin
+  // Text_Init;
+  // Grid_Init;
+  MonthCalendar1.Date:= Now;   // 오늘날짜로 초기화
+  LabelDate.Caption:=DateView(MonthCalendar1.Date);
+
+
+  labelMessage.Caption  :='*** 공지사항 *** 2014년 4월 18일부터 차량관리 '+
+    '프로그램 제작을 시작하였습니다. 본 공지사항은 소소한 팁입니다....';
+  dLen:=( length(LabelMessage.Caption) + 5 ) * (-12) ;
+  viLen:=PanelMessage.Width-5;
+  LabelMessage.left:=viLen;
+end;
+
+//==================================================================
+// Name      : MonthCalendar1Click
+// Desc      : Calendar
+//==================================================================
+procedure TFormCM.MonthCalendar1Click(Sender: TObject);
+var
+  ToDate : AnsiString;
+begin
+  //Text_Init;
+  ToDate:=DateToStr(MonthCalendar1.Date);
+  LabelDate.Caption:=DateView(MonthCalendar1.Date);
+end;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+procedure TFormCM.PageControl1Change(Sender: TObject);
+begin
+
+end;
+
+//==================================================================
+// Name      : ButtonOKClick
+// Desc      : 공지사항 OK
+//==================================================================
+procedure TFormCM.ButtonOKClick(Sender: TObject);
+begin
+  timer1.Enabled:=not(timer1.Enabled);
+end;
+
+//==================================================================
+// Name      : Timer1Timer
+// Desc      : 공지사항용 타이머
+//==================================================================
+procedure TFormCM.Timer1Timer(Sender: TObject);
+var
+  i     : Integer;
+begin
+   if LabelMessage.left > dLen then     // -548
+    begin
+      LabelMessage.left := LabelMessage.left-3;
+      inc(i);
+    end else LabelMessage.left := viLen; //800;
+end;
+
+end.

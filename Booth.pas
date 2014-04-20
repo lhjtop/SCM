@@ -63,7 +63,7 @@ type
 
     procedure FormActivate(Sender: TObject);
     procedure MonthCalendar1Click(Sender: TObject);
-    Function DateView(dDate:TDateTime): ansistring; // 날짜를 문자형으로변환
+    //Function DateView(dDate:TDateTime): ansistring; // 날짜를 문자형으로변환
     procedure Grid_Init; // 그리드 초기화
     Procedure Text_Init; // 텍스트 박스 초기화
     Procedure Work_Booth(dDate:TDateTime); // 해당일의 부스 정보 조회
@@ -86,8 +86,6 @@ type
   public
     { Public declarations }
   end;
-
-
 
 var
   FormBooth: TFormBooth;
@@ -145,26 +143,6 @@ begin
   LabelDate.Caption:=DateView(MonthCalendar1.Date);
   Work_Booth(MonthCalendar1.Date);  // 해당일의 부스 정보 조회
   //YesterDayWork_Booth;
-end;
-
-
-
-//==================================================================
-// Name      : DateView(dDate:TDateTime): ansistring
-// Desc      : 날짜형을 년 월 일 요일로 표시
-//==================================================================
-Function TFormBooth.DateView(dDate:TDateTime): ansistring;
-{var
-  aDate,yy,mm,dd,ww : ansistring;
-  const days: array[1..7] of string = ('일','월','화','수','목','금','토');
-  }
-begin
-  aDate:=DatetoStr(dDate);
-  yy:=ansiMidStr(aDate,1,4);
-  mm:=ansiMidStr(aDate,6,2);
-  dd:=ansiMidStr(aDate,9,2);
-  ww:= days[DayOfWeek(dDate)];
-  DateView:= yy + ' 년 '+mm+' 월 '+dd+' 일 '+ ww+ '요일' ;
 end;
 
 //==================================================================
@@ -337,60 +315,6 @@ begin
 end;
 
 //==================================================================
-// Name      : Grid_Init
-// Desc      : 그리드 초기화
-//==================================================================
-procedure TformBooth.Grid_Init;
-begin
-  with NiceGrid1 do begin    // NiceGrid1 제목 디자인
-    headerline:=3;
-    colcount:=13;
-    columns[0].Title:='날짜';    columns[1].Title:='요일';
-    columns[0].Width:=90;     columns[1].Width:=25;
-    columns[2].Title:='날 씨';   columns[2].Width:=100;
-    columns[3].Title:='온도;℃'; columns[3].Width:=30;
-    columns[4].Title:='배출시설가동시간|1호기|도장';
-     columns[4].Width:=40;
-    columns[5].Title:='배출시설가동시간|1호기|건조';
-     columns[5].Width:=40;
-    columns[6].Title:='배출시설가동시간|2호기|도장';
-     columns[6].Width:=40;
-    columns[7].Title:='배출시설가동시간|2호기|건조';
-     columns[7].Width:=40;
-    columns[8].Title:= '방지시설전력사용량(KW)|1호기|적산';
-     columns[8].Width:=50;
-    columns[9].Title:= '방지시설전력사용량(KW)|1호기|사용량';
-     columns[9].Width:=40;
-    columns[10].Title:='방지시설전력사용량(KW)|2호기|적산';
-     columns[10].Width:=50;
-    columns[11].Title:='방지시설전력사용량(KW)|2호기|사용량';
-     columns[11].Width:=40;
-    columns[12].Title:='비   고';
-     columns[12].Width:=100;
-  end;
-  nicegrid1.RowCount:=20;
-
-end;
-//==================================================================
-// Name      : Text_Init
-// Desc      : 텍스트 박스 초기화
-//==================================================================
-Procedure TFormBooth.Text_Init;
-begin
-  Edit1.Text:='';
-  Edit2.Text:='';
-  Edit3.Text:='';
-  Edit4.Text:='';
-  Edit5.Text:='';
-  Edit6.Text:='';
-  Edit7.Text:='';
-  Edit8.Text:='';
-  Edit9.Text:='';
-  Edit10.Text:='';
-  Memo1.Text:='';
-end;
-
-//==================================================================
 // Name      : ButtonClearClick
 // Desc      : Clear
 //==================================================================
@@ -398,16 +322,6 @@ procedure TFormBooth.ButtonClearClick(Sender: TObject);
 begin
   Grid_Init;  // 그리드 초기화
   Text_Init;
-end;
-
-//==================================================================
-// Name      : ButtonCloseClick
-// Desc      : 종료 , 창 닫기
-//==================================================================
-procedure TFormBooth.ButtonCloseClick(Sender: TObject);
-begin
-  ADOQuery1.Active:=False;
-  close;
 end;
 
 //==================================================================
@@ -458,7 +372,6 @@ begin
   Grid_Init;
 end;
 
-
 //==================================================================
 // Name      : ButtonPrint1Click
 // Desc      : 일지 출력 - Print
@@ -476,9 +389,7 @@ begin
    RvProject1.ProjectFile:='.\SCM1-Booth1.rav';
    Mypage := RvProject1.ProjMan.FindRaveComponent('Report1.Page1',nil) as TRavePage;
 
-
   // 출력하기 전에 빈 Data가 있는지 체크
-
 
    with RvProject1 do
    begin
@@ -501,14 +412,10 @@ begin
     SetParam('BKw1',edit5.Text);    //   온도
     SetParam('BKw2',edit7.Text);    //   온도
 
-
-
    end;
    //self.RvProject1.Execute;
    RvProject1.ExecuteReport('Report1');
    RvProject1.Close;
-
-
 end;
 
 //==================================================================
@@ -534,12 +441,7 @@ begin
   SaveBooth.방지2:=StrToFloat(edit7.Text);
   SaveBooth.메모 :=ifempty(Memo1.Text,'');
 
-
-
   aDate:=DateToStr(MonthCalendar1.Date);
-
-
-
 
   Ssql:='SELECT Date, 날씨, 온도, 도장1, 건조1, 도장2, 건조2, 방지1, 방지2, ' +
         ' 메모 From 부스 WHERE (부스.Date= #' + aDate + '# );';
@@ -604,7 +506,6 @@ begin
   ADOConnection1.CommitTrans;                    //트랜젝션 적용
   ADOQuery1.Active:=False;
   ShowMessage (myMessage);
-
 end;
 
 //==================================================================
@@ -704,10 +605,71 @@ begin
     inc(i);
   end;
   result:= WorkingTime3[i];
-
 end;
 
+//==================================================================
+// Name      : Grid_Init
+// Desc      : 그리드 초기화
+//==================================================================
+procedure TformBooth.Grid_Init;
+begin
+  with NiceGrid1 do begin    // NiceGrid1 제목 디자인
+    headerline:=3;
+    colcount:=13;
+    columns[0].Title:='날짜';    columns[1].Title:='요일';
+    columns[0].Width:=90;     columns[1].Width:=25;
+    columns[2].Title:='날 씨';   columns[2].Width:=100;
+    columns[3].Title:='온도;℃'; columns[3].Width:=30;
+    columns[4].Title:='배출시설가동시간|1호기|도장';
+     columns[4].Width:=40;
+    columns[5].Title:='배출시설가동시간|1호기|건조';
+     columns[5].Width:=40;
+    columns[6].Title:='배출시설가동시간|2호기|도장';
+     columns[6].Width:=40;
+    columns[7].Title:='배출시설가동시간|2호기|건조';
+     columns[7].Width:=40;
+    columns[8].Title:= '방지시설전력사용량(KW)|1호기|적산';
+     columns[8].Width:=50;
+    columns[9].Title:= '방지시설전력사용량(KW)|1호기|사용량';
+     columns[9].Width:=40;
+    columns[10].Title:='방지시설전력사용량(KW)|2호기|적산';
+     columns[10].Width:=50;
+    columns[11].Title:='방지시설전력사용량(KW)|2호기|사용량';
+     columns[11].Width:=40;
+    columns[12].Title:='비   고';
+     columns[12].Width:=100;
+  end;
+  nicegrid1.RowCount:=20;
+  Nicegrid1.GutterKind:=gkNumber;
+end;
+//==================================================================
+// Name      : Text_Init
+// Desc      : 텍스트 박스 초기화
+//==================================================================
+Procedure TFormBooth.Text_Init;
+begin
+  Edit1.Text:='';
+  Edit2.Text:='';
+  Edit3.Text:='';
+  Edit4.Text:='';
+  Edit5.Text:='';
+  Edit6.Text:='';
+  Edit7.Text:='';
+  Edit8.Text:='';
+  Edit9.Text:='';
+  Edit10.Text:='';
+  Memo1.Text:='';
+end;
 
+//==================================================================
+// Name      : ButtonCloseClick
+// Desc      : 종료 , 창 닫기
+//==================================================================
+procedure TFormBooth.ButtonCloseClick(Sender: TObject);
+begin
+  ADOQuery1.Active:=False;
+  close;
+end;
 
 
 end.

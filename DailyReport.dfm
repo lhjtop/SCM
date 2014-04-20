@@ -364,7 +364,8 @@ object FormDailyReport: TFormDailyReport
           Width = 768
           Height = 371
           Cursor = 101
-          ColCount = 0
+          ColCount = 9
+          RowCount = 20
           HeaderFont.Charset = DEFAULT_CHARSET
           HeaderFont.Color = clWindowText
           HeaderFont.Height = -11
@@ -375,7 +376,44 @@ object FormDailyReport: TFormDailyReport
           FooterFont.Height = -11
           FooterFont.Name = 'Tahoma'
           FooterFont.Style = []
-          Columns = <>
+          Columns = <
+            item
+              Title = 'No'
+              Width = 20
+            end
+            item
+              Title = #52264' '#51333
+              Width = 120
+            end
+            item
+              Title = #52264#47049#48264#54840
+              Width = 80
+            end
+            item
+              Title = #45236'   '#50857
+              Width = 150
+            end
+            item
+              Title = '('#52397#44396#50529')'
+              Width = 78
+            end
+            item
+              Title = #51077#44552#50529
+              Width = 78
+            end
+            item
+              Title = #51648#44553#50984
+              Width = 40
+            end
+            item
+              Title = #52636#44552#50529
+              Width = 78
+            end
+            item
+              Title = #48708#44256
+              Width = 80
+            end>
+          GutterWidth = 15
           GutterFont.Charset = DEFAULT_CHARSET
           GutterFont.Color = clWindowText
           GutterFont.Height = -11
@@ -675,10 +713,6 @@ object FormDailyReport: TFormDailyReport
         Color = clGradientInactiveCaption
         ParentBackground = False
         TabOrder = 0
-        ExplicitLeft = 3
-        ExplicitTop = 10
-        ExplicitWidth = 751
-        ExplicitHeight = 577
         object Label14: TLabel
           Left = 25
           Top = 10
