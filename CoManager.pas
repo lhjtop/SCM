@@ -178,11 +178,34 @@ type
     교환3불소       : Double;
     판금3불소       : Double;
     비고            : Ansistring;
-
 end;
 
 var
   CoInfomation : TcoInfo;
+
+ //==================================================================
+// Name      : FormActivate
+// Desc      : 폼 로드시 초기화
+//==================================================================
+procedure TFormCoManager.FormActivate(Sender: TObject);
+begin
+  // 초기화
+  Text_Init_1;
+  Text_Init_2;
+  Text_Init_3;
+  EditFlag:=False;
+  DB_Read;
+  ADOQuery1.Connection.LoginPrompt:=False;
+end;
+
+//==================================================================
+// Name      : FormShow
+// Desc      :
+//==================================================================
+procedure TFormCoManager.FormShow(Sender: TObject);
+begin
+   PageControl1.Tabindex:=0;
+end;
 
 //==================================================================
 // Name      : Button1Click
@@ -228,27 +251,6 @@ begin
   if (yn1=0) or (yn1=6) then     close;
 end;
 
-
-//==================================================================
-// Name      : FormActivate
-// Desc      : 폼 로드시 초기화
-//==================================================================
-procedure TFormCoManager.FormActivate(Sender: TObject);
-begin
-  // 초기화
-  Text_Init_1;
-  Text_Init_2;
-  Text_Init_3;
-  EditFlag:=False;
-  DB_Read;
-
-end;
-
-
-procedure TFormCoManager.FormShow(Sender: TObject);
-begin
-   PageControl1.Tabindex:=0;
-end;
 
 //==================================================================
 // Name      : DB_Read

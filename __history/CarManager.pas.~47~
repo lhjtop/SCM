@@ -1,0 +1,925 @@
+unit CarManager;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ComCtrls, ExtCtrls, StdCtrls, NiceGrid, StrUtils, ClipBrd,
+  lhjModule, DB, ADODB;
+
+type
+  TFormCM = class(TForm)
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    Panel1: TPanel;
+    TabSheet2: TTabSheet;
+    GroupBox4: TGroupBox;
+    NiceGrid2: TNiceGrid;
+    GroupBox5: TGroupBox;
+    TabSheet3: TTabSheet;
+    GroupBox7: TGroupBox;
+    GroupBox8: TGroupBox;
+    TabSheet4: TTabSheet;
+    GroupBox6: TGroupBox;
+    PanelMessage: TPanel;
+    LabelMessage: TLabel;
+    ButtonOK: TButton;
+    Timer1: TTimer;
+    MonthCalendar1: TMonthCalendar;
+    LabelDate: TLabel;
+    Label1: TLabel;
+    GroupBox3: TGroupBox;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    Button5: TButton;
+    Button6: TButton;
+    Button7: TButton;
+    Button8: TButton;
+    Button9: TButton;
+    Button10: TButton;
+    Button11: TButton;
+    Button12: TButton;
+    Button13: TButton;
+    Button14: TButton;
+    ButtonEnd: TButton;
+    NiceGrid6: TNiceGrid;
+    GroupBox1: TGroupBox;
+    NiceGrid1: TNiceGrid;
+    GroupBox2: TGroupBox;
+    Label5: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    Label15: TLabel;
+    Label16: TLabel;
+    Shape1: TShape;
+    Label7: TLabel;
+    Label8: TLabel;
+    CheckBox2: TCheckBox;
+    CheckBox3: TCheckBox;
+    CheckBox4: TCheckBox;
+    GroupBox9: TGroupBox;
+    Label18: TLabel;
+    Label17: TLabel;
+    Label12: TLabel;
+    Label4: TLabel;
+    Label11: TLabel;
+    Label10: TLabel;
+    Label9: TLabel;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    Edit4: TEdit;
+    Edit5: TEdit;
+    Edit6: TEdit;
+    Edit7: TEdit;
+    Button1: TButton;
+    GroupBoxBoHum: TGroupBox;
+    NiceGrid4: TNiceGrid;
+    NiceGrid5: TNiceGrid;
+    Edit8: TEdit;
+    Edit9: TEdit;
+    Edit10: TEdit;
+    Edit11: TEdit;
+    Edit12: TEdit;
+    Edit13: TEdit;
+    Edit14: TEdit;
+    Edit15: TEdit;
+    Memo1: TMemo;
+    NiceGrid3: TNiceGrid;
+    ADOConnection1: TADOConnection;
+    ADOQuery1: TADOQuery;
+    DataSource1: TDataSource;
+    Edit16: TEdit;
+    GroupBoxILBan: TGroupBox;
+    procedure Grid_Init(Index : Integer);
+    Procedure Text_Init(Index : Integer);
+    procedure Timer1Timer(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure ButtonOKClick(Sender: TObject);
+    procedure PageControl1Change(Sender: TObject);
+    procedure MonthCalendar1Click(Sender: TObject);
+    procedure ButtonEndClick(Sender: TObject);
+    procedure WorkCar(vDate : AnsiString);
+    procedure NiceGrid1DrawCell(Sender: TObject; ACanvas: TCanvas; X,
+      Y: Integer; Rc: TRect; var Handled: Boolean);
+    procedure Reset_CarList;
+    procedure NiceGrid1Click(Sender: TObject);
+    procedure DetailView(carID: AnsiString);
+    procedure CheckBox4Click(Sender: TObject);
+    procedure NiceGrid1KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure NiceGrid4DrawCell(Sender: TObject; ACanvas: TCanvas; X,
+      Y: Integer; Rc: TRect; var Handled: Boolean);
+    procedure NiceGrid5DrawCell(Sender: TObject; ACanvas: TCanvas; X,
+      Y: Integer; Rc: TRect; var Handled: Boolean);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormCM: TFormCM;
+  dLen : Double;
+  viLen :Integer;
+  BOHUMLIST1, BOHUMLIST2  : AnsiString;
+
+implementation
+
+{$R *.dfm}
+
+const
+  iSpeed  : Integer =2;  // 공지사항 스크롤 속도
+type
+  T차량현황 = record
+    ID        : AnsiString;
+    거래처    : AnsiString;
+    차량번호  : AnsiString;
+    차량명    : AnsiString;
+    보험      : AnsiString;
+    담보      : AnsiString;
+    입고      : AnsiString;
+    출고예정  : AnsiString;
+    출고      : AnsiString;
+    상태      : AnsiString;
+    iCond     : Integer;
+  end;
+var
+  TCarList    : array[0..50] of T차량현황;
+
+//==================================================================
+// Name      : FormActivate
+// Desc      :
+//==================================================================
+procedure TFormCM.FormActivate(Sender: TObject);
+begin
+  // Text_Init;
+  Text_Init(1);  // tabsheet 1 초기화
+  Grid_Init(1);  // 차량 현황 - 차량현황
+  Grid_Init(13); // 차량현황 - 부품
+  BOHUMLIST1  :=  'ID, 차량번호, 차량명, 운전자, 연락처, 거래처, ' +
+                  '사업자, 세금계산서, 사진경로, 서류경로, 메모 ' +
+                  ',입고일, 출고예정, 출고일, 등록증 ' +
+                  ', 주행거리, 최초등록일, 칼라, 대차, 렌트카 ' +
+                  ', 차대번호 ';
+  BOHUMLIST2  := 'ID, 보험사, 담보, 과실, 접수번호, 면책금' +
+                 ',정률구분, 담당자, 청구일, 청구금, 입금일' +
+                 ', 입금액, 할인액, 서비스, 영업비, 메모, ' +
+                 '받은면책금, 등록증, 대차, 렌트카, 부품비, ' +
+                 '부품사, 유리, 실란트, 지출일 ';
+
+
+  MonthCalendar1.Date:= Now;   // 오늘날짜로 초기화
+  LabelDate.Caption:=DateView(MonthCalendar1.Date);
+  ADOQuery1.Connection.LoginPrompt:=False;
+
+  labelMessage.Caption  :='*** 공지사항 *** 2014년 4월 18일부터 차량관리 '+
+    '프로그램 제작을 시작하였습니다. 본 공지사항은 소소한 팁입니다....';
+  dLen:=( length(LabelMessage.Caption) + 5 ) * (-12) ;
+  viLen:=PanelMessage.Width-5;
+  LabelMessage.left:=viLen;
+  WorkCar(DateToStr(MonthCalendar1.Date));
+end;
+
+//==================================================================
+// Name      : MonthCalendar1Click
+// Desc      : Calendar
+//==================================================================
+procedure TFormCM.MonthCalendar1Click(Sender: TObject);
+var
+  ToDate : AnsiString;
+  ACanvas: TCanvas;
+begin
+  //Text_Init;
+  ToDate:=DateToStr(MonthCalendar1.Date);
+  LabelDate.Caption:=DateView(MonthCalendar1.Date);
+  WorkCar(ToDate);
+end;
+
+//==================================================================
+// Name      : NiceGrid1Click
+// Desc      : Grid Click
+//==================================================================
+procedure TFormCM.NiceGrid1Click(Sender: TObject);
+begin
+  DetailView(Tcarlist[NiceGrid1.Row].ID);
+end;
+
+//==================================================================
+// Name      : NiceGrid1KeyDown
+// Desc      : Grid Select
+//==================================================================
+procedure TFormCM.NiceGrid1KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   //showmessage ('KeyDown ' + floattostr(key));
+   case Key of
+   VK_UP,VK_DOWN,VK_PRIOR,VK_NEXT : DetailView(Tcarlist[NiceGrid1.Row].ID);
+  end;
+
+end;
+//==================================================================
+// Name      : Reset_CarList
+// Desc      : 구조체 배열 초기화
+//==================================================================
+procedure TFormCM.Reset_CarList;
+var
+  i: Integer;
+begin
+  for I := 0 to 50 do begin
+    tcarlist[i].ID          :='';
+    tcarlist[i].거래처      :='';
+    tcarlist[i].차량번호    :='';
+    tcarlist[i].차량명      :='';
+    tcarlist[i].보험        :='';
+    tcarlist[i].담보        :='';
+    tcarlist[i].입고        :='';
+    tcarlist[i].출고예정    :='';
+    tcarlist[i].출고        :='';
+    tcarlist[i].상태        :='';
+    tcarlist[i].iCond       :=0;
+  end;
+end;
+//==================================================================
+// Name      : WorkCar
+// Desc      : 해당 일의 차량 재고 현황
+//==================================================================
+procedure TFormCM.WorkCar(vDate : AnsiString);
+var
+  i,j,k         : Integer;
+  iCnt,dayCnt   : Integer;  // 현 재고 , 금일 입고
+  outCnt,outCnt2: Integer;  //  금일 출고예정, 금일 출고
+  Ssql          : Ansistring;
+  strTemp       : AnsiString;
+  iKubun        : Integer;
+
+begin
+  Reset_CarList;
+  dayCnt  :=0;
+  outCnt  :=0;
+  outCnt2 :=0;
+  Ssql := 'SELECT ID, 거래처, 차량번호, 차량명, 입고일, 출고예정, 출고일 ' +
+          'From 차량정보 WHERE (' +
+          '( (입고일 <= #' + vDate + '#) AND (#' + vDate + '# <= 출고일) )' +
+          ' OR ( (입고일 <= #' + vDate + '#) AND ( ISNULL(출고일) ) )' +
+          ') order by ID ASC , 입고일 ASC;';
+// clipboard.AsText:=ssql;   //   Ctrl - C    복사    uses => ClipBrd
+  ADOQuery1.SQL.Clear;
+  ADOQuery1.SQL.Text:=(Ssql);
+  ADOQuery1.Open;
+
+  if ADOQuery1.Recordset.RecordCount>0 then
+   begin
+    i:=0;
+    iCnt:=ADOQuery1.Recordset.RecordCount;
+    NiceGrid1.RowCount:=iCnt;
+    while not ADOQuery1.Eof do
+    begin
+      with ADOQuery1.Recordset.Fields do
+       begin
+        Tcarlist[i].ID      := ifNULL(Item[0].Value,' '); // ID
+        Tcarlist[i].거래처  := ifNULL(Item[1].Value,' '); // 거래처
+        Tcarlist[i].차량번호:= ifNULL(Item[2].Value,' '); // 차량번호
+        Tcarlist[i].차량명  := ifNULL(Item[3].Value,' '); // 차량명
+        Tcarlist[i].입고    := ifNULL(Item[4].Value,' '); // 입고
+        Tcarlist[i].출고예정:= ifNULL(Item[5].Value,' '); // 출고예정
+        Tcarlist[i].출고    := ifNULL(Item[6].Value,' '); // 출고
+        Tcarlist[i].상태    := '' // 상태
+       end;
+       // 차량 상태 저장 신규 = 1, 출고예정 = 3, 출고시기지남 = 5, 출고 = 7
+       with Tcarlist[i] do begin
+         if (입고=vdate)     then begin
+            iCond:=1;
+            inc(dayCnt);
+         end;
+         if (출고예정=vdate) then begin
+            iCond:=iCond+3;
+            inc(outCnt);
+         end;
+         if (출고예정<vdate) then iCond:=iCond+5;
+         if (출고=vdate)     then begin
+            iCond:=iCond+7;
+            inc(outCnt2);
+         end;
+       end;  // with
+      inc(i);
+      ADOQuery1.Next;
+    end; //while
+    ADOQuery1.Active:=False;
+    for i := 0 to icnt-1 do begin
+      ikubun  := 0;
+      strtemp := AnsiLeftStr(tcarlist[i].ID,1);
+      if (strtemp='B') or (strtemp='C') then ikubun := 9;
+      if (strtemp='G') or (strtemp='H') then ikubun := 0;
+      if (strtemp='M') or (strtemp='m') then ikubun := 1;
+      case iKubun  of
+       0: begin // 일반수리
+            Tcarlist[i].보험    := '일반'; // 일반
+            Tcarlist[i].담보    := '--';
+       end;
+       1: begin // 일반 정비
+            Tcarlist[i].보험    := '정비'; // 정비
+            Tcarlist[i].담보    := '--';
+       end;
+       9: begin
+            sSql := 'SELECT 보험사,담보 From 보험 WHERE ' +
+                  '(보험.ID = ' + MQ + tcarlist[i].ID + MQ + ' );'; // Chr(34)
+            ADOQuery1.SQL.Clear;
+            ADOQuery1.SQL.Text:=(Ssql);
+            ADOQuery1.Open;
+            with ADOQuery1.Recordset do begin
+              if RecordCount>0 then begin
+                Tcarlist[i].보험    := ifNULL(Fields.Item[0].Value,''); // 보험
+                Tcarlist[i].담보    := ifNULL(Fields.Item[1].Value,''); // 담보
+              end else begin
+                Tcarlist[i].보험    := ' '; //
+                Tcarlist[i].담보    := ' ';
+              end; // if
+            end; //with
+       end;
+      end; // case
+    end; //for
+
+    NiceGrid1.BeginUpdate;
+    for i := 0 to icnt-1 do begin
+      with tcarlist[i] do begin
+        // ------------------- 차량 상태 처리
+        case iCond of
+         1: 상태 := 상태 + '新 ';
+         3: begin
+            상태 := 상태 + '約 ';
+         end;
+         4: begin
+           상태 := 상태 + '約 ';
+         end;
+         5: begin
+            상태 := 상태 + '後 ';
+         end;
+         7..16: begin
+            상태 := '出 ';
+         end;
+        end;
+        NiceGrid1[00,i] := ifempty(거래처 ,''); //
+        NiceGrid1[01,i] := ifempty(차량번호 ,'');
+        NiceGrid1[02,i] := ifempty(차량명 ,''); //
+        NiceGrid1[03,i] := ifempty(보험 ,''); //
+        NiceGrid1[04,i] := ifempty(담보 ,'');
+        NiceGrid1[05,i] := ifempty(입고 ,''); //
+        NiceGrid1[06,i] := ifempty(출고예정 ,''); //
+        NiceGrid1[07,i] := ifempty(상태 ,'');
+      end; // with
+    end; // for
+    NiceGrid1.EndUpdate;
+    GroupBox1.Caption   :='[ 총 ' + FormatCurr('#0;0;"0"',iCnt) +
+                  '대 / 금일예정: '+ FormatCurr('#0;0;"0"',outCnt)+
+                  '대 / 금일출고: '+ FormatCurr('#0;0;"0"',outCnt2)+
+                  '대(작업중: '+ FormatCurr('#0;0;"0"',(iCnt-outCnt2) )+'대) ]';
+   end;   // if
+  ADOQuery1.Active:=False;
+
+
+end;
+
+//==================================================================
+// Name      : DetailView
+// Desc      : 차량 세부 정보 보기
+//==================================================================
+procedure TFormCM.DetailView(carID: AnsiString);
+var
+  i         : Integer;
+  iRow      : Integer;     // grid row position
+  Ssql      : AnsiString;
+  stmp,stmp2: Ansistring;  // temp
+  dd        : Double;      // temp
+  dParts    : Currency;      // 부품 금액 합계
+  DisCount  : array[0..2] of Currency; // 보험 할인액 계산
+  oldDBParts: array[0..2] of Currency; // old-DB 부품 가격 정보
+  //tmpRecord : array[1..14] of Ansistring; // DB레코드 임시 저장함
+begin
+  sSql := 'SELECT ' + BOHUMLIST1 +
+          'From 차량정보 WHERE [차량정보.ID] = ' + MQ + carID + MQ + ';';
+  ADOQuery1.SQL.Clear;
+  ADOQuery1.SQL.Text:=(Ssql);
+  ADOQuery1.Open;
+  if ADOQuery1.Recordset.RecordCount>0 then
+   begin
+     with ADOQuery1.Recordset.Fields do
+       begin
+        edit1.Text  := ifNULL(Item[0].Value,' '); // ID
+        edit2.Text  := ifNULL(Item[1].Value,' '); // 차량번호
+        edit3.Text  := ifNULL(Item[2].Value,' '); // 차량명
+        edit8.Text  := ifNULL(Item[3].Value,' '); // 운전자
+        edit9.Text  := ifNULL(Item[4].Value,' '); // 연락처
+        edit11.Text := ifNULL(Item[5].Value,' '); // 거래처
+        i  := strtoint(ifNULL(Item[6].Value,'0')); // 사업자 여부
+        case i of
+         0: begin
+              edit10.Text   := '-';
+              edit10.Color  := clWindow;
+         end;
+         1: begin
+              edit10.Text   := '일반 (10%)';
+              edit10.Color  := $00FFFF;  // 노랑
+         end;
+         2: begin
+              edit10.Text   := '간이사업자';
+              edit10.Color  := $99FFFF;  // 연노랑 ?
+         end;
+        end;  // case
+        i  := strtoint(ifNULL(Item[7].Value,'0')); // 세금계산서
+        if i=1 then begin
+          CheckBox2.checked := True;
+          CheckBox2.Color   := $00FFFF;  // 노랑
+        end else begin
+          CheckBox2.Checked := False;
+          CheckBox2.Color   := clGradientInactiveCaption;
+        end;  // if
+        // 사진경로 Item[8].Value
+        // 서류경로 Item[9].Value
+        Memo1.Text  := ifNULL(Item[10].Value,' '); // 메모
+        edit12.Text := ifNULL(Item[11].Value,' '); // 입고일
+        edit13.Text := ifNULL(Item[12].Value,' '); // 출고예정일
+        edit14.Text := ifNULL(Item[13].Value,' '); // 출고일
+        if bNULL(edit14.Text) then edit14.Color :=clGradientInactiveCaption
+                              else edit14.Color :=$CC99FF;
+        //등록증 없음/차계부 미발행=1,등록증있음/차계부 미발행=0,
+        //등록증 없음/차계부 발행=3,등록증있음/차계부 발행=2
+        i  := StrToInt(ifNULL(Item[14].Value,'0'));
+        case i of
+         0: begin
+            edit16.Text :=''; //CheckBox1.Checked:=False;
+            CheckBox3.Checked:=False;
+         end;
+         1: begin
+            edit16.Text :='등록증없음'; //CheckBox1.Checked:=True;
+            CheckBox3.Checked:=False;
+         end;
+         2: begin
+            edit16.Text :=''; //CheckBox1.Checked:=False;
+            CheckBox3.Checked:=True;
+         end;
+         3: begin
+            edit16.Text :='등록증없음'; //CheckBox1.Checked:=True;
+            CheckBox3.Checked:=True;
+         end;
+         else begin
+            edit16.Text :=''; //CheckBox1.Checked:=False;
+            CheckBox3.Checked:=False;
+         end;
+        end; // case
+        if (i=1)or (i=3) then edit16.Color   := $00FFFF  // 노랑
+                         else edit16.Color   := clGradientInactiveCaption;
+        dd  := StrToFloat(ifNULL(Item[15].Value,'0'));
+        edit6.Text := formatcurr('#,##0;0;" "',dd); // 주행거리
+        edit4.Text := ifNULL(Item[16].Value,' '); // 최초등록일
+        edit7.Text := ifNULL(Item[17].Value,' '); // 도장코드(칼라)
+        i  := StrToInt(ifNULL(Item[18].Value,'0'));  // 대차
+        if i=0 then CheckBox4.Checked  := False
+               else CheckBox4.Checked  := True;
+        edit15.Text := ifNULL(Item[19].Value,' '); // 렌트카 회사명
+        if bNULL(edit15.Text) then edit15.Color :=clGradientInactiveCaption
+                              else edit15.Color :=$CC99FF;
+        edit5.Text  := ifNULL(Item[20].Value,' '); // 차대번호
+       end;   // with
+   end; // if
+  ADOQuery1.Active:=False;
+  //------------------------------------ 보험 및 일반 정보 가져오기
+  stmp  := AnsiLeftStr(trim(carID),1);
+  if (stmp='B') or (stmp='C') then
+  begin
+    GroupBoxBohum.BringToFront;  //보험
+    Grid_Init(13);
+    sSql := 'SELECT ' + BOHUMLIST2 +
+            'From 보험 WHERE [보험.ID] = ' + MQ + carID + MQ + ';';
+    ADOQuery1.SQL.Clear;
+    ADOQuery1.SQL.Text:=(Ssql);
+    ADOQuery1.Open;
+    if ADOQuery1.Recordset.RecordCount>0 then
+    begin
+      iRow  := 0;
+      Nicegrid4.RowCount:=ADOQuery1.Recordset.RecordCount+1;
+      Nicegrid5.RowCount:=ADOQuery1.Recordset.RecordCount+1;
+      while not ADOQuery1.Eof do
+      begin
+        for i := 0 to 2 do DisCount[i]   :=0; //보험 할인액 초기화
+        //for i := 1 to 14 do tmpRecord[i] :='';// DB레코드 초기화
+        dParts := 0; // 부품 합계 초기화
+        with ADOQuery1.Recordset.Fields do
+        begin
+          NiceGrid4[00,iRow] := ifempty(Item[1].Value,''); // 보험사
+          NiceGrid4[01,iRow] := ifempty(Item[2].Value,''); // 담보
+          NiceGrid4[02,iRow] := ifempty(Item[3].Value,''); // 과실
+          NiceGrid4[03,iRow] := ifempty(Item[4].Value,''); // 접수번호
+          NiceGrid4[05,iRow] :=MyAmount(Item[5].Value); // 면책금
+          NiceGrid4[04,iRow] := ifempty(Item[6].Value,''); // 정률구분
+          NiceGrid4[07,iRow] := ifempty(Item[7].Value,''); // 담당자
+          NiceGrid4[08,iRow] := '000-0000-0000'; // 담당자 연락처(다시 조회)
+          NiceGrid4[09,iRow] := '0000-000-0000'; // 담당자 FAX(다시 조회)
+          NiceGrid4[06,iRow] :=MyAmount(Item[16].Value); // 받은 면책금
+
+          NiceGrid5[00,iRow] := NiceGrid4[00,iRow]; // 보험사
+          NiceGrid5[01,iRow] := ifNULL(Item[8].Value,''); // 청구일
+          NiceGrid5[02,iRow] :=MyAmount(Item[9].Value); // 청구금
+          NiceGrid5[03,iRow] := ifNULL(Item[10].Value,''); // 입금일
+          if vNULL(NiceGrid5[03,iRow]) then begin
+            NiceGrid5[04,iRow] := '-';
+            NiceGrid5[05,iRow] := '-';
+            NiceGrid5[06,iRow] := '-';
+          end
+          else begin
+            stmp2 := ifEmpty(NiceGrid5[02,iRow],'0');
+//showmessage ('NiceGrid5[02,iRow] = [' + NiceGrid5[02,iRow] + ']');
+            DisCount[0] := strtoint(conNumber(stmp2)); // 청구금
+            NiceGrid5[04,iRow] :=MyAmount(Item[11].Value); // 입금액
+              stmp2 := ifEmpty(NiceGrid5[04,iRow],'0');
+              DisCount[1] := strtoint(conNumber(stmp2));// 입금액
+              if not((DisCount[0]=0) or (Discount[1]=0)) then
+                DisCount[2] := (DisCount[1] /  DisCount[0] * 100.0);
+            NiceGrid5[05,iRow] := MyAmount((DisCount[0] - DisCount[1]));//할인액
+            NiceGrid5[06,iRow] := formatcurr('#0.0;0;" "',DisCount[2]); //할인율
+          end; // if
+          NiceGrid5[07,iRow] := ifempty(Item[15].Value,''); // 메모
+          NiceGrid5[09,iRow] := ifNULL(Item[24].Value,''); // 영업비 지출일
+          NiceGrid5[10,iRow] := ifempty(Item[14].Value,''); // 영업비
+          //edit17.Text := '부품 + 공임 = '; // 총 수리비 청구액
+          //txtSub(7) = ConvAmount(txtSub(7)) + DisCount(1) '청구금 계
+          //txtSub(8) = ConvAmount(txtSub(8)) + DisCount(2) '입금 계
+
+          // 옛날 DB자료 조회 - 렌트
+          if CheckBox4.Checked=False then begin
+            i:=StrToInt(ifNULL(Item[18].Value,'0'));  // old-DB 대차
+            if i=0 then CheckBox4.Checked  := False
+                   else CheckBox4.Checked  := True;
+            edit15.Text := ifNULL(Item[19].Value,' '); // old-DB 렌트카 회사명
+            if bNULL(edit15.Text) then edit15.Color :=clGradientInactiveCaption
+                                  else edit15.Color :=$CC99FF;
+          end;
+          // 옛날 DB자료 조회 - 부품가격
+          oldDBParts[0] :=StrToFloat(ifNULL(Item[20].Value,'0'));  // 부품비
+          oldDBParts[1] :=StrToFloat(ifNULL(Item[22].Value,'0'));  // 유리
+          oldDBParts[2] :=StrToFloat(ifNULL(Item[23].Value,'0'));  // 실란트
+          dd := olddbparts[0]+olddbparts[1]+olddbparts[2];
+          if (dd)>0 then
+          begin
+            NiceGrid3.RowCount := 3;
+            NiceGrid3[00,00] := '(old)' + ifempty(Item[21].Value,''); // 부품 사
+            NiceGrid3[01,00] := MyAmount(oldDBParts[0]); // amount
+            NiceGrid3[00,01] := '(old)유리';
+            NiceGrid3[01,01] := MyAmount(oldDBParts[1]);
+            NiceGrid3[00,02] := '(old)실란트';
+            NiceGrid3[01,02] := MyAmount(oldDBParts[2]);
+            Nicegrid3.Columns[1].Footer := MyAmount(dd);
+          end;
+        end;  // with
+        inc(iRow);
+        ADOQuery1.Next;
+      end; // while
+      ADOQuery1.Active:=False;
+      // 보험담당 전화, 팩스번호
+      for i := 0 to iRow do begin
+
+        sSql := 'SELECT 핸드폰,FAX From 보험담당 WHERE 이름 = ' +
+             MQ + NiceGrid4[07,i] + MQ + ' AND ' +
+             MQ + NiceGrid4[00,i] + MQ + ' ;';
+        ADOQuery1.SQL.Clear;
+        ADOQuery1.SQL.Text:=(Ssql);
+        ADOQuery1.Open;
+        if ADOQuery1.Recordset.RecordCount>0 then
+        begin
+          NiceGrid4[08,i] := ADOQuery1.Recordset.Fields.Item[0].Value ;
+          // 담당자 연락처
+          NiceGrid4[09,i] := ADOQuery1.Recordset.Fields.Item[1].Value ;
+          // 담당자 FAX(다시 조회)
+        end; //if
+        ADOQuery1.Active:=False;
+      end; // for
+
+
+    end; // if
+  end else // if (stmp='B') or (stmp='C')
+  begin   // 일반
+
+
+  end; // if (stmp='B') or (stmp='C')
+  //
+
+  {
+      '------------------------------------------------------------------------
+      If Not (RsCar.EOF Or RsCar.RecordCount <= 0) Then
+
+
+        Do While (Not RsCar.EOF)
+           Count1 = Count1 + 1
+
+
+          tmpStr = HandPhone2( _
+              FGBoHum1.TextMatrix(Count1, 6), FGBoHum1.TextMatrix(Count1, 0))
+          'FGBoHum1.TextMatrix(Count1, 7) = HandPhone( _
+              FGBoHum1.TextMatrix(Count1, 6), FGBoHum1.TextMatrix(Count1, 0))
+              ' 담당자 연락처
+          FGBoHum1.TextMatrix(Count1, 7) = left(tmpStr, InStr(1, tmpStr, ",") - 1)
+              ' 담당자 연락처
+          'tmpStr2 = IIf(dFAX = "", "", dFAX & ", ")
+          If dFAX = "" Then
+            dFAX = Mid(tmpStr, InStr(1, tmpStr, ",") + 1, Len(tmpStr)) ' 담당자 팩스
+          Else
+            dFAX = dFAX & ", " & _
+                Mid(tmpStr, InStr(1, tmpStr, ",") + 1, Len(tmpStr)) ' 담당자 팩스
+          End If
+          FGBoHum1.TextMatrix(Count1, 8) = _
+                          Format(RsCar(16).Value, "#,##0")      ' 받은 면책금
+          'ChkLogBook.Value = _
+          '              IIf(IsNull(RsCar(17)) = True, 0, RsCar(17)) ' 등록증
+          If ChkLogBook.Value = 1 Then
+            ChkLogBook.BackColor = &H80FFFF    '연노랑
+          Else
+            ChkLogBook.BackColor = &H8000000F '회색
+          End If
+
+          If tmpFlag = False Then ' 차량정보테이블에 대차 정보 있으면 패쓰~
+            chkRENT.Value = _
+                        IIf(IsNull(RsCar(18)) = True, 0, RsCar(18))  ' 대차
+            txtSub(0) = IIf(IsNull(RsCar(19).Value) = True, "", _
+                        Trim(RsCar(19).Value))  ' 렌트카 회사명
+            If chkRENT.Value = 1 Then
+              txtSub(0).BackColor = &HC0E0FF
+            Else
+              txtSub(0).BackColor = &H8000000F '회색
+            End If
+          End If
+          dPart1 = dPart1 + IIf(IsNull(RsCar(20)) = True, 0, RsCar(20))
+          dPart2 = dPart2 + IIf(IsNull(RsCar(22)) = True, 0, RsCar(22))
+          dPart3 = dPart3 + IIf(IsNull(RsCar(23)) = True, 0, RsCar(23))
+          txtSub(1) = Format(dPart1, "#,##0") ' 부품비
+          txtSub(2) = IIf(IsNull(RsCar(21).Value) = True, "", _
+                        Trim(RsCar(21).Value))  ' 부품 사
+          txtSub(3) = Format(dPart2, "#,##0") ' 유리
+          txtSub(4) = Format(dPart3, "#,##0") ' 실란트
+          txtSub(5) = Format(dPart1 + dPart2 + dPart3, "#,##0") ' 부품 합계
+
+
+
+          RsCar.MoveNext
+        Loop
+      End If
+      RsCar.Close
+
+      'lstParts.Clear
+      'sumparts = 0
+      ''-------------------------------------------------------------- 부품 ----
+      'sSql = "SELECT ID, No, 부품사, 부품비, 메모 " & _
+      '            " From 부품 WHERE ID = '" & carID & "';"
+      'RsCar.Open sSql                                ' SQL 문으로 레코드 오픈
+      ''------------------------------------------------------------------------
+      'If Not (RsCar.EOF Or RsCar.RecordCount <= 0) Then
+      '  Do While (Not RsCar.EOF)
+      '    lstParts.AddItem RsCar(2) & "  " & Format(RsCar(3), " #,###,##0")
+      '    sumparts = sumparts + ConvAmount(RsCar(3))
+      '    RsCar.MoveNext
+      '  Loop
+      'End If
+      'RsCar.Close
+      Call ListingParts(carID)
+      txtSub(7) = Format(ConvAmount(txtSub(7)) + ConvAmount(txtSub(6)), "#,##0")
+      If Not (txtSub(8) = "0" Or txtSub(8) = "") Then
+        txtSub(8) = Format(ConvAmount(txtSub(8)) + ConvAmount(txtSub(6)), "#,##0")
+        txtSub(9) = Format(ConvAmount(txtSub(7)) - ConvAmount(txtSub(8)), "-#,##0")
+      End If
+
+
+
+
+
+
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+end;
+
+
+//==================================================================
+// Name      : NiceGrid1DrawCell
+// Desc      : 그리드에 상태 별로 색깔 넣기
+//==================================================================
+procedure TFormCM.NiceGrid1DrawCell(Sender: TObject; ACanvas: TCanvas; X,
+  Y: Integer; Rc: TRect; var Handled: Boolean);
+var
+  i: Integer;
+  stmp  : Ansistring;
+begin
+  // 금일 출고 예정일 차량 : 파란색 폰트
+  if (NiceGrid1[06,y]=DateToStr(MonthCalendar1.Date)) then
+      ACanvas.Font.Color := clBlue; //clMaroon;
+  // 출고된 차량 옅은 분홍 바탕, 회색 폰트
+  stmp := (NiceGrid1[07,y]);
+  if (stmp='出') then begin
+    for I := 0 to 6 do begin
+        stmp := NiceGrid1.Cells[i,y] ;
+        ACanvas.Brush.Color := $00DFDFFF; //clMaroon; //clYellow;
+        ACanvas.Font.Color := clGrayText;
+    end;
+  end;
+end;
+
+//==================================================================
+// Name      : NiceGrid4DrawCell
+// Desc      : 그리드에 상태 별로 색깔 넣기
+//==================================================================
+procedure TFormCM.NiceGrid4DrawCell(Sender: TObject; ACanvas: TCanvas; X,
+  Y: Integer; Rc: TRect; var Handled: Boolean);
+begin
+  if (NiceGrid4[04,y]='-') then
+      ACanvas.Brush.Color := clGradientInactiveCaption;
+    if (NiceGrid4[05,y]='-') then
+      ACanvas.Brush.Color := clGradientInactiveCaption;
+    if (NiceGrid4[06,y]='-') then
+      ACanvas.Brush.Color := clGradientInactiveCaption;
+    if (NiceGrid4[05,y]='') then ACanvas.Brush.Color := clYellow;
+    if (NiceGrid4[06,y]='-') then ACanvas.Brush.Color := clYellow;
+end;
+
+//==================================================================
+// Name      : NiceGrid5DrawCell
+// Desc      : 그리드에 상태 별로 색깔 넣기
+//==================================================================
+procedure TFormCM.NiceGrid5DrawCell(Sender: TObject; ACanvas: TCanvas; X,
+  Y: Integer; Rc: TRect; var Handled: Boolean);
+var
+  i: Integer;
+  stmp  : Ansistring;
+begin
+  if (NiceGrid5[03,y]='') then ACanvas.Font.Color := clBlue; //현재미입금
+  i := strtoint((NiceGrid1[06,y]));
+  case i of
+   0..70:   ACanvas.Brush.Color := clMaroon;
+   71..80:  ACanvas.Brush.Color := clYellow;
+   81..90:  ACanvas.Brush.Color := $$FFFFFF; // 옅은 노랑
+
+  end;
+  if (stmp='出') then begin
+    for I := 0 to 6 do begin
+        stmp := NiceGrid1.Cells[i,y] ;
+        ACanvas.Brush.Color := $00DFDFFF; //clMaroon; //clYellow;
+        ACanvas.Font.Color := clGrayText;
+    end;
+  end;
+end;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+procedure TFormCM.PageControl1Change(Sender: TObject);
+begin
+
+end;
+
+//==================================================================
+// Name      : ButtonOKClick
+// Desc      : 공지사항 OK
+//==================================================================
+procedure TFormCM.ButtonOKClick(Sender: TObject);
+begin
+  timer1.Enabled:=not(timer1.Enabled);
+end;
+
+procedure TFormCM.CheckBox4Click(Sender: TObject);
+begin
+
+end;
+
+//==================================================================
+// Name      : Timer1Timer
+// Desc      : 공지사항용 타이머
+//==================================================================
+procedure TFormCM.Timer1Timer(Sender: TObject);
+var
+  i     : Integer;
+begin
+   if LabelMessage.left > dLen then     // -548
+    begin
+      LabelMessage.left := LabelMessage.left-iSpeed;
+      inc(i);
+    end else LabelMessage.left := viLen; //800;
+end;
+
+
+//==================================================================
+// Name      : Grid_Init
+// Desc      : 그리드 초기화
+//==================================================================
+procedure TformCM.Grid_Init(Index : Integer);
+begin
+  case Index of
+   1: begin
+      with Nicegrid1 do begin
+        ColCount        := 8;
+        RowCount        :=1;
+        DefRowHeight    :=16;
+        ShowGrid        :=True;
+        //GutterFont      :='Minion Pro';
+        //GutterFontSize  :=8;
+        GutterWidth     :=14;
+        Clear;
+      end; // with
+   end;
+   13: begin
+      NiceGrid3.RowCount    :=20;
+      Nicegrid3.ShowFooter  :=True;
+      Nicegrid3.Clear;
+      NiceGrid4.Clear;
+      Nicegrid5.Clear;
+   end;
+
+  end;
+end;
+
+//==================================================================
+// Name      : Text_Init
+// Desc      : 텍스트 박스 초기화
+//==================================================================
+Procedure TformCM.Text_Init(Index : Integer);
+var
+  i   : Integer;
+  TComp : TComponent; //Tedit;
+begin
+  case Index of
+   1 : begin    // ------------------------ tab 1
+          GroupBoxILBan.SendToBack;    //일반수리 그룹박스를 맨 뒤로 보내기
+          GroupBoxBohum.BringToFront;  //보험수리 그룹박스를 맨 위로 올리기
+          for i := 0 to GroupBox9.ControlCount - 1 do
+           begin
+              TComp :=GroupBox9.Controls[i];
+              if TComp.ClassName ='TEdit' then begin
+                        Tedit(GroupBox9.Controls[i]).text :='';
+                        Tedit(GroupBox9.Controls[i]).Height:=17;
+              end;
+
+           end;
+          for i := 0 to GroupBox2.ControlCount - 1 do
+           begin
+              TComp :=GroupBox2.Controls[i];
+              if TComp.ClassName ='TEdit' then begin
+                        Tedit(GroupBox2.Controls[i]).text :='';
+                        Tedit(GroupBox2.Controls[i]).Height:=16;
+              end;
+              if Tcomp.ClassName='TMemo' then
+                TMemo(GroupBox2.Controls[i]).text :='';
+
+           end;
+   end;
+   2 : begin   //---------------------- tab 2      //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+          {EditDate1.Text:='';
+          EditDate2.Text:='';
+          Edit13.Text:='';}
+   end;
+   3 : begin   //--------------------  tab 3
+          {edit11.Text :='';
+          edit12.Text :='';
+          memo1.Text  :=''; }
+   end;
+  end;
+end;
+
+
+
+//==================================================================
+// Name      : ButtonOKClick
+// Desc      : close
+//==================================================================
+procedure TFormCM.ButtonEndClick(Sender: TObject);
+begin
+  close;
+end;
+end.

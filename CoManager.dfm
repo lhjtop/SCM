@@ -21,7 +21,7 @@ object FormCoManager: TFormCoManager
     Top = 15
     Width = 665
     Height = 329
-    ActivePage = TabSheet2
+    ActivePage = TabSheet1
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = #44592#52488' '#51221#48372
@@ -834,6 +834,7 @@ object FormCoManager: TFormCoManager
       'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=N:\DataBase\CarList' +
       '.mdb;Persist Security Info=False;Jet OLEDB:Database Password=sos' +
       'a2011'
+    LoginPrompt = False
     Provider = 'Microsoft.Jet.OLEDB.4.0'
     Left = 520
     Top = 350

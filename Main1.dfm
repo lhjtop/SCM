@@ -2,8 +2,8 @@ object FormMain: TFormMain
   Left = 166
   Top = 21
   Caption = '2014'#49548#49324#51088#46041#52264#44288#47532#54532#47196#44536#47016'(Ver2.0)'
-  ClientHeight = 637
-  ClientWidth = 984
+  ClientHeight = 555
+  ClientWidth = 749
   Color = clBtnFace
   Font.Charset = HANGEUL_CHARSET
   Font.Color = clWindowText
@@ -305,7 +305,7 @@ object FormMain: TFormMain
   object ToolBar1: TToolBar
     Left = 0
     Top = 0
-    Width = 984
+    Width = 749
     Height = 39
     ButtonHeight = 37
     ButtonWidth = 48
@@ -333,8 +333,8 @@ object FormMain: TFormMain
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 618
-    Width = 984
+    Top = 536
+    Width = 749
     Height = 19
     Panels = <
       item
@@ -544,7 +544,7 @@ object FormMain: TFormMain
     Left = 114
     Top = 50
     Bitmap = {
-      494C010103005C00EC0014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103005C00F80014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000001400000001002000000000000019
       000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF

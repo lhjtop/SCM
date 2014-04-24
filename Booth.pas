@@ -20,9 +20,12 @@ type
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
     TabSheet4: TTabSheet;
-    LabelDate: TLabel;
-    MonthCalendar1: TMonthCalendar;
-    NiceGrid1: TNiceGrid;
+    ADOConnection1: TADOConnection;
+    DataSource1: TDataSource;
+    ImageList2: TImageList;
+    RvProject1: TRvProject;
+    ADOQuery1: TADOQuery;
+    Panel1: TPanel;
     GroupBox1: TGroupBox;
     GroupBox2: TGroupBox;
     Label3: TLabel;
@@ -48,18 +51,16 @@ type
     ButtonDelete: TButton;
     ButtonClose: TButton;
     Memo1: TMemo;
+    ButtonPrint1: TButton;
     GroupBox4: TGroupBox;
     Label1: TLabel;
     Label2: TLabel;
     Label11: TLabel;
     Edit9: TEdit;
     Edit10: TEdit;
-    ADOConnection1: TADOConnection;
-    DataSource1: TDataSource;
-    ImageList2: TImageList;
-    RvProject1: TRvProject;
-    ButtonPrint1: TButton;
-    ADOQuery1: TADOQuery;
+    LabelDate: TLabel;
+    MonthCalendar1: TMonthCalendar;
+    NiceGrid1: TNiceGrid;
 
     procedure FormActivate(Sender: TObject);
     procedure MonthCalendar1Click(Sender: TObject);
@@ -90,6 +91,8 @@ type
 var
   FormBooth: TFormBooth;
   FormSecurity: TFormBooth;
+  aDate,yy,mm,dd,ww : ansistring;
+  const days: array[1..7] of string = ('일','월','화','수','목','금','토');
 
 implementation
 
@@ -110,9 +113,6 @@ type
     방지2 : Double;
     메모  : AnsiString;
   end;
-var
-  aDate,yy,mm,dd,ww : ansistring;
-  const days: array[1..7] of string = ('일','월','화','수','목','금','토');
 
 //==================================================================
 // Name      : FormActivate(Sender: TObject)
@@ -186,7 +186,7 @@ end;
 //==================================================================
 Procedure TFormBooth.Work_Booth(dDate:TDateTime);
 var
-  aDate,yy,mm,dd : ansistring;
+  //aDate,yy,mm,dd : ansistring;
   Ssql: AnsiString;
   tmpStr1,tmpStr2: AnsiString;
   //ddDate:TDateTime;
@@ -247,7 +247,7 @@ Procedure TFormBooth.YesterDayWork_Booth(dDate:TDateTime; sBooth1,sBooth2: Ansis
 
 var
   i,j : integer;
-  aDate,yy,mm,dd : ansistring;
+  //aDate,yy,mm,dd : ansistring;
   Ssql: AnsiString;
   BoothToDay, BoothYesterDay,BoothUsing : Array[0..1] of double;
   tmpString : Array[0..1] of AnsiString;
@@ -349,7 +349,7 @@ begin
     if ResultReturn='FAIL' then close;
 
     sSql := 'DELETE FROM 부스 WHERE Date = #' + ToDay + '#;';
- //clipboard.AsText:=ssql;
+ //clipboard.AsText:=ssql;   //   Ctrl - C    복사    uses => ClipBrd
     try
       try
         ADOConnection1.BeginTrans;                     //트랜젝션 시작
@@ -380,42 +380,52 @@ procedure TFormBooth.ButtonPrint1Click(Sender: TObject);
 var
   // BoothPage : TRavePage;
 
-  i         : Integer;
+  i,yn      : Integer;
   Text1     : TRaveText;
   MyPage    : TRavePage;
+  EmptChk   : Boolean;
 
 begin
+//showmessage('yy ,mm, dd = '+ (yy) + ', ' +(mm) + ', ' +(dd) );
+  EmptChk :=False;
+  yn  :=1;
    RvProject1 := TRvProject.Create((nil));
    RvProject1.ProjectFile:='.\SCM1-Booth1.rav';
    Mypage := RvProject1.ProjMan.FindRaveComponent('Report1.Page1',nil) as TRavePage;
-
   // 출력하기 전에 빈 Data가 있는지 체크
-
-   with RvProject1 do
-   begin
-    Open;
-    SelectReport('Report1',False);
-    SetParam('BYear',yy);    // 년
-    SetParam('BMonth',mm);    // 월
-    SetParam('BDay',dd);    //  일
-    SetParam('BWeek',ww);    // 요일
-    SetParam('BWeather',edit9.Text);    // 날씨
-    SetParam('BTemp',edit10.Text);    //   온도
-
-    SetParam('Bbooth11',edit1.Text);    //   온도
-    SetParam('Bbooth12',edit2.Text);    //   온도
-    SetParam('Bbooth21',edit3.Text);    //   온도
-    SetParam('Bbooth22',edit4.Text);    //   온도
-    SetParam('BStatus1','정상');         //   1 상태
-    SetParam('BStatus2','정상');         //   2 상태
-
-    SetParam('BKw1',edit5.Text);    //   온도
-    SetParam('BKw2',edit7.Text);    //   온도
-
-   end;
-   //self.RvProject1.Execute;
-   RvProject1.ExecuteReport('Report1');
-   RvProject1.Close;
+  EmptChk := EmptChk or bNULL(yy)         or bNULL(mm)           or bNULL(dd);
+  EmptChk := EmptChk or bNULL(edit9.Text) or bNULL(edit10.Text);
+  EmptChk := EmptChk or bNULL(edit1.Text) or bNULL(edit2.Text);
+  EmptChk := EmptChk or bNULL(edit3.Text) or bNULL(edit4.Text);
+  EmptChk := EmptChk or bNULL(edit5.Text) or bNULL(edit7.Text);
+  if EmptChk then
+    yn:=MessageDlg('일지에 빠진 자료가 있습니다. 확인이 필요합니다. ' +
+                   '그래도 출력을 할려면 OK를 눌러주세요. '
+                  ,mtInformation,mbOKCancel,0);   // OK : 1 , Cancel : 2
+  if yn=1 then  begin
+    with RvProject1 do
+     begin
+      Open;
+      SelectReport('Report1',False);
+      SetParam('BYear',yy);    // 년
+      SetParam('BMonth',mm);    // 월
+      SetParam('BDay',dd);    //  일
+      SetParam('BWeek',ww);    // 요일
+      SetParam('BWeather',edit9.Text);    // 날씨
+      SetParam('BTemp',edit10.Text);    //   온도
+      SetParam('Bbooth11',edit1.Text);    //   도장1
+      SetParam('Bbooth12',edit2.Text);    //   건조1
+      SetParam('Bbooth21',edit3.Text);    //   도장2
+      SetParam('Bbooth22',edit4.Text);    //   건조2
+      SetParam('BStatus1','정상');         //   1 상태
+      SetParam('BStatus2','정상');         //   2 상태
+      SetParam('BKw1',edit5.Text);    //   적산1
+      SetParam('BKw2',edit7.Text);    //   적산2
+     end;  // with
+      //self.RvProject1.Execute;
+     RvProject1.ExecuteReport('Report1');
+     RvProject1.Close;
+  end; // if
 end;
 
 //==================================================================

@@ -11,13 +11,17 @@ unit lhjModule;
 
 interface
  uses
-  SysUtils, Classes, StrUtils;
+  SysUtils, Classes, StrUtils, Variants ;
 
   Function IIFs(c: Boolean; str1,str2: Ansistring): Ansistring;
   Function IFEmpty(str1,str2: Ansistring): Ansistring;
+  Function IFNULL(sTarget : oleVariant; ReturnStr: Ansistring): Ansistring;
   Function bNULL(str1: Ansistring): Boolean;
+  Function vNULL(str1: oleVariant): Boolean;
   Function DateView(dDate:TDateTime): ansistring;
   function FixedLen(Str : string; Size : integer) : string;
+  Function MyAmount(str1 : oleVariant): Ansistring;
+  Function conNumber(str1: AnsiString): Ansistring;
 const
   MyOver=  -9999;
   MyMax = 100000;
@@ -59,11 +63,22 @@ uses Booth, Main1, Security, CoManager;
 //==================================================================
  Function IFEmpty(str1,str2: Ansistring): Ansistring;
  begin
-   if length(trim(str1)) = 0 then
+   if length(trim(str1)) = 0 then       // length(trim(str1)) = 0
       Result:=str2
    else
       Result:=trim(str1);
-
+ end;
+//==================================================================
+// Name      : IFNULL
+// Desc      :  문자열이 빈것인지 검사해서 원하는 값을 리턴 ( 2014.4.9)
+//   sTarget 공백이면 ReturnStr를 리턴
+//==================================================================
+ Function IFNULL(sTarget : oleVariant; ReturnStr: Ansistring): Ansistring;
+ begin
+   if sTarget=NULL then       // length(trim(str1)) = 0
+      Result  := ReturnStr
+   else
+      Result:=trim(sTarget);
  end;
 
 //==================================================================
@@ -77,8 +92,52 @@ uses Booth, Main1, Security, CoManager;
       Result:= True
    else
       Result:=False;
-
  end;
+
+//==================================================================
+// Name      : vNULL
+// Desc      : 문자열이 빈것인지 검사해서 True/False값을 리턴 ( 2014.4.17)
+//             빈 문자열(NULL) = True
+//==================================================================
+ Function vNULL(str1: oleVariant): Boolean;
+ begin
+   if  (str1) = null then
+      Result:= True
+   else
+      Result:=False;
+ end;
+
+
+//==================================================================
+// Name      : MyAmount
+// Desc      : 숫자를 화폐단위로 리턴 ( 2014.4.23)
+//==================================================================
+Function MyAmount(str1 : oleVariant): Ansistring;
+var
+  str2 : Ansistring;
+begin
+  if (str1) = null then Result := ''
+  else begin
+    str2   := vartostr(str1);
+    Result := formatcurr('#,##0;0;" "',strtofloat(str2));
+  end;
+end;
+//==================================================================
+// Name      : conNumber
+// Desc      : 문자열중에서 숫자만 리턴 ( 2014.4.23)
+//==================================================================
+Function conNumber(str1: AnsiString): Ansistring;
+var
+  i : Integer;
+  sResult : Ansistring;
+begin
+  sResult :='';
+  str1 :=trim(str1);
+  for i := 1 to length(str1) do
+    if (str1[i] in ['0'..'9','+','-','.']) then sResult := sResult + str1[i];
+  Result := sResult;
+
+end;
 //==================================================================
 // Name      : DateView(dDate:TDateTime): ansistring
 // Desc      : 날짜형을 년 월 일 요일로 표시
