@@ -1178,7 +1178,8 @@ object FormCM: TFormCM
               ImeName = 'Microsoft Office IME 2007'
               TabOrder = 0
               Text = 'EditFind'
-              OnKeyPress = EditFindKeyPress
+              OnChange = EditFindChange
+              OnEnter = ButtonFindGoClick
             end
             object Button23: TButton
               Left = 19

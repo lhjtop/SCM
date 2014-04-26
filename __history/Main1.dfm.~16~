@@ -2,8 +2,8 @@ object FormMain: TFormMain
   Left = 166
   Top = 21
   Caption = '2014'#49548#49324#51088#46041#52264#44288#47532#54532#47196#44536#47016'(Ver2.0)'
-  ClientHeight = 637
-  ClientWidth = 984
+  ClientHeight = 555
+  ClientWidth = 749
   Color = clBtnFace
   Font.Charset = HANGEUL_CHARSET
   Font.Color = clWindowText
@@ -305,7 +305,7 @@ object FormMain: TFormMain
   object ToolBar1: TToolBar
     Left = 0
     Top = 0
-    Width = 984
+    Width = 749
     Height = 39
     ButtonHeight = 37
     ButtonWidth = 48
@@ -333,8 +333,8 @@ object FormMain: TFormMain
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 618
-    Width = 984
+    Top = 536
+    Width = 749
     Height = 19
     Panels = <
       item
@@ -350,6 +350,15 @@ object FormMain: TFormMain
       item
         Width = 50
       end>
+  end
+  object ButtonClose: TButton
+    Left = 286
+    Top = 182
+    Width = 293
+    Height = 165
+    Caption = 'Close'
+    TabOrder = 2
+    OnClick = ButtonCloseClick
   end
   object MainMenu1: TMainMenu
     Left = 12
@@ -397,6 +406,7 @@ object FormMain: TFormMain
       end
       object N6: TMenuItem
         Caption = #52264#47049#44288#47532
+        OnClick = N6Click
       end
       object N50: TMenuItem
         Caption = #49436#47448#48156#44553
@@ -406,6 +416,7 @@ object FormMain: TFormMain
       end
       object N8: TMenuItem
         Caption = #51068#44228#54364
+        OnClick = N8Click
       end
       object N9: TMenuItem
         Caption = '-'
@@ -422,6 +433,9 @@ object FormMain: TFormMain
     end
     object N11: TMenuItem
       Caption = #51452#49548#47197
+      object N56: TMenuItem
+        Caption = #48512#54408#49324#44288#47532
+      end
       object N12: TMenuItem
         Caption = #44144#47000#52376' '#44288#47532
       end
@@ -500,6 +514,13 @@ object FormMain: TFormMain
       object N53: TMenuItem
         Caption = #48372#54744#49688#44032' '#44288#47532
       end
+      object N54: TMenuItem
+        Caption = '-'
+      end
+      object N55: TMenuItem
+        Caption = #54924#49324#51221#48372' '#44288#47532
+        OnClick = N55Click
+      end
     end
     object N26: TMenuItem
       Caption = #51221#48372
@@ -523,7 +544,7 @@ object FormMain: TFormMain
     Left = 114
     Top = 50
     Bitmap = {
-      494C010103005C00C80014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010103005C00F80014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000001400000001002000000000000019
       000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
@@ -763,6 +784,6 @@ object FormMain: TFormMain
   end
   object DataSource1: TDataSource
     Left = 160
-    Top = 158
+    Top = 162
   end
 end

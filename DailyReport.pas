@@ -217,7 +217,6 @@ begin
   Ssql:='SELECT ID, 계정과목, 비고 From 계정들 ORDER BY ID asc ;' ;
   ADOQuery1.SQL.Clear;
   ADOQuery1.SQL.Text:=(Ssql);
-  //ADOQuery1.Active:=True;
   ADOQuery1.Open;
 
   if ADOQuery1.Recordset.RecordCount>0 then

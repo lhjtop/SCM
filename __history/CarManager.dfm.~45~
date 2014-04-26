@@ -68,7 +68,7 @@ object FormCM: TFormCM
           Top = -4
           Width = 218
           Height = 171
-          Date = 41697.620113020840000000
+          Date = 41697.370690601850000000
           ImeName = 'Microsoft Office IME 2007'
           TabOrder = 0
           OnClick = MonthCalendar1Click
@@ -1064,7 +1064,6 @@ object FormCM: TFormCM
               #48372#54744#49324#48324
               #47784#46304#51088#47308)
             TabOrder = 0
-            OnClick = RadioGroup2Click
           end
           object GroupBox18: TGroupBox
             Left = 492
@@ -1170,15 +1169,14 @@ object FormCM: TFormCM
               Height = 12
               Caption = #44228#51221' '#47532#49828#53944
             end
-            object EditFind: TEdit
-              Left = 100
+            object Edit42: TEdit
+              Left = 102
               Top = 9
-              Width = 255
+              Width = 121
               Height = 20
               ImeName = 'Microsoft Office IME 2007'
               TabOrder = 0
-              Text = 'EditFind'
-              OnKeyPress = EditFindKeyPress
+              Text = 'Edit13'
             end
             object Button23: TButton
               Left = 19
@@ -1203,15 +1201,6 @@ object FormCM: TFormCM
               Height = 21
               Caption = 'Re'
               TabOrder = 3
-            end
-            object ButtonFindGo: TButton
-              Left = 404
-              Top = 5
-              Width = 75
-              Height = 25
-              Caption = #52286#44592
-              TabOrder = 4
-              OnClick = ButtonFindGoClick
             end
           end
           object GroupBox20: TGroupBox

@@ -20,11 +20,12 @@ object FormCM: TFormCM
     Top = 2
     Width = 1030
     Height = 716
-    ActivePage = TabSheet1
+    ActivePage = TabSheet2
     TabOrder = 0
     OnChange = PageControl1Change
     object TabSheet1: TTabSheet
       Caption = #9733' '#52264' '#47049'  '#54788' '#54889' '#9733
+      ExplicitWidth = 1020
       object Panel1: TPanel
         Left = 0
         Top = 0
@@ -34,6 +35,7 @@ object FormCM: TFormCM
         Color = clGradientInactiveCaption
         ParentBackground = False
         TabOrder = 0
+        ExplicitWidth = 1020
         object LabelDate: TLabel
           Left = 234
           Top = 0
@@ -68,7 +70,7 @@ object FormCM: TFormCM
           Top = -4
           Width = 218
           Height = 171
-          Date = 41697.620113020840000000
+          Date = 41697.747953182870000000
           ImeName = 'Microsoft Office IME 2007'
           TabOrder = 0
           OnClick = MonthCalendar1Click
@@ -126,7 +128,6 @@ object FormCM: TFormCM
             Height = 25
             Caption = #52286#50500#48372#44592
             TabOrder = 5
-            OnClick = Button7Click
           end
           object Button8: TButton
             Left = 400
@@ -419,187 +420,6 @@ object FormCM: TFormCM
             Height = 11
             Caption = #51077#44552#44228'('#48512#54408'+'#44277#51076')'
           end
-          object GroupBox9: TGroupBox
-            Left = 0
-            Top = 13
-            Width = 526
-            Height = 73
-            Caption = '[ '#52264#47049' ]'
-            TabOrder = 2
-            object Label18: TLabel
-              Left = 5
-              Top = 15
-              Width = 48
-              Height = 11
-              Alignment = taCenter
-              AutoSize = False
-              Caption = 'ID'
-            end
-            object Label17: TLabel
-              Left = 161
-              Top = 16
-              Width = 48
-              Height = 11
-              Caption = #52264#47049#48264#54840
-            end
-            object Label12: TLabel
-              Left = 5
-              Top = 35
-              Width = 48
-              Height = 11
-              AutoSize = False
-              Caption = #46321' '#47197' '#51068
-            end
-            object Label4: TLabel
-              Left = 161
-              Top = 35
-              Width = 48
-              Height = 11
-              Caption = #52264#45824#48264#54840
-            end
-            object Label11: TLabel
-              Left = 5
-              Top = 55
-              Width = 48
-              Height = 11
-              AutoSize = False
-              Caption = #51452#54665#44144#47532
-            end
-            object Label10: TLabel
-              Left = 137
-              Top = 55
-              Width = 12
-              Height = 11
-              Caption = #13214
-            end
-            object Label9: TLabel
-              Left = 161
-              Top = 55
-              Width = 48
-              Height = 11
-              Caption = #46020#51109#53076#46300
-            end
-            object Edit1: TEdit
-              Left = 59
-              Top = 12
-              Width = 90
-              Height = 19
-              Color = cl3DLight
-              ImeName = 'Microsoft Office IME 2007'
-              TabOrder = 0
-              Text = 'B201404001'
-            end
-            object Edit2: TEdit
-              Left = 217
-              Top = 11
-              Width = 90
-              Height = 19
-              Margins.Left = 2
-              Margins.Top = 2
-              Margins.Right = 2
-              Margins.Bottom = 2
-              Font.Charset = HANGEUL_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = #44404#47548#52404
-              Font.Style = [fsBold]
-              ImeName = 'Microsoft Office IME 2007'
-              ParentFont = False
-              TabOrder = 1
-              Text = #49436#50872'12'#44032'8989'
-            end
-            object Edit3: TEdit
-              Left = 315
-              Top = 11
-              Width = 152
-              Height = 19
-              Margins.Left = 2
-              Margins.Top = 2
-              Margins.Right = 2
-              Margins.Bottom = 2
-              Font.Charset = HANGEUL_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = #44404#47548#52404
-              Font.Style = [fsBold]
-              ImeName = 'Microsoft Office IME 2007'
-              ParentFont = False
-              TabOrder = 2
-              Text = #44536#47004#46300#49828#53440#47113#49828'12'#51064#49849
-            end
-            object Edit4: TEdit
-              Left = 59
-              Top = 32
-              Width = 90
-              Height = 19
-              ImeName = 'Microsoft Office IME 2007'
-              TabOrder = 3
-              Text = '2014/04/20'
-            end
-            object Edit5: TEdit
-              Left = 217
-              Top = 32
-              Width = 250
-              Height = 19
-              ImeName = 'Microsoft Office IME 2007'
-              TabOrder = 4
-              Text = 'Edit5'
-            end
-            object Edit6: TEdit
-              Left = 59
-              Top = 52
-              Width = 72
-              Height = 19
-              Alignment = taRightJustify
-              ImeName = 'Microsoft Office IME 2007'
-              TabOrder = 5
-              Text = '124,567'
-            end
-            object Edit7: TEdit
-              Left = 217
-              Top = 52
-              Width = 50
-              Height = 19
-              ImeName = 'Microsoft Office IME 2007'
-              TabOrder = 6
-              Text = 'Edit7'
-            end
-            object Button1: TButton
-              Left = 468
-              Top = 12
-              Width = 55
-              Height = 39
-              Caption = #49324#51652#48372#44592
-              TabOrder = 7
-            end
-            object Edit16: TEdit
-              Left = 271
-              Top = 52
-              Width = 70
-              Height = 19
-              ImeName = 'Microsoft Office IME 2007'
-              TabOrder = 8
-              Text = 'Edit7'
-            end
-            object Edit15: TEdit
-              Left = 427
-              Top = 52
-              Width = 90
-              Height = 19
-              ImeName = 'Microsoft Office IME 2007'
-              TabOrder = 9
-              Text = #12615#12615#12615#47116#53944#52852
-            end
-            object CheckBox4: TCheckBox
-              Left = 352
-              Top = 54
-              Width = 69
-              Height = 17
-              Caption = #45824#52264#49324#50857
-              TabOrder = 10
-              OnClick = CheckBox4Click
-            end
-          end
           object GroupBoxILBan: TGroupBox
             Left = 0
             Top = 325
@@ -880,6 +700,187 @@ object FormCM: TFormCM
             Caption = #53685#51109#48156#54665
             TabOrder = 1
           end
+          object GroupBox9: TGroupBox
+            Left = 0
+            Top = 13
+            Width = 526
+            Height = 73
+            Caption = '[ '#52264#47049' ]'
+            TabOrder = 2
+            object Label18: TLabel
+              Left = 5
+              Top = 15
+              Width = 48
+              Height = 11
+              Alignment = taCenter
+              AutoSize = False
+              Caption = 'ID'
+            end
+            object Label17: TLabel
+              Left = 161
+              Top = 16
+              Width = 48
+              Height = 11
+              Caption = #52264#47049#48264#54840
+            end
+            object Label12: TLabel
+              Left = 5
+              Top = 35
+              Width = 48
+              Height = 11
+              AutoSize = False
+              Caption = #46321' '#47197' '#51068
+            end
+            object Label4: TLabel
+              Left = 161
+              Top = 35
+              Width = 48
+              Height = 11
+              Caption = #52264#45824#48264#54840
+            end
+            object Label11: TLabel
+              Left = 5
+              Top = 55
+              Width = 48
+              Height = 11
+              AutoSize = False
+              Caption = #51452#54665#44144#47532
+            end
+            object Label10: TLabel
+              Left = 137
+              Top = 55
+              Width = 12
+              Height = 11
+              Caption = #13214
+            end
+            object Label9: TLabel
+              Left = 161
+              Top = 55
+              Width = 48
+              Height = 11
+              Caption = #46020#51109#53076#46300
+            end
+            object Edit1: TEdit
+              Left = 59
+              Top = 12
+              Width = 90
+              Height = 19
+              Color = cl3DLight
+              ImeName = 'Microsoft Office IME 2007'
+              TabOrder = 0
+              Text = 'B201404001'
+            end
+            object Edit2: TEdit
+              Left = 217
+              Top = 11
+              Width = 90
+              Height = 19
+              Margins.Left = 2
+              Margins.Top = 2
+              Margins.Right = 2
+              Margins.Bottom = 2
+              Font.Charset = HANGEUL_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = #44404#47548#52404
+              Font.Style = [fsBold]
+              ImeName = 'Microsoft Office IME 2007'
+              ParentFont = False
+              TabOrder = 1
+              Text = #49436#50872'12'#44032'8989'
+            end
+            object Edit3: TEdit
+              Left = 315
+              Top = 11
+              Width = 152
+              Height = 19
+              Margins.Left = 2
+              Margins.Top = 2
+              Margins.Right = 2
+              Margins.Bottom = 2
+              Font.Charset = HANGEUL_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = #44404#47548#52404
+              Font.Style = [fsBold]
+              ImeName = 'Microsoft Office IME 2007'
+              ParentFont = False
+              TabOrder = 2
+              Text = #44536#47004#46300#49828#53440#47113#49828'12'#51064#49849
+            end
+            object Edit4: TEdit
+              Left = 59
+              Top = 32
+              Width = 90
+              Height = 19
+              ImeName = 'Microsoft Office IME 2007'
+              TabOrder = 3
+              Text = '2014/04/20'
+            end
+            object Edit5: TEdit
+              Left = 217
+              Top = 32
+              Width = 250
+              Height = 19
+              ImeName = 'Microsoft Office IME 2007'
+              TabOrder = 4
+              Text = 'Edit5'
+            end
+            object Edit6: TEdit
+              Left = 59
+              Top = 52
+              Width = 72
+              Height = 19
+              Alignment = taRightJustify
+              ImeName = 'Microsoft Office IME 2007'
+              TabOrder = 5
+              Text = '124,567'
+            end
+            object Edit7: TEdit
+              Left = 217
+              Top = 52
+              Width = 50
+              Height = 19
+              ImeName = 'Microsoft Office IME 2007'
+              TabOrder = 6
+              Text = 'Edit7'
+            end
+            object Button1: TButton
+              Left = 468
+              Top = 12
+              Width = 55
+              Height = 39
+              Caption = #49324#51652#48372#44592
+              TabOrder = 7
+            end
+            object Edit16: TEdit
+              Left = 271
+              Top = 52
+              Width = 70
+              Height = 19
+              ImeName = 'Microsoft Office IME 2007'
+              TabOrder = 8
+              Text = 'Edit7'
+            end
+            object Edit15: TEdit
+              Left = 427
+              Top = 52
+              Width = 90
+              Height = 19
+              ImeName = 'Microsoft Office IME 2007'
+              TabOrder = 9
+              Text = #12615#12615#12615#47116#53944#52852
+            end
+            object CheckBox4: TCheckBox
+              Left = 352
+              Top = 54
+              Width = 69
+              Height = 17
+              Caption = #45824#52264#49324#50857
+              TabOrder = 10
+              OnClick = CheckBox4Click
+            end
+          end
           object Edit8: TEdit
             Left = 59
             Top = 115
@@ -1044,221 +1045,12 @@ object FormCM: TFormCM
             Text = '99,999,999'
           end
         end
-        object GroupBoxFind: TGroupBox
-          Left = 1
-          Top = 26
-          Width = 1018
-          Height = 143
-          Caption = '[ '#44160' '#49353' ]'
-          TabOrder = 4
-          object RadioGroup2: TRadioGroup
-            Left = 4
-            Top = 18
-            Width = 487
-            Height = 39
-            Columns = 5
-            ItemIndex = 0
-            Items.Strings = (
-              #52264#47049#48264#54840
-              #44144' '#47000' '#52376
-              #48372#54744#49324#48324
-              #47784#46304#51088#47308)
-            TabOrder = 0
-            OnClick = RadioGroup2Click
-          end
-          object GroupBox18: TGroupBox
-            Left = 492
-            Top = 12
-            Width = 524
-            Height = 45
-            Caption = '[ '#44592'  '#44036' ]'
-            TabOrder = 1
-            object Label38: TLabel
-              Left = 106
-              Top = 20
-              Width = 6
-              Height = 12
-              Caption = '~'
-            end
-            object RadioTerm1: TRadioButton
-              Left = 228
-              Top = 16
-              Width = 52
-              Height = 23
-              Caption = '1'#44060#50900
-              TabOrder = 0
-            end
-            object RadioTerm2: TRadioButton
-              Left = 289
-              Top = 16
-              Width = 52
-              Height = 23
-              Caption = '3'#44060#50900
-              TabOrder = 1
-            end
-            object RadioTerm3: TRadioButton
-              Left = 350
-              Top = 16
-              Width = 52
-              Height = 23
-              Caption = '6'#44060#50900
-              TabOrder = 2
-            end
-            object RadioTerm4: TRadioButton
-              Left = 411
-              Top = 16
-              Width = 52
-              Height = 23
-              Caption = '1'#45380
-              TabOrder = 3
-            end
-            object EditDate40: TEdit
-              Left = 8
-              Top = 17
-              Width = 73
-              Height = 20
-              ImeName = 'Microsoft Office IME 2007'
-              TabOrder = 4
-              Text = 'EditDate40'
-            end
-            object Button21: TButton
-              Left = 84
-              Top = 16
-              Width = 17
-              Height = 22
-              Caption = '...'
-              TabOrder = 5
-              OnClick = Button21Click
-            end
-            object EditDate41: TEdit
-              Left = 122
-              Top = 17
-              Width = 73
-              Height = 20
-              ImeName = 'Microsoft Office IME 2007'
-              TabOrder = 6
-              Text = 'EditDate41'
-            end
-            object Button22: TButton
-              Left = 198
-              Top = 16
-              Width = 17
-              Height = 22
-              Caption = '...'
-              TabOrder = 7
-              OnClick = Button22Click
-            end
-            object RadioTerm5: TRadioButton
-              Left = 461
-              Top = 16
-              Width = 58
-              Height = 23
-              Caption = #51204#44592#44036
-              TabOrder = 8
-            end
-          end
-          object GroupBox19: TGroupBox
-            Left = 4
-            Top = 58
-            Width = 487
-            Height = 82
-            TabOrder = 2
-            object Label39: TLabel
-              Left = 19
-              Top = 13
-              Width = 66
-              Height = 12
-              Caption = #44228#51221' '#47532#49828#53944
-            end
-            object EditFind: TEdit
-              Left = 100
-              Top = 9
-              Width = 255
-              Height = 20
-              ImeName = 'Microsoft Office IME 2007'
-              TabOrder = 0
-              Text = 'EditFind'
-              OnKeyPress = EditFindKeyPress
-            end
-            object Button23: TButton
-              Left = 19
-              Top = 28
-              Width = 19
-              Height = 21
-              Caption = #8592
-              TabOrder = 1
-            end
-            object Button24: TButton
-              Left = 42
-              Top = 28
-              Width = 19
-              Height = 21
-              Caption = #8594
-              TabOrder = 2
-            end
-            object Button25: TButton
-              Left = 67
-              Top = 28
-              Width = 19
-              Height = 21
-              Caption = 'Re'
-              TabOrder = 3
-            end
-            object ButtonFindGo: TButton
-              Left = 404
-              Top = 5
-              Width = 75
-              Height = 25
-              Caption = #52286#44592
-              TabOrder = 4
-              OnClick = ButtonFindGoClick
-            end
-          end
-          object GroupBox20: TGroupBox
-            Left = 492
-            Top = 58
-            Width = 523
-            Height = 40
-            TabOrder = 3
-            object Label40: TLabel
-              Left = 16
-              Top = 15
-              Width = 66
-              Height = 12
-              Caption = #44160#49353' '#44208#44284' :'
-            end
-            object Button26: TButton
-              Left = 99
-              Top = 8
-              Width = 104
-              Height = 25
-              Caption = 'Excel'#47196' '#51200#51109
-              TabOrder = 0
-            end
-            object Button27: TButton
-              Left = 233
-              Top = 8
-              Width = 104
-              Height = 25
-              Caption = #52636' '#47141
-              TabOrder = 1
-            end
-            object Button28: TButton
-              Left = 385
-              Top = 8
-              Width = 104
-              Height = 25
-              Caption = #45803' '#44592
-              TabOrder = 2
-              OnClick = Button28Click
-            end
-          end
-        end
       end
     end
     object TabSheet2: TTabSheet
       Caption = ' '#44160'  '#49353' '
       ImageIndex = 1
+      ExplicitWidth = 1020
       object Panel2: TPanel
         Left = 0
         Top = 0
@@ -1268,6 +1060,7 @@ object FormCM: TFormCM
         Color = clGradientInactiveCaption
         ParentBackground = False
         TabOrder = 0
+        ExplicitWidth = 1020
         object Label19: TLabel
           Left = 403
           Top = 7
@@ -1415,30 +1208,6 @@ object FormCM: TFormCM
               TabOrder = 0
               Text = 'Edit13'
             end
-            object Button15: TButton
-              Left = 19
-              Top = 28
-              Width = 19
-              Height = 21
-              Caption = #8592
-              TabOrder = 1
-            end
-            object Button18: TButton
-              Left = 42
-              Top = 28
-              Width = 19
-              Height = 21
-              Caption = #8594
-              TabOrder = 2
-            end
-            object Button19: TButton
-              Left = 67
-              Top = 28
-              Width = 19
-              Height = 21
-              Caption = 'Re'
-              TabOrder = 3
-            end
           end
           object GroupBox16: TGroupBox
             Left = 492
@@ -1468,14 +1237,6 @@ object FormCM: TFormCM
               Height = 25
               Caption = #52636' '#47141
               TabOrder = 1
-            end
-            object Button20: TButton
-              Left = 385
-              Top = 8
-              Width = 104
-              Height = 25
-              Caption = #45803' '#44592
-              TabOrder = 2
             end
           end
         end
@@ -2296,11 +2057,36 @@ object FormCM: TFormCM
             Text = '99,999,999'
           end
         end
+        object Button15: TButton
+          Left = 82
+          Top = 7
+          Width = 19
+          Height = 21
+          Caption = #8592
+          TabOrder = 3
+        end
+        object Button18: TButton
+          Left = 105
+          Top = 7
+          Width = 19
+          Height = 21
+          Caption = #8594
+          TabOrder = 4
+        end
+        object Button19: TButton
+          Left = 130
+          Top = 7
+          Width = 19
+          Height = 21
+          Caption = 'Re'
+          TabOrder = 5
+        end
       end
     end
     object TabSheet3: TTabSheet
       Caption = #50629' '#47924' '#54788' '#54889
       ImageIndex = 2
+      ExplicitWidth = 1020
       object GroupBox7: TGroupBox
         Left = 3
         Top = 196
@@ -2321,6 +2107,7 @@ object FormCM: TFormCM
     object TabSheet4: TTabSheet
       Caption = #52397' '#44396' '#54788' '#54889
       ImageIndex = 3
+      ExplicitWidth = 1020
       object GroupBox6: TGroupBox
         Left = 0
         Top = 18
