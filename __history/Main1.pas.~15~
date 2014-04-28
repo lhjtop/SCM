@@ -91,7 +91,6 @@ type
     procedure N55Click(Sender: TObject);
     procedure N8Click(Sender: TObject);
     procedure N6Click(Sender: TObject);
-    procedure N13Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -147,14 +146,13 @@ begin
 end;
 
 //==================================================================
-// Name      : TMainFrm.N13Click
-// Desc      : 보험 담당 관리
+// Name      : TMainFrm.N2Click
+// Desc      : end
 //==================================================================
-procedure TFormMain.N13Click(Sender: TObject);
+procedure TFormMain.N2Click(Sender: TObject);    // end
 begin
-  FormCharge
+  close;
 end;
-
 //==================================================================
 // Name      : TMainFrm.N5Click
 // Desc      : 사용자 전환
@@ -218,15 +216,6 @@ begin
   FormSecurity.Free;
   if ResultReturn='OK' then} FormCoManager.ShowModal;
 
-end;
-
-//==================================================================
-// Name      : TMainFrm.N2Click
-// Desc      : end
-//==================================================================
-procedure TFormMain.N2Click(Sender: TObject);    // end
-begin
-  close;
 end;
 
 //==================================================================

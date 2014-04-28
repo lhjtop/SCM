@@ -349,7 +349,7 @@ begin
     if ResultReturn='FAIL' then close;
 
     sSql := 'DELETE FROM 부스 WHERE Date = #' + ToDay + '#;';
- //clipboard.AsText:=ssql;   //   Ctrl - C    복사  copy  uses => ClipBrd
+ //clipboard.AsText:=ssql;   //   Ctrl - C    복사    uses => ClipBrd
     try
       try
         ADOConnection1.BeginTrans;                     //트랜젝션 시작

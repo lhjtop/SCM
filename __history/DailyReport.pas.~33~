@@ -136,10 +136,10 @@ type
   end;
 
 var
-  FormDailyReport : TFormDailyReport;
-  SelDate         : Ansistring;
-  dateFlag        : Integer; // 날짜 처리 변수
-  FormSecurity    : TFormDailyReport;
+  FormDailyReport: TFormDailyReport;
+  SelDate : Ansistring;
+  dateFlag : Integer; // 날짜 처리 변수
+  FormSecurity: TFormDailyReport;
 implementation
 
 {$R *.dfm}
@@ -365,12 +365,12 @@ begin
         ADOConnection1.CommitTrans;                    //트랜젝션 적용
       except
         ADOConnection1.RollbackTrans;                 //트랜젝션 롤백
-        //showmessage(' try exception 예외처리');
+        //showmessage(' try exception 예외처리');    ///////////////////////////////////////
       end;
     finally
         //ADOQuery1.Open;
         ADOQuery1.Active:=False;
-        //showmessage(' try finally 예외처리');
+        //showmessage(' try finally 예외처리');       ///////////////////////////////////////
     end;
     ADOQuery1.Active:=False;
   end;

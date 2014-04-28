@@ -19,27 +19,23 @@ object FormCM: TFormCM
   TextHeight = 12
   object PageControl1: TPageControl
     Left = 0
-    Top = 0
-    Width = 1025
-    Height = 683
+    Top = 2
+    Width = 1030
+    Height = 716
     ActivePage = TabSheet1
-    Align = alClient
     TabOrder = 0
     OnChange = PageControl1Change
     object TabSheet1: TTabSheet
       Caption = #9733' '#52264' '#47049'  '#54788' '#54889' '#9733
-      ExplicitWidth = 1022
-      ExplicitHeight = 688
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 1017
+        Width = 1022
         Height = 688
         Align = alTop
         Color = clGradientInactiveCaption
         ParentBackground = False
         TabOrder = 0
-        ExplicitWidth = 1022
         object LabelDate: TLabel
           Left = 234
           Top = 0
@@ -250,7 +246,7 @@ object FormCM: TFormCM
             Left = 3
             Top = 17
             Width = 490
-            Height = 456
+            Height = 460
             Cursor = 101
             ColCount = 8
             RowCount = 30
@@ -1458,10 +1454,12 @@ object FormCM: TFormCM
       end
     end
     object TabSheet2: TTabSheet
-      Caption = #52264' '#47049' '#54788' '#54889
+      Caption = ' '#44160'  '#49353' '
       ImageIndex = 1
-      ExplicitWidth = 1022
-      ExplicitHeight = 688
+    end
+    object TabSheet3: TTabSheet
+      Caption = #50629' '#47924' '#54788' '#54889
+      ImageIndex = 2
       object GroupBox7: TGroupBox
         Left = 3
         Top = 196
@@ -1479,11 +1477,9 @@ object FormCM: TFormCM
         TabOrder = 1
       end
     end
-    object TabSheet3: TTabSheet
+    object TabSheet4: TTabSheet
       Caption = #52397' '#44396' '#54788' '#54889
-      ImageIndex = 2
-      ExplicitWidth = 1022
-      ExplicitHeight = 688
+      ImageIndex = 3
       object GroupBox6: TGroupBox
         Left = 0
         Top = 18
@@ -1492,12 +1488,6 @@ object FormCM: TFormCM
         Caption = '['#52264#47049' '#52397#44396' '#54788#54889']'
         TabOrder = 0
       end
-    end
-    object TabSheet4: TTabSheet
-      Caption = #44592' '#53440
-      ImageIndex = 3
-      ExplicitWidth = 1022
-      ExplicitHeight = 688
     end
   end
   object PanelMessage: TPanel
@@ -1545,7 +1535,7 @@ object FormCM: TFormCM
       'a2011'
     Provider = 'Microsoft.Jet.OLEDB.4.0'
     Left = 56
-    Top = 634
+    Top = 632
   end
   object ADOQuery1: TADOQuery
     Connection = ADOConnection1

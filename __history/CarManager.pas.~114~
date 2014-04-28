@@ -5,8 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ComCtrls, ExtCtrls, StdCtrls, NiceGrid, StrUtils, ClipBrd, DateUtils,
-  lhjModule, DB, ADODB, IniFiles,
-  ComObj, OleCtrls, Excel2000;
+  lhjModule, DB, ADODB, IniFiles;
+
 type
   TFormCM = class(TForm)
     PageControl1: TPageControl;
@@ -14,7 +14,10 @@ type
     Panel1: TPanel;
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
+    GroupBox7: TGroupBox;
+    GroupBox8: TGroupBox;
     TabSheet4: TTabSheet;
+    GroupBox6: TGroupBox;
     PanelMessage: TPanel;
     LabelMessage: TLabel;
     ButtonOK: TButton;
@@ -138,9 +141,6 @@ type
     Label50: TLabel;
     Label51: TLabel;
     Label52: TLabel;
-    GroupBox7: TGroupBox;
-    GroupBox8: TGroupBox;
-    GroupBox6: TGroupBox;
     procedure Grid_Init(Index : Integer);
     Procedure Text_Init(Index : Integer);
     procedure Timer1Timer(Sender: TObject);
@@ -185,7 +185,6 @@ type
     procedure RadioTerm3Click(Sender: TObject);
     procedure RadioTerm4Click(Sender: TObject);
     procedure RadioTerm5Click(Sender: TObject);
-    procedure Button26Click(Sender: TObject);
   private
     { Private declarations }
     procedure CustomDblClick(Sender : TObject);
@@ -391,133 +390,6 @@ begin
   2: MakeBoHum; // 보험사별
   end;
 end;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//==================================================================
-// Name      : Button26Click
-// Desc      : Excel save
-//==================================================================
-procedure TFormCM.Button26Click(Sender: TObject);
-var
-  XL: Variant;
-  i,k: integer;
-  sData: string;
-begin
-{  try
-    XL := CreateOLEObject('Excel.Application');
-  except on E: Exception do
-  begin
-    ShowMessage('Excel OLE object를 오픈할 수 없습니다.'+E.Message);
-    Exit;
-  end; end;
-  try
-    XL.WorkBooks.Add; //새로운 페이지 생성
-    XL.Visible := False;
-    XL.Workbooks[XL.Workbooks.Count].WorkSheets[1].Name := 'Sheet1';
-    sData := '';
-    for i := 0 to vDBGrid.Columns.Count - 1 do
-    begin
-      sData := sData+vDBGrid.Columns[i].Title.Caption+#9;
-      if vDBGrid.Columns[i].Field.DataType in [ftString,ftMemo,ftWideString] then
-      begin
-        XL.Workbooks[XL.Workbooks.Count].WorkSheets['Sheet1'].Columns[i+1].Select;
-        XL.Selection.NumberFormatLocal := '@';
-      end;
-    end;
-    sData := sData+#$D#$A;
-    with vDBGrid do
-    begin
-      k := 0;
-      DataSource.DataSet.First;
-      while not DataSource.DataSet.Eof do
-      begin
-        inc(k);
-        for i := 0 to Columns.Count - 1 do
-          sData := sData+Columns[i].Field.AsString+#9;
-        sData := sData+#$D#$A;
-        DataSource.DataSet.Next;
-      end;
-    end;
-    Clipboard.SetTextBuf(PChar(sData));
-    XL.Cells[1,1].Pastespecial;
-    XL.Range['A1', Chr(64+vDBGrid.Columns.Count)+IntToStr(k)].select;
-    XL.Selection.Columns.AutoFit;
-    XL.Range['A1', 'A1'].select;
-    XL.Visible := True;
-  except on E: Exception do
-  begin
-    ShowMessage('Excel로 자료를 보내는 중 오류가 발생했습니다.'+E.Message);
-    XL.Visible := True;
-    Exit;
-  end; end;
-
-    // 워크북 저장
-     //WorkBook.SaveAs(Filename:='.\' + NOW + datetostr(Timeof) + '-FIND.xls');
-    Excel.workbooks.saveas('.\' + datetostr(NOW()) +  '-FIND.xls'); // 저장   timetostr(time) +
-  // 워크북 닫기
-  WorkBook.close;
-  WorkBook:=unAssigned;
-  WorkSheet:=unAssigned;
-  // 엑셀 종료
-  Excel.Quit;
-  Excel:=unAssigned;
-
-   }
-end;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1091,9 +963,8 @@ clipboard.AsText:=ssqls[6];   //   Ctrl - C    복사  copy  uses => ClipBrd
             NiceGrid1[06,i]     := ifNULL(Item[5].Value,' '); // 출고예정
             NiceGrid1[07,i]     := ifNULL(Item[6].Value,' '); // 출고
           except
-           // showmessage('Error 발생!! ['+ inttostr(i)+'] [' + Item[0].Value+'] ['+Item[1].Value +'] ['+Item[2].Value+'] ['+Item[3].Value+'] ['+Item[4].Value+'] ['+Item[5].Value+'] ['+Item[6].Value+'] ['+Item[7].Value+'] ');
-            ADOQuery1.Active:=False;
-            // Break;  // loop ending !!!!
+            showmessage('Error 발생!! ['+ inttostr(i)+'] [' + Item[0].Value+'] ['+Item[1].Value +'] ['+Item[2].Value+'] ['+Item[3].Value+'] ['+Item[4].Value+'] ['+Item[5].Value+'] ['+Item[6].Value+'] ['+Item[7].Value+'] ');
+            Break;  // loop ending !!!!
           end; // try
         end; // with
         ADOQuery1.Next;
@@ -1154,8 +1025,8 @@ clipboard.AsText:=ssqls[6];   //   Ctrl - C    복사  copy  uses => ClipBrd
               NiceGrid1[06,icnt]     := ifNULL(Item[5].Value,' '); // 출고예정
               NiceGrid1[07,icnt]     := ifNULL(Item[6].Value,' '); // 출고
             except
-              //showmessage('Error 발생!! ['+ inttostr(icnt)+'] [' + Item[0].Value+'] ['+Item[1].Value +'] ['+Item[2].Value+'] ['+Item[3].Value+'] ['+Item[4].Value+'] ['+Item[5].Value+'] ['+Item[6].Value+'] ['+Item[7].Value+'] ');                                                          // Break;  // loop ending !!!!
-              ADOQuery1.Active:=False;
+              showmessage('Error 발생!! ['+ inttostr(icnt)+'] [' + Item[0].Value+'] ['+Item[1].Value +'] ['+Item[2].Value+'] ['+Item[3].Value+'] ['+Item[4].Value+'] ['+Item[5].Value+'] ['+Item[6].Value+'] ['+Item[7].Value+'] ');
+              Break;  // loop ending !!!!
             end; // try
           end; // with
           ADOQuery1.Next;
@@ -1585,7 +1456,7 @@ begin
           NiceGrid4[02,iRow] := ifempty(Item[3].Value,''); // 과실
           NiceGrid4[03,iRow] := ifempty(Item[4].Value,''); // 접수번호
           NiceGrid4[05,iRow] :=MyAmount(Item[5].Value); // 면책금
-          NiceGrid4[04,iRow] := ifNULL(Item[6].Value,''); // 정률구분
+          NiceGrid4[04,iRow] := ifempty(Item[6].Value,''); // 정률구분
           NiceGrid4[07,iRow] := ifempty(Item[7].Value,''); // 담당자
           NiceGrid4[08,iRow] := '000-0000-0000'; // 담당자 연락처(다시 조회)
           NiceGrid4[09,iRow] := '0000-000-0000'; // 담당자 FAX(다시 조회)

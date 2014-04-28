@@ -14,7 +14,10 @@ type
     Panel1: TPanel;
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
+    GroupBox7: TGroupBox;
+    GroupBox8: TGroupBox;
     TabSheet4: TTabSheet;
+    GroupBox6: TGroupBox;
     PanelMessage: TPanel;
     LabelMessage: TLabel;
     ButtonOK: TButton;
@@ -138,9 +141,6 @@ type
     Label50: TLabel;
     Label51: TLabel;
     Label52: TLabel;
-    GroupBox7: TGroupBox;
-    GroupBox8: TGroupBox;
-    GroupBox6: TGroupBox;
     procedure Grid_Init(Index : Integer);
     Procedure Text_Init(Index : Integer);
     procedure Timer1Timer(Sender: TObject);

@@ -136,10 +136,10 @@ type
   end;
 
 var
-  FormDailyReport : TFormDailyReport;
-  SelDate         : Ansistring;
-  dateFlag        : Integer; // 날짜 처리 변수
-  FormSecurity    : TFormDailyReport;
+  FormDailyReport: TFormDailyReport;
+  SelDate : Ansistring;
+  dateFlag : Integer; // 날짜 처리 변수
+  FormSecurity: TFormDailyReport;
 implementation
 
 {$R *.dfm}
