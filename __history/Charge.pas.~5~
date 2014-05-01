@@ -1,0 +1,188 @@
+unit Charge;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, NiceGrid, ExtCtrls, DB, ADODB,
+  lhjModule;
+
+type
+  TFormCharge = class(TForm)
+    ADOConnection1: TADOConnection;
+    ADOQuery1: TADOQuery;
+    DataSource1: TDataSource;
+    Panel3: TPanel;
+    Label14: TLabel;
+    NiceGrid1: TNiceGrid;
+    GroupBox8: TGroupBox;
+    ButtonCharge1: TButton;
+    ButtonCharge2: TButton;
+    ButtonCharge3: TButton;
+    ButtonChargeEnd: TButton;
+    GroupBox1: TGroupBox;
+    Label12: TLabel;
+    Label13: TLabel;
+    Label20: TLabel;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    Edit4: TEdit;
+    Edit6: TEdit;
+    Edit7: TEdit;
+    Edit9: TEdit;
+    Edit10: TEdit;
+    Label1: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Memo1: TMemo;
+    Edit8: TEdit;
+    Label2: TLabel;
+    Label3: TLabel;
+    Edit5: TEdit;
+    procedure FormActivate(Sender: TObject);
+    Procedure Text_Init(Index : Integer);
+    Procedure Grid_Init(Index : Integer);
+    procedure ButtonChargeEndClick(Sender: TObject);
+    procedure ChargeManager;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormCharge: TFormCharge;
+
+implementation
+
+{$R *.dfm}
+
+//==================================================================
+// Name      : FormActivate
+// Desc      : Form 초기화
+//==================================================================
+procedure TFormCharge.FormActivate(Sender: TObject);
+begin
+  Grid_Init(0);
+  Text_Init(0);
+  ChargeManager;
+end;
+
+//==================================================================
+// Name      : ChargeManager
+// Desc      : Manager
+//==================================================================
+procedure TFormCharge.ChargeManager;
+var
+  i       : Integer;
+  Ssql    : AnsiString;
+
+begin
+
+  Ssql:='SELECT ID, 보험사, 담당, 이름, 직위, 핸드폰, FAX, 메일, 사무실, ' +
+        '콜센타, 메모 ' + ' From 보험담당 ORDER BY 보험사 asc, 이름 ASC ;' ;
+  ADOQuery1.SQL.Clear;
+  ADOQuery1.SQL.Text:=(Ssql);
+  ADOQuery1.Open;
+
+  if ADOQuery1.Recordset.RecordCount>0 then
+   begin
+    i:=0;
+    NiceGrid1.BeginUpdate;
+    NiceGrid1.RowCount:=ADOQuery1.Recordset.RecordCount;
+    while not ADOQuery1.Eof do
+    begin
+      with ADOQuery1.Recordset.Fields do
+       begin
+        NiceGrid1[00,i] := ifempty(Item[0].Value,''); // ID
+        NiceGrid1[01,i] := ifempty(Item[1].Value,''); // 보험사
+        NiceGrid1[02,i] := ifempty(Item[2].Value,''); // 담당
+        NiceGrid1[03,i] := ifempty(Item[3].Value,''); // 이름
+        NiceGrid1[04,i] := ifempty(Item[4].Value,''); // 직위
+        NiceGrid1[05,i] := ifempty(Item[5].Value,''); // 핸드폰
+        NiceGrid1[06,i] := ifempty(Item[6].Value,''); // FAX
+        NiceGrid1[07,i] := ifempty(Item[7].Value,''); // 메일
+        NiceGrid1[08,i] := ifempty(Item[8].Value,''); // 사무실
+        NiceGrid1[09,i] := ifempty(Item[9].Value,''); // 콜센타
+        NiceGrid1[10,i] := ifempty(Item[10].Value,''); // 메모
+       end; // with
+      inc(i);
+      ADOQuery1.Next;
+    end; // while
+    NiceGrid1.EndUpdate;
+   end; // if
+  ADOQuery1.Active:=False;
+
+
+end;
+
+//==================================================================
+// Name      : Text_Init
+// Desc      : 텍스트 박스 초기화
+//==================================================================
+Procedure TFormCharge.Text_Init(Index : Integer);
+var
+  i   : Integer;
+  TComp : TComponent; //Tedit;
+begin
+  // ------------------- 차량 세부정보 초기화
+  for i := 0 to GroupBox1.ControlCount - 1 do  // 세부정보 - 전체
+  begin
+    TComp :=GroupBox1.Controls[i];
+    if TComp.ClassName ='TEdit' then begin
+      Tedit(GroupBox1.Controls[i]).text :='';
+      Tedit(GroupBox1.Controls[i]).Height:=16;
+    end;  // if
+    if Tcomp.ClassName='TMemo' then TMemo(GroupBox1.Controls[i]).text :='';
+  end; // for
+end;
+
+//==================================================================
+// Name      : Grid_Init
+// Desc      : 그리드 초기화
+//==================================================================
+procedure TFormCharge.Grid_Init(Index : Integer);
+begin
+  // 그리드 초기화
+  with NiceGrid1 do begin
+    ColCount     := 11;
+    Color        := clWindow;
+    RowCount     :=1;
+    ShowGrid     :=True;
+    Width        := 950;
+    Height       := 390;
+    DefRowHeight := 16;
+    Font.Name    := '굴림체';
+    Font.Size    := 8;
+    ShowFooter   :=False;
+    GutterWidth  := 18;
+    GutterKind   := gkNumber;
+    GutterFont.Name:='Minion Pro';
+    GutterFont.Size:=9;
+    Columns[0].Title:='ID';       Columns[0].Width  :=80;
+    Columns[1].Title:='보험사';   Columns[1].Width  :=90;
+    Columns[2].Title:='담당';     Columns[2].Width  :=48;
+    Columns[3].Title:='이름';     Columns[3].Width  :=80;
+    Columns[4].Title:='직위';     Columns[4].Width  :=48;
+    Columns[5].Title:='핸드폰';   Columns[5].Width  :=85;
+    Columns[6].Title:='FAX';      Columns[6].Width  :=90;
+    Columns[7].Title:='메일주소'; Columns[7].Width  :=100;
+    Columns[8].Title:='사무실';   Columns[8].Width  :=85;
+    Columns[9].Title:='콜센터';   Columns[9].Width  :=85;
+    Columns[10].Title:='메모';    Columns[10].Width :=110;
+    Clear;
+  end;
+end;
+
+//==================================================================
+// Name      : ButtonChargeEndClick
+// Desc      : end , close
+//==================================================================
+procedure TFormCharge.ButtonChargeEndClick(Sender: TObject);
+begin
+  close;
+end;
+end.

@@ -21,7 +21,7 @@ object FormDailyReport: TFormDailyReport
     Top = 14
     Width = 781
     Height = 599
-    ActivePage = TabSheet3
+    ActivePage = TabSheet1
     TabOrder = 0
     OnChange = PageControl1Change
     object TabSheet1: TTabSheet

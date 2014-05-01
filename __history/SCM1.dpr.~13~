@@ -1,0 +1,22 @@
+program SCM1;
+
+uses
+  Forms,
+  Main1 in 'Main1.pas' {FormMain},
+  Booth in 'Booth.pas' {FormBooth},
+  LogIn in 'LogIn.pas' {FormLogIn},
+  Security in 'Security.pas' {FormSecurity},
+  lhjModule in 'lhjModule.pas',
+  CoManager in 'CoManager.pas' {FormCoManager},
+  DailyReport in 'DailyReport.pas' {FormDailyReport},
+  CarManager in 'CarManager.pas' {FormCM},
+  Charge in 'Charge.pas' {FormCharge};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TFormMain, FormMain);
+  Application.Run;
+end.

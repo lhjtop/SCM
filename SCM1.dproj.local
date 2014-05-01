@@ -26,5 +26,11 @@
     <Transaction>2014-04-18 12:04:15.906.dfm,C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Unit1.dfm=C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\CarManager.dfm</Transaction>
     <Transaction>2014-04-29 01:59:50.606.pas,C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Unit1.pas=C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Charge.pas</Transaction>
     <Transaction>2014-04-29 01:59:50.606.dfm,C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Unit1.dfm=C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Charge.dfm</Transaction>
+    <Transaction>2014-04-29 19:49:52.526.pas,C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Unit1.pas=C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Client.pas</Transaction>
+    <Transaction>2014-04-29 19:49:52.526.dfm,C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Unit1.dfm=C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Client.dfm</Transaction>
+    <Transaction>2014-04-30 01:18:28.364.pas,C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Unit1.pas=C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Parts.pas</Transaction>
+    <Transaction>2014-04-30 01:18:28.364.dfm,C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Unit1.dfm=C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Parts.dfm</Transaction>
+    <Transaction>2014-05-01 02:01:38.066.pas,C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Unit1.pas=C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\IpGo.pas</Transaction>
+    <Transaction>2014-05-01 02:01:38.066.dfm,C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\Unit1.dfm=C:\Users\Lee\Documents\0-MyProject\0-Progress\6-SCM-2014\SCM1\IpGo.dfm</Transaction>
   </Transactions>
 </BorlandProject>

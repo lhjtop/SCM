@@ -1,0 +1,709 @@
+                       unit Client;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, NiceGrid, ExtCtrls, DB, ADODB, IniFiles,
+  lhjModule ,ClipBrd ;
+
+type
+  TFormClient = class(TForm)
+    ADOConnection1: TADOConnection;
+    ADOQuery1: TADOQuery;
+    DataSource1: TDataSource;
+    Panel1: TPanel;
+    Label14: TLabel;
+    GroupBox1: TGroupBox;
+    Label12: TLabel;
+    Label13: TLabel;
+    Label20: TLabel;
+    Label1: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label15: TLabel;
+    Label16: TLabel;
+    Label8: TLabel;
+    Label17: TLabel;
+    Label18: TLabel;
+    Label19: TLabel;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    Edit4: TEdit;
+    Edit5: TEdit;
+    Edit6: TEdit;
+    Edit12: TEdit;
+    Edit8: TEdit;
+    Memo1: TMemo;
+    Edit11: TEdit;
+    Edit7: TEdit;
+    Edit9: TEdit;
+    Edit10: TEdit;
+    Edit19: TEdit;
+    Edit17: TEdit;
+    Edit18: TEdit;
+    Edit13: TEdit;
+    Edit14: TEdit;
+    Edit15: TEdit;
+    Edit16: TEdit;
+    NiceGridSync1: TNiceGridSync;
+    NiceGrid1: TNiceGrid;
+    GroupBox2: TGroupBox;
+    EditFind: TEdit;
+    ButtonFind: TButton;
+    ButtonFindCancel: TButton;
+    GroupBox8: TGroupBox;
+    ButtonClient1: TButton;
+    ButtonClient2: TButton;
+    ButtonClient3: TButton;
+    ButtonClientEnd: TButton;
+    procedure FormActivate(Sender: TObject);
+    Procedure Grid_Init(Index : Integer);
+    Procedure Text_Init(Index : Integer);
+    procedure ClientManager;
+    procedure Grid_Listing_Client(NGrid : TNiceGrid; Ssql: Ansistring);
+    procedure NiceGridSync1DrawCell(Sender: TObject; ACanvas: TCanvas; X,
+      Y: Integer; Rc: TRect; var Handled: Boolean);
+    procedure NiceGrid1DrawCell(Sender: TObject; ACanvas: TCanvas; X,
+      Y: Integer; Rc: TRect; var Handled: Boolean);
+    procedure NiceGrid1Click(Sender: TObject);
+    procedure DetailView(iRow : integer);
+    procedure NiceGridSync1Click(Sender: TObject);
+    procedure NiceGrid1KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure NiceGridSync1KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure ButtonFindClick(Sender: TObject);
+    procedure ButtonFindCancelClick(Sender: TObject);
+    procedure EditFindKeyPress(Sender: TObject; var Key: Char);
+    procedure ButtonClientEndClick(Sender: TObject);
+    procedure ButtonClient3Click(Sender: TObject);
+    procedure ButtonClient2Click(Sender: TObject);
+    procedure ButtonClient1Click(Sender: TObject);
+  private
+    { Private declarations }
+   // procedure BoHumDblClick(Sender: TObject);
+  public
+    { Public declarations }
+  end;
+
+var
+  FormClient    : TFormClient;
+  //FormSecurity  : TFormCharge;
+implementation
+
+{$R *.dfm}
+
+var
+  FindFlag    : Boolean;            //  검색mode = True
+  NGrid       : TNiceGrid;
+  DBLIST1     : ansistring;
+//==================================================================
+// Name      : FormActivate
+// Desc      : Form 초기화
+//==================================================================
+procedure TFormClient.FormActivate(Sender: TObject);
+begin
+  ADOQuery1.Connection.LoginPrompt:=False;
+  FindFlag  := False;
+  Grid_Init(0);
+  Text_Init(0);
+  Text_Init(71);
+
+  dblist1 := 'ID, 거래처이름, 핸드폰, 구분, 상호, 성명, 사업자번호, 개업일, ' +
+             '전화1, 전화2, 팩스, 메일, 업태, 종목, 과세여부, 생일, 계좌1, ' +
+             '계좌2, 주소, 비고 ';
+  ClientManager;
+end;
+
+
+//==================================================================
+// Name      : ClientManager
+// Desc      : Manager
+//==================================================================
+procedure TFormClient.ClientManager;
+var
+  Ssql    : AnsiString;
+begin
+  Ssql  :='SELECT ' + DBLIST1 + ' From 거래처 ORDER BY 거래처이름 asc, 성명 ASC ;' ;
+  Grid_Listing_Client(NiceGrid1,Ssql);
+end;
+
+//==================================================================
+// Name      : Grid_Listing_Client
+// Desc      : NiceGrid에 쿼리문 받아서 뿌려주는 함수
+//==================================================================
+procedure TFormClient.Grid_Listing_Client(NGrid : TNiceGrid; Ssql: Ansistring);
+var
+  i,j       : Integer;
+  SGridS    : TNiceGridSync;
+begin
+  //
+  sGrids  :=NiceGridSync1;
+  //
+  ADOQuery1.SQL.Clear;
+  ADOQuery1.SQL.Text:=(Ssql);
+  ADOQuery1.Open;
+  ngrid.Clear;
+  if ADOQuery1.Recordset.RecordCount>0 then begin
+    i:=0;
+    NGrid.BeginUpdate;
+    sgrids.BeginUpdate;
+    NGrid.RowCount  := ADOQuery1.Recordset.RecordCount;
+    sGrids.RowCount := ADOQuery1.Recordset.RecordCount;
+    while not ADOQuery1.Eof do begin
+      with ADOQuery1.Recordset.Fields  do begin
+        for j := 0 to ADOQuery1.Recordset.Fields.Count - 1 do begin
+          //
+          case j of
+           0, 1: begin SGrids[j,i] := ifNULL(Item[j].Value,''); end;
+           else begin NGrid[j-2 ,i]  := ifNULL(Item[j].Value,''); end;
+          end; // case
+        end; // for
+      end; // with
+      inc(i);
+      //if i=70 then showmessage (' i = 87 ');
+
+      ADOQuery1.Next;
+    end; // while
+    NGrid.EndUpdate;
+    sgrids.EndUpdate;
+  end; // if
+  ADOQuery1.Active:=False;
+
+end;
+
+
+//==================================================================
+// Name      : ButtonClient1Click
+// Desc      : save
+//==================================================================
+procedure TFormClient.ButtonClient1Click(Sender: TObject);
+var
+  Flag      : boolean;
+  yn        : integer;
+  Ssql      : Ansistring;
+  myMessage : AnsiString;
+  tmpstr    : ansistring;
+begin
+  Ssql:='SELECT ID, 거래처이름, 상호 From 거래처 ' +
+        'WHERE 거래처이름 = ' +  QQ + edit2.Text + QQ  +
+        // ' AND 상호 = ' + QQ + edit5.Text + QQ  +
+        'ORDER BY 거래처이름 asc, 성명 ASC ;' ;
+  ADOQuery1.SQL.Clear;
+  ADOQuery1.SQL.Text:=(Ssql);
+  ADOQuery1.Open;
+  tmpstr := formatdatetime('yyyymmddhhnnss', now());
+  if ADOQuery1.Recordset.RecordCount>0 then begin
+    yn:=MessageDlg('동일한 거래처 이름이 있습니다. 덮어쓰기할까요 ?'
+                  ,mtInformation,mbOKCancel,0);   // OK : 1 , Cancel : 2
+    if yn=1 then begin
+         edit1.Text  := ifNULL(ADOQuery1.Recordset.Fields.Item[0].Value,tmpstr)
+    end else begin
+      edit1.Text  := tmpstr;
+    end; // if
+  end else begin
+    edit1.Text  := tmpstr;
+  end; // if
+  ADOQuery1.Active:=False;
+//clipboard.AsText:= '[' + edit1.Text +']';
+  if (vNULL(edit2.Text)) and (vNULL(edit5.Text)) and (vNULL(edit6.Text)) then
+  begin
+    showmessage('DATA 입력이 완벽하지 않습니다. 다시한번 확인해 주세요...');
+    exit;
+  end;
+  //if (vNULL(edit8.Text)) then begin
+  //    showmessage('개업일 입력형식을 확인해 주세요 날짜 형식(yyyy-mm-dd) 입니다. ...');
+  //    exit;
+  //end;
+
+    Ssql  :='SELECT ' + DBLIST1 + ' From 거래처 ' +
+            'WHERE ID = ' + QQ + trim(edit1.Text) + QQ + ';' ;
+    ADOQuery1.SQL.Clear;
+    ADOQuery1.SQL.Text:=(Ssql);
+    ADOQuery1.Open;
+    if ADOQuery1.Recordset.RecordCount<=0 then begin
+      try     // insert
+        ADOConnection1.BeginTrans;                     //트랜젝션 시작
+        // 개업일
+        if (vNULL(edit8.Text)) then
+          Ssql:='INSERT INTO 거래처 ' +
+              '( ID, 거래처이름, 핸드폰, 구분, 상호, 성명, 사업자번호, ' +
+             '전화1, 전화2, 팩스, 메일, 업태, 종목, 과세여부, 생일, 계좌1, ' +
+             '계좌2, 주소, 비고 )' +
+          ' Values ( ' + QQ +
+          ifNULL(edit1.Text,' ') + QQ + ', ' + QQ +
+          ifNULL(edit2.Text,' ') + QQ + ', ' + QQ +
+          ifNULL(edit3.Text,' ') + QQ + ', ' + QQ +
+          ifNULL(edit4.Text,' ') + QQ + ', ' + QQ +
+          ifNULL(edit5.Text,' ') + QQ + ', ' + QQ +
+          ifNULL(edit6.Text,' ') + QQ + ', ' + QQ +
+          ifNULL(edit7.Text,' ') + QQ + ', ' + QQ +
+
+          ifNULL(edit9.Text,' ') + QQ + ', ' + QQ +
+          ifNULL(edit10.Text,' ')+ QQ + ', ' + QQ +
+          ifNULL(edit11.Text,' ')+ QQ + ', ' + QQ +
+          ifNULL(edit12.Text,' ')+ QQ + ', ' + QQ +
+          ifNULL(edit13.Text,' ')+ QQ + ', ' + QQ +
+          ifNULL(edit14.Text,' ')+ QQ + ', ' + QQ +
+          ifNULL(edit15.Text,' ')+ QQ + ', ' + QQ +
+          ifNULL(edit16.Text,' ')+ QQ + ', ' + QQ +
+          ifNULL(edit17.Text,' ')+ QQ + ', ' + QQ +
+          ifNULL(edit18.Text,' ')+ QQ + ', ' + QQ +
+          ifNULL(edit19.Text,' ')+ QQ + ', ' + QQ +
+          ifNULL(memo1.Text,' ') + QQ + ') ; '
+
+        else
+          Ssql:='INSERT INTO 거래처 ' +
+              '( ID, 거래처이름, 핸드폰, 구분, 상호, 성명, 사업자번호, 개업일, ' +
+             '전화1, 전화2, 팩스, 메일, 업태, 종목, 과세여부, 생일, 계좌1, ' +
+             '계좌2, 주소, 비고 )' +
+          ' Values ( ' + QQ +
+          ifNULL(edit1.Text,' ') + QQ + ', ' + QQ +
+          ifNULL(edit2.Text,' ') + QQ + ', ' + QQ +
+          ifNULL(edit3.Text,' ') + QQ + ', ' + QQ +
+          ifNULL(edit4.Text,' ') + QQ + ', ' + QQ +
+          ifNULL(edit5.Text,' ') + QQ + ', ' + QQ +
+          ifNULL(edit6.Text,' ') + QQ + ', ' + QQ +
+          ifNULL(edit7.Text,' ') + QQ + ', ' + MS +
+          ifNULL(edit8.Text,' ') + MS + ', ' + QQ +
+          ifNULL(edit9.Text,' ') + QQ + ', ' + QQ +
+          ifNULL(edit10.Text,' ')+ QQ + ', ' + QQ +
+          ifNULL(edit11.Text,' ')+ QQ + ', ' + QQ +
+          ifNULL(edit12.Text,' ')+ QQ + ', ' + QQ +
+          ifNULL(edit13.Text,' ')+ QQ + ', ' + QQ +
+          ifNULL(edit14.Text,' ')+ QQ + ', ' + QQ +
+          ifNULL(edit15.Text,' ')+ QQ + ', ' + QQ +
+          ifNULL(edit16.Text,' ')+ QQ + ', ' + QQ +
+          ifNULL(edit17.Text,' ')+ QQ + ', ' + QQ +
+          ifNULL(edit18.Text,' ')+ QQ + ', ' + QQ +
+          ifNULL(edit19.Text,' ')+ QQ + ', ' + QQ +
+          ifNULL(memo1.Text,' ') + QQ + ') ; ';
+
+        ADOQuery1.Close;
+        ADOQuery1.SQL.Clear;
+        ADOQuery1.SQL.Text:=sSql; //.Add 함수를 사용하면 매우 느려진다. 사용하지 말자.
+        myMessage:=' 저장이 완료 되었습니다. ';
+      except
+        ADOConnection1.RollbackTrans;                 //트랜젝션 롤백
+        ADOQuery1.Active:=False; // 예외 처리
+      end;  // try
+    end  //if ADOQuery1.Eof
+    else begin
+      try         // update   // ' + MQ + '
+        ADOConnection1.BeginTrans;                     //트랜젝션 시작
+        // 개업일
+        if (vNULL(edit8.Text)) then
+          Ssql:='UPDATE 거래처 SET ' +
+              'ID          = ' + QQ + ifNULL(edit1.Text,' ') + QQ + ', ' +
+              '거래처이름  = ' + QQ + ifNULL(edit2.Text,' ') + QQ + ', ' +
+              '핸드폰      = ' + QQ + ifNULL(edit3.Text,' ') + QQ + ', ' +
+              '구분        = ' + QQ + ifNULL(edit4.Text,' ') + QQ + ', ' +
+              '상호        = ' + QQ + ifNULL(edit5.Text,' ') + QQ + ', ' +
+              '성명        = ' + QQ + ifNULL(edit6.Text,' ') + QQ + ', ' +
+              '사업자번호  = ' + QQ + ifNULL(edit7.Text,' ') + QQ + ', ' +
+
+              '전화1       = ' + QQ + ifNULL(edit9.Text,' ') + QQ + ', ' +
+              '전화2       = ' + QQ + ifNULL(edit10.Text,' ')+ QQ + ', ' +
+              '팩스        = ' + QQ + ifNULL(edit11.Text,' ')+ QQ + ', ' +
+              '메일        = ' + QQ + ifNULL(edit12.Text,' ')+ QQ + ', ' +
+              '업태        = ' + QQ + ifNULL(edit13.Text,' ')+ QQ + ', ' +
+              '종목        = ' + QQ + ifNULL(edit14.Text,' ')+ QQ + ', ' +
+              '과세여부    = ' + QQ + ifNULL(edit15.Text,' ')+ QQ + ', ' +
+              '생일        = ' + QQ + ifNULL(edit16.Text,' ')+ QQ + ', ' +
+              '계좌1       = ' + QQ + ifNULL(edit17.Text,' ')+ QQ + ', ' +
+              '계좌2       = ' + QQ + ifNULL(edit18.Text,' ')+ QQ + ', ' +
+              '주소        = ' + QQ + ifNULL(edit19.Text,' ')+ QQ + ', ' +
+              '비고        = ' + QQ + ifNULL(memo1.Text,' ') + QQ + '  ' +
+              ' Where ID = ' + QQ + edit1.Text + QQ + ' ;'
+        else
+          Ssql:='UPDATE 거래처 SET ' +
+              'ID          = ' + QQ + ifNULL(edit1.Text,' ') + QQ + ', ' +
+              '거래처이름  = ' + QQ + ifNULL(edit2.Text,' ') + QQ + ', ' +
+              '핸드폰      = ' + QQ + ifNULL(edit3.Text,' ') + QQ + ', ' +
+              '구분        = ' + QQ + ifNULL(edit4.Text,' ') + QQ + ', ' +
+              '상호        = ' + QQ + ifNULL(edit5.Text,' ') + QQ + ', ' +
+              '성명        = ' + QQ + ifNULL(edit6.Text,' ') + QQ + ', ' +
+              '사업자번호  = ' + QQ + ifNULL(edit7.Text,' ') + QQ + ', ' +
+
+              '개업일      = ' + MS + ifNULL(edit8.Text,'1900/01/01') + MS + ', ' +
+
+              '전화1       = ' + QQ + ifNULL(edit9.Text,' ') + QQ + ', ' +
+              '전화2       = ' + QQ + ifNULL(edit10.Text,' ')+ QQ + ', ' +
+              '팩스        = ' + QQ + ifNULL(edit11.Text,' ')+ QQ + ', ' +
+              '메일        = ' + QQ + ifNULL(edit12.Text,' ')+ QQ + ', ' +
+              '업태        = ' + QQ + ifNULL(edit13.Text,' ')+ QQ + ', ' +
+              '종목        = ' + QQ + ifNULL(edit14.Text,' ')+ QQ + ', ' +
+              '과세여부    = ' + QQ + ifNULL(edit15.Text,' ')+ QQ + ', ' +
+              '생일        = ' + QQ + ifNULL(edit16.Text,' ')+ QQ + ', ' +
+              '계좌1       = ' + QQ + ifNULL(edit17.Text,' ')+ QQ + ', ' +
+              '계좌2       = ' + QQ + ifNULL(edit18.Text,' ')+ QQ + ', ' +
+              '주소        = ' + QQ + ifNULL(edit19.Text,' ')+ QQ + ', ' +
+              '비고        = ' + QQ + ifNULL(memo1.Text,' ') + QQ + '  ' +
+              ' Where ID = ' + QQ + edit1.Text + QQ + ' ;';
+
+        ADOQuery1.Close;
+        ADOQuery1.SQL.Clear;
+        ADOQuery1.SQL.Text:=sSql; //.Add 함수를 사용하면 매우 느려진다. 사용하지 말자.
+        myMessage:=' 저장이 완료 되었습니다. ';
+     except
+        ADOConnection1.RollbackTrans;                 //트랜젝션 롤백
+        ADOQuery1.Active:=False; // 예외 처리
+     end;  //try
+  end; // if
+clipboard.AsText:=ssql;   //   Ctrl - C    복사  copy  uses => ClipBrd
+showmessage (' ssql = ' + ssql+ '    ' );    clipboard.AsText:=ssql;
+  ADOQuery1.ExecSQL;
+  ADOConnection1.CommitTrans;                    //트랜젝션 적용
+  ADOQuery1.Active:=False;
+  ShowMessage (myMessage);
+
+  ClientManager;
+end;
+
+//==================================================================
+// Name      : ButtonClient2Click
+// Desc      : delete
+//==================================================================
+procedure TFormClient.ButtonClient2Click(Sender: TObject);
+var
+  yn : Integer;
+  sSql : AnsiString;
+  ToDay : AnsiString;
+  //FormSecurity:TFormSecurity;
+  tString   : string;
+begin
+  // 삭제 여부 재확인
+  yn:=MessageDlg('정말 삭제하겠습니까? 삭제한 자료는 복구가 안됩니다.'
+                  ,mtInformation,mbOKCancel,0);   // OK : 1 , Cancel : 2
+  if yn=1 then  begin
+    {FormSecurity:=TFormSecurity.Create_FormSecurity(tstring, self);
+
+    FormSecurity.ShowModal;
+    FormSecurity.Free;
+    //if FormSecurity.EditPW.Text=pPW then ResultReturn:='OK'
+    //                                else ResultReturn:='FAIL';
+    if tString=pPW then ResultReturn:='OK'
+                   else ResultReturn:='FAIL';
+    if ResultReturn='FAIL' then close;
+    } {
+    sSql := 'DELETE FROM 보험담당 WHERE ID = ' + QQ + edit1.Text + QQ + ';';
+// clipboard.AsText:=ssql;   //   Ctrl - C    복사  copy  uses => ClipBrd
+    try
+      try
+        ADOConnection1.BeginTrans;                     //트랜젝션 시작
+        ADOQuery1.SQL.Clear;
+        ADOQuery1.SQL.Text:=(Ssql);
+        ADOQuery1.ExecSQL;
+        ADOConnection1.CommitTrans;                    //트랜젝션 적용
+      except
+        ADOConnection1.RollbackTrans;                 //트랜젝션 롤백
+        showmessage(' try exception 예외처리');    ///////////////////////////////////////
+      end; // try
+    finally
+        //ADOQuery1.Open;
+        ADOQuery1.Active:=False;
+        //showmessage(' try finally 예외처리');       ///////////////////////////////////////
+    end;  // try }
+  end; //if
+  Text_Init(0);
+  ClientManager;
+end;
+
+//==================================================================
+// Name      : ButtonClient3Click
+// Desc      : 취소 /  Clear
+//==================================================================
+procedure TFormClient.ButtonClient3Click(Sender: TObject);
+begin
+  Text_Init(0);
+end;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//==================================================================
+// Name      : ButtonFindClick
+// Desc      : Find
+//==================================================================
+procedure TFormClient.ButtonFindClick(Sender: TObject);
+var
+  cFinder : ansistring;
+  Ssql    : ansistring;
+begin
+  cFinder := editfind.Text;
+  if bNULL(cFinder) then begin
+    showmessage('찾을 이름을 입력하세요');
+  end
+  else begin
+    Ssql:='SELECT ID, 보험사, 담당, 이름, 직위, 핸드폰, FAX, 메일, 사무실, ' +
+        '콜센타, 메모 ' + ' From 보험담당 ' +
+        'WHERE 이름 LIKE ' + QQ + '%' + cFinder + '' + QQ  +
+        'ORDER BY 보험사 asc, 이름 ASC ;' ;
+    Grid_Listing_Client(NiceGrid1,Ssql);
+  end; // if
+  editfind.SelectAll  ; //editfind.SetFocus;
+
+end;
+
+//==================================================================
+// Name      : ButtonFindCancelClick
+// Desc      : find- cancel
+//==================================================================
+procedure TFormClient.ButtonFindCancelClick(Sender: TObject);
+begin
+  formactivate(nil);
+end;
+
+//==================================================================
+// Name      : EditFindKeyPress
+// Desc      : fidn enter / esc key press
+//==================================================================
+procedure TFormClient.EditFindKeyPress(Sender: TObject; var Key: Char);
+begin
+  if key= #13 then buttonfind.Click;
+  if key= #27 then buttonfindcancel.Click;
+end;
+
+
+
+
+
+
+
+
+
+//==================================================================
+// Name      : DetailView
+// Desc      :
+//==================================================================
+procedure TFormClient.DetailView(iRow : integer);
+var
+  i   : integer;
+begin
+  edit1.Text := NiceGridSync1[00,irow];
+  edit2.Text := NiceGridSync1[01,irow];
+  edit3.Text := NiceGrid1[00,irow];
+  edit4.Text := NiceGrid1[01,irow];
+  edit5.Text := NiceGrid1[02,irow];
+  edit6.Text := NiceGrid1[03,irow];
+  edit7.Text := NiceGrid1[04,irow];
+  edit8.Text := NiceGrid1[05,irow];
+  edit9.Text := NiceGrid1[06,irow];
+  edit10.Text:= NiceGrid1[07,irow];
+  edit11.Text:= NiceGrid1[08,irow];
+  edit12.Text:= NiceGrid1[09,irow];
+  edit13.Text:= NiceGrid1[10,irow];
+  edit14.Text:= NiceGrid1[11,irow];
+  edit15.Text:= NiceGrid1[12,irow];
+  edit16.Text:= NiceGrid1[13,irow];
+  edit17.Text:= NiceGrid1[14,irow];
+  edit18.Text:= NiceGrid1[15,irow];
+  edit19.Text:= NiceGrid1[16,irow];
+
+end;
+
+//==================================================================
+// Name      : NiceGrid1Click
+// Desc      : Grid Select
+//==================================================================
+procedure TFormClient.NiceGrid1Click(Sender: TObject);
+begin
+  DetailView(NiceGrid1.Row);
+end;
+
+//==================================================================
+// Name      : NiceGridSync1Click
+// Desc      : Grid Select
+//==================================================================
+procedure TFormClient.NiceGridSync1Click(Sender: TObject);
+begin
+  DetailView(NiceGrid1.Row);
+end;
+
+//==================================================================
+// Name      : NiceGrid1KeyDown
+// Desc      : Grid Select
+//==================================================================
+procedure TFormClient.NiceGrid1KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   //showmessage ('KeyDown ' + floattostr(key));
+  case Key of
+    VK_UP,VK_DOWN,VK_PRIOR,VK_NEXT : DetailView(NiceGrid1.Row);
+  end;
+end;
+
+//==================================================================
+// Name      : NiceGridSync1KeyDown
+// Desc      : Grid Select
+//==================================================================
+procedure TFormClient.NiceGridSync1KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  case Key of
+    VK_UP,VK_DOWN,VK_PRIOR,VK_NEXT : DetailView(NiceGrid1.Row);
+  end;
+end;
+
+//==================================================================
+// Name      : NiceGrid1DrawCell
+// Desc      : 그리드 color
+//==================================================================
+procedure TFormClient.NiceGrid1DrawCell(Sender: TObject; ACanvas: TCanvas; X,
+  Y: Integer; Rc: TRect; var Handled: Boolean);
+var
+  i: Integer;
+begin
+  //(y and 1) =0 짝수  , =1  홀수  bit연산이고 끝에 이진수 1더해짝수/홀수 구분
+  if (y and 1) =0 then begin
+    for i := 0 to Nicegrid1.ColCount - 1 do begin
+      ACanvas.Brush.Color := clGradientActiveCaption;
+    end; // for
+  end
+  else begin
+    for i := 0 to Nicegrid1.ColCount - 1 do begin
+      ACanvas.Brush.Color := clGradientInactiveCaption;
+    end; // for
+  end;  // if
+end;
+
+
+//==================================================================
+// Name      : NiceGridSync1DrawCell
+// Desc      : 그리드 color
+//==================================================================
+procedure TFormClient.NiceGridSync1DrawCell(Sender: TObject; ACanvas: TCanvas;
+  X, Y: Integer; Rc: TRect; var Handled: Boolean);
+var
+  i: Integer;
+begin
+  //(y and 1) =0 짝수  , =1  홀수  bit연산이고 끝에 이진수 1더해짝수/홀수 구분
+  if (y and 1) =0 then begin
+    for i := 0 to NiceGridSync1.ColCount - 1 do begin
+      ACanvas.Brush.Color := clGradientActiveCaption;
+    end; // for
+  end
+  else begin
+    for i := 0 to NiceGridSync1.ColCount - 1 do begin
+      ACanvas.Brush.Color := clGradientInactiveCaption;
+    end; // for
+  end;  // if
+
+end;
+
+//==================================================================
+// Name      : Text_Init1
+// Desc      : 텍스트 박스 초기화
+//==================================================================
+Procedure TFormClient.Text_Init(Index : Integer);
+var
+  i   : Integer;
+  TComp : TComponent; //Tedit;
+begin
+  case Index of
+  0: begin
+      // ------------------- 세부정보 초기화
+      for i := 0 to GroupBox1.ControlCount - 1 do  // 세부정보 - 전체
+      begin
+        TComp :=GroupBox1.Controls[i];
+        if TComp.ClassName ='TEdit' then begin
+          Tedit(GroupBox1.Controls[i]).text :='';
+          Tedit(GroupBox1.Controls[i]).Height:=19;
+        end;  // if
+        if Tcomp.ClassName='TMemo' then TMemo(GroupBox1.Controls[i]).text :='';
+      end; // for
+     end;
+  71: begin // find
+      editFind.Text := '';
+
+    end;
+  end;
+
+end;
+
+//==================================================================
+// Name      : Grid_Init1
+// Desc      : 그리드 초기화
+//==================================================================
+procedure TFormClient.Grid_Init(Index : Integer);
+begin
+  // 그리드 초기화
+  with NiceGrid1 do begin
+    ColCount     := 18;
+    Color        := clWindow;
+    DefRowHeight := 18;
+    Font.Name    := '굴림체';
+    Font.Size    := 8;
+    GutterWidth  := 0;
+    GutterKind   := gkNumber;
+    GutterFont.Name:='Minion Pro';
+    GutterFont.Size:=9;
+    Height       := 288;
+    RowCount     :=1;
+    ShowFooter   :=False;
+    ShowGrid     :=True;
+    Width        := 776; //755;
+    {Columns[0].Title:='ID';       Columns[0].Width  :=80;
+    Columns[1].Title:='보험사';   Columns[1].Width  :=88;
+    Columns[2].Title:='담당';     Columns[2].Width  :=48;
+    Columns[3].Title:='이름';     Columns[3].Width  :=80;
+    Columns[4].Title:='직위';     Columns[4].Width  :=48;
+    Columns[5].Title:='핸드폰';   Columns[5].Width  :=85;
+    Columns[6].Title:='FAX';      Columns[6].Width  :=90;
+    Columns[7].Title:='메일주소'; Columns[7].Width  :=100;
+    Columns[8].Title:='사무실';   Columns[8].Width  :=85;
+    Columns[9].Title:='콜센터';   Columns[9].Width  :=85;
+    Columns[10].Title:='메모';    Columns[10].Width :=110;}
+    Clear;
+  end; // with
+  with NiceGridSync1 do begin
+    ColCount     := 2;
+    Color        := clWindow;
+    DefRowHeight := 18;
+    Font.Name    := '굴림체';
+    Font.Size    := 8;
+    Grid         := NiceGrid1;
+    GutterWidth  := 22;
+    GutterKind   := gkNumber;
+    GutterFont.Name:='Minion Pro';
+    GutterFont.Size:=9;
+    Height       := 288;
+    RowCount     :=1;
+    ShowFooter   :=False;
+    ShowGrid     :=True;
+    Width        := 187; //207;
+    Columns[0].Title:='ID';         Columns[0].Width  :=68;
+    Columns[1].Title:='거래처명';   Columns[1].Width  :=92;
+    Clear;
+  end;
+end;
+
+//==================================================================
+// Name      : ButtonChargeEndClick
+// Desc      : end , close
+//==================================================================
+procedure TFormClient.ButtonClientEndClick(Sender: TObject);
+begin
+  close;
+end;
+
+end.

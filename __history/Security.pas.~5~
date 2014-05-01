@@ -1,0 +1,68 @@
+unit Security;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, lhjModule;
+
+type
+  TFormSecurity = class(TForm)
+    Label1: TLabel;
+    EditPW: TEdit;
+    ButtonOK: TButton;
+    ButtonCancel: TButton;
+    procedure FormActivate(Sender: TObject);
+    procedure ButtonOKClick(Sender: TObject);
+    procedure ButtonCancelClick(Sender: TObject);
+    procedure EditPWKeyPress(Sender: TObject; var Key: Char);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormSecurity: TFormSecurity;
+
+implementation
+
+{$R *.dfm}
+//==================================================================
+// Name      : ButtonCancelClick
+// Desc      : Close
+//==================================================================
+procedure TFormSecurity.ButtonCancelClick(Sender: TObject);
+begin
+  editPW.Text:='';
+  close;
+end;
+//==================================================================
+// Name      : ButtonOKClick
+// Desc      : OK
+//==================================================================
+procedure TFormSecurity.ButtonOKClick(Sender: TObject);
+begin
+  close;
+end;
+//==================================================================
+// Name      : EditPWKeyPress
+// Desc      : Enter & ESC Key Press
+//==================================================================
+procedure TFormSecurity.EditPWKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key=#13 then ButtonOKClick(self);       // Enter
+  if Key=#27 then ButtonCancelClick(self);         // ESC
+end;
+
+//==================================================================
+// Name      : FormActivate
+// Desc      : Inittial
+//==================================================================
+procedure TFormSecurity.FormActivate(Sender: TObject);
+begin
+  editPW.Text:='';  // 텍스트 박스 초기화
+end;
+
+
+end.

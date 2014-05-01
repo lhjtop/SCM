@@ -1,0 +1,252 @@
+                       unit Client;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, NiceGrid, ExtCtrls, DB, ADODB, IniFiles,
+  lhjModule ,ClipBrd ;
+
+type
+  TFormClient = class(TForm)
+    ADOConnection1: TADOConnection;
+    ADOQuery1: TADOQuery;
+    DataSource1: TDataSource;
+    Panel1: TPanel;
+    Label14: TLabel;
+    GroupBox1: TGroupBox;
+    Label12: TLabel;
+    Label13: TLabel;
+    Label20: TLabel;
+    Label1: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label15: TLabel;
+    Label16: TLabel;
+    Label8: TLabel;
+    Label17: TLabel;
+    Label18: TLabel;
+    Label19: TLabel;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    Edit4: TEdit;
+    Edit5: TEdit;
+    Edit6: TEdit;
+    Edit12: TEdit;
+    Edit8: TEdit;
+    Memo1: TMemo;
+    Edit11: TEdit;
+    Edit7: TEdit;
+    Edit9: TEdit;
+    Edit10: TEdit;
+    Edit19: TEdit;
+    Edit17: TEdit;
+    Edit18: TEdit;
+    Edit13: TEdit;
+    Edit14: TEdit;
+    Edit15: TEdit;
+    Edit16: TEdit;
+    NiceGridSync1: TNiceGridSync;
+    NiceGrid1: TNiceGrid;
+    GroupBox2: TGroupBox;
+    EditFind: TEdit;
+    ButtonFind: TButton;
+    ButtonFindCancel: TButton;
+    GroupBox8: TGroupBox;
+    ButtonClient1: TButton;
+    ButtonClient2: TButton;
+    ButtonClient3: TButton;
+    ButtonClientEnd: TButton;
+    procedure FormActivate(Sender: TObject);
+    Procedure Grid_Init(Index : Integer);
+    Procedure Text_Init(Index : Integer);
+    procedure ClientManager;
+    procedure Grid_Listing_Client(NGrid : TNiceGrid; Ssql: Ansistring);
+  private
+    { Private declarations }
+   // procedure BoHumDblClick(Sender: TObject);
+  public
+    { Public declarations }
+  end;
+
+var
+  FormClient    : TFormClient;
+  //FormSecurity  : TFormCharge;
+implementation
+
+{$R *.dfm}
+
+var
+  FindFlag    : Boolean;            //  검색mode = True
+  NGrid       : TNiceGrid;
+  DBLIST1     : ansistring;
+//==================================================================
+// Name      : FormActivate
+// Desc      : Form 초기화
+//==================================================================
+procedure TFormClient.FormActivate(Sender: TObject);
+begin
+  ADOQuery1.Connection.LoginPrompt:=False;
+  FindFlag  := False;
+  Grid_Init(0);
+  Text_Init(0);
+  Text_Init(71);
+
+  dblist1 := 'ID, 거래처이름, 핸드폰, 구분, 상호, 성명, 사업자번호, 개업일, ' +
+             '전화1, 전화2, 팩스, 메일, 업태, 종목, 과세여부, 생일, 계좌1, ' +
+             '계좌2, 주소, 비고 ';
+  ClientManager;
+end;
+
+//==================================================================
+// Name      : ClientManager
+// Desc      : Manager
+//==================================================================
+procedure TFormClient.ClientManager;
+var
+  Ssql    : AnsiString;
+begin
+  Ssql  :='SELECT ' + DBLIST1 + ' From 거래처 ORDER BY 거래처이름 asc, 성명 ASC ;' ;
+  Grid_Listing_Client(NiceGrid1,Ssql);
+end;
+
+//==================================================================
+// Name      : Grid_Listing_Client
+// Desc      : NiceGrid에 쿼리문 받아서 뿌려주는 함수
+//==================================================================
+procedure TFormClient.Grid_Listing_Client(NGrid : TNiceGrid; Ssql: Ansistring);
+var
+  i,j       : Integer;
+  SGridS    : TNiceGridSync;
+begin
+  //
+  sGrids  :=NiceGridSync1;
+  //
+  ADOQuery1.SQL.Clear;
+  ADOQuery1.SQL.Text:=(Ssql);
+  ADOQuery1.Open;
+  ngrid.Clear;
+  if ADOQuery1.Recordset.RecordCount>0 then
+   begin
+    i:=0;
+    NGrid.BeginUpdate;
+    sgrids.BeginUpdate;
+    NGrid.RowCount:=ADOQuery1.Recordset.RecordCount;
+    while not ADOQuery1.Eof do
+    begin
+      with ADOQuery1.Recordset.Fields do
+       begin
+        for j := 0 to ADOQuery1.Recordset.Fields.Count - 1 do begin
+           case j of
+           0, 1: SGrids[j,i] := ifNULL(Item[j].Value,'');
+           else  NGrid[j,i]  := ifNULL(Item[j].Value,'');
+           end; // case
+        end; // for
+       end; // with
+      inc(i);
+      ADOQuery1.Next;
+    end; // while
+    NGrid.EndUpdate;
+    sgrids.EndUpdate;
+   end; // if
+  ADOQuery1.Active:=False;
+
+end;
+
+//==================================================================
+// Name      : Text_Init1
+// Desc      : 텍스트 박스 초기화
+//==================================================================
+Procedure TFormClient.Text_Init(Index : Integer);
+var
+  i   : Integer;
+  TComp : TComponent; //Tedit;
+begin
+  case Index of
+  0: begin
+      // ------------------- 세부정보 초기화
+      for i := 0 to GroupBox1.ControlCount - 1 do  // 세부정보 - 전체
+      begin
+        TComp :=GroupBox1.Controls[i];
+        if TComp.ClassName ='TEdit' then begin
+          Tedit(GroupBox1.Controls[i]).text :='';
+          Tedit(GroupBox1.Controls[i]).Height:=19;
+        end;  // if
+        if Tcomp.ClassName='TMemo' then TMemo(GroupBox1.Controls[i]).text :='';
+      end; // for
+     end;
+  71: begin // find
+      editFind.Text := '';
+
+    end;
+  end;
+
+end;
+
+//==================================================================
+// Name      : Grid_Init1
+// Desc      : 그리드 초기화
+//==================================================================
+procedure TFormClient.Grid_Init(Index : Integer);
+begin
+  // 그리드 초기화
+  with NiceGrid1 do begin
+    ColCount     := 18;
+    Color        := clWindow;
+    DefRowHeight := 18;
+    Font.Name    := '굴림체';
+    Font.Size    := 8;
+    GutterWidth  := 0;
+    GutterKind   := gkNumber;
+    GutterFont.Name:='Minion Pro';
+    GutterFont.Size:=9;
+    Height       := 288;
+    RowCount     :=1;
+    ShowFooter   :=False;
+    ShowGrid     :=True;
+    Width        := 755;
+    {Columns[0].Title:='ID';       Columns[0].Width  :=80;
+    Columns[1].Title:='보험사';   Columns[1].Width  :=88;
+    Columns[2].Title:='담당';     Columns[2].Width  :=48;
+    Columns[3].Title:='이름';     Columns[3].Width  :=80;
+    Columns[4].Title:='직위';     Columns[4].Width  :=48;
+    Columns[5].Title:='핸드폰';   Columns[5].Width  :=85;
+    Columns[6].Title:='FAX';      Columns[6].Width  :=90;
+    Columns[7].Title:='메일주소'; Columns[7].Width  :=100;
+    Columns[8].Title:='사무실';   Columns[8].Width  :=85;
+    Columns[9].Title:='콜센터';   Columns[9].Width  :=85;
+    Columns[10].Title:='메모';    Columns[10].Width :=110;}
+    Clear;
+  end; // with
+  with NiceGridSync1 do begin
+    ColCount     := 2;
+    Color        := clWindow;
+    DefRowHeight := 18;
+    Font.Name    := '굴림체';
+    Font.Size    := 8;
+    Grid         := NiceGrid1;
+    GutterWidth  := 22;
+    GutterKind   := gkNumber;
+    GutterFont.Name:='Minion Pro';
+    GutterFont.Size:=9;
+    Height       := 288;
+    RowCount     :=1;
+    ShowFooter   :=False;
+    ShowGrid     :=True;
+    Width        := 207;
+    Columns[0].Title:='ID';         Columns[0].Width  :=90;
+    Columns[1].Title:='거래처명';   Columns[1].Width  :=92;
+    Clear;
+  end;
+end;
+
+
+end.

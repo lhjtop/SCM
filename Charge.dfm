@@ -8,12 +8,14 @@ object FormCharge: TFormCharge
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
-  Font.Name = 'Tahoma'
+  Font.Name = #44404#47548#52404
   Font.Style = []
   OldCreateOrder = False
+  Position = poMainFormCenter
+  OnActivate = FormActivate
   PixelsPerInch = 96
-  TextHeight = 13
-  object Panel3: TPanel
+  TextHeight = 11
+  object Panel1: TPanel
     Left = 0
     Top = 0
     Width = 962
@@ -22,9 +24,6 @@ object FormCharge: TFormCharge
     Color = clGradientInactiveCaption
     ParentBackground = False
     TabOrder = 0
-    ExplicitLeft = 1
-    ExplicitWidth = 750
-    ExplicitHeight = 562
     object Label14: TLabel
       Left = 88
       Top = 8
@@ -42,11 +41,12 @@ object FormCharge: TFormCharge
     end
     object NiceGrid1: TNiceGrid
       Left = 3
-      Top = 169
+      Top = 167
       Width = 950
-      Height = 389
+      Height = 390
       Cursor = 101
       ColCount = 11
+      Color = clWhite
       HeaderFont.Charset = DEFAULT_CHARSET
       HeaderFont.Color = clWindowText
       HeaderFont.Height = -11
@@ -61,46 +61,57 @@ object FormCharge: TFormCharge
         item
           Title = 'ID'
           Width = 80
+          Color = clWhite
         end
         item
           Title = #48372#54744#49324
           Width = 90
+          Color = clWhite
         end
         item
           Title = #45812#45817
           Width = 48
+          Color = clWhite
         end
         item
           Title = #51060#47492
           Width = 80
+          Color = clWhite
         end
         item
           Title = #51649#50948
           Width = 48
+          Color = clWhite
         end
         item
           Title = #54648#46300#54256
           Width = 85
+          Color = clWhite
         end
         item
           Title = 'FAX'
           Width = 90
+          Color = clWhite
         end
         item
           Title = #47700#51068
           Width = 100
+          Color = clWhite
         end
         item
           Title = #49324#47924#49892
           Width = 85
+          Color = clWhite
         end
         item
           Title = #53084#49468#53552
           Width = 85
+          Color = clWhite
         end
         item
           Title = #47700#47784
           Width = 110
+          Color = clWhite
         end>
       GutterFont.Charset = DEFAULT_CHARSET
       GutterFont.Color = clWindowText
@@ -108,57 +119,64 @@ object FormCharge: TFormCharge
       GutterFont.Name = 'Tahoma'
       GutterFont.Style = []
       ShowFooter = False
+      OnDrawCell = NiceGrid1DrawCell
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
-      Font.Name = 'Tahoma'
+      Font.Name = #44404#47548#52404
       Font.Style = []
       TabOrder = 0
+      OnClick = NiceGrid1Click
+      OnKeyDown = NiceGrid1KeyDown
     end
     object GroupBox8: TGroupBox
       Left = 841
-      Top = 34
+      Top = 36
       Width = 112
-      Height = 127
+      Height = 125
       TabOrder = 1
-      object ButtonAccount1: TButton
+      object ButtonCharge1: TButton
         Left = 5
         Top = 7
         Width = 101
         Height = 25
         Caption = #51077' '#47141' / '#49688' '#51221
         TabOrder = 0
+        OnClick = ButtonCharge1Click
       end
-      object ButtonAccount3: TButton
+      object ButtonCharge2: TButton
         Left = 5
         Top = 36
         Width = 101
         Height = 25
         Caption = #49325' '#51228
         TabOrder = 1
+        OnClick = ButtonCharge2Click
       end
-      object ButtonAccount4: TButton
+      object ButtonCharge3: TButton
         Left = 5
         Top = 66
         Width = 101
         Height = 25
         Caption = #52712' '#49548' / Clear'
         TabOrder = 2
+        OnClick = ButtonCharge3Click
       end
-      object ButtonAccountEnd: TButton
+      object ButtonChargeEnd: TButton
         Left = 5
         Top = 96
         Width = 101
         Height = 25
         Caption = #51333' '#47308
         TabOrder = 3
+        OnClick = ButtonChargeEndClick
       end
     end
-    object GroupBox7: TGroupBox
+    object GroupBox1: TGroupBox
       Left = 3
-      Top = 28
+      Top = 30
       Width = 836
-      Height = 133
+      Height = 131
       Caption = '[ '#51077#47141' / '#49688#51221' ]'
       TabOrder = 2
       object Label12: TLabel
@@ -255,7 +273,8 @@ object FormCharge: TFormCharge
         Left = 7
         Top = 39
         Width = 91
-        Height = 21
+        Height = 19
+        Color = clGradientInactiveCaption
         ImeMode = imSHanguel
         ImeName = 'Microsoft Office IME 2007'
         TabOrder = 0
@@ -265,7 +284,7 @@ object FormCharge: TFormCharge
         Left = 100
         Top = 39
         Width = 81
-        Height = 21
+        Height = 19
         ImeMode = imSHanguel
         ImeName = 'Microsoft Office IME 2007'
         TabOrder = 1
@@ -275,7 +294,7 @@ object FormCharge: TFormCharge
         Left = 183
         Top = 39
         Width = 36
-        Height = 21
+        Height = 19
         Alignment = taCenter
         ImeMode = imSHanguel
         ImeName = 'Microsoft Office IME 2007'
@@ -286,7 +305,7 @@ object FormCharge: TFormCharge
         Left = 221
         Top = 39
         Width = 58
-        Height = 21
+        Height = 19
         ImeMode = imSHanguel
         ImeName = 'Microsoft Office IME 2007'
         TabOrder = 3
@@ -296,40 +315,40 @@ object FormCharge: TFormCharge
         Left = 318
         Top = 39
         Width = 84
-        Height = 21
+        Height = 19
         ImeMode = imSHanguel
         ImeName = 'Microsoft Office IME 2007'
-        TabOrder = 4
+        TabOrder = 5
         Text = '000-0000-0000'
       end
       object Edit7: TEdit
         Left = 404
         Top = 39
         Width = 84
-        Height = 21
+        Height = 19
         ImeMode = imSHanguel
         ImeName = 'Microsoft Office IME 2007'
-        TabOrder = 5
+        TabOrder = 6
         Text = '0000-000-0000'
       end
       object Edit9: TEdit
         Left = 657
         Top = 39
         Width = 84
-        Height = 21
+        Height = 19
         ImeMode = imSHanguel
         ImeName = 'Microsoft Office IME 2007'
-        TabOrder = 6
+        TabOrder = 8
         Text = '000-0000-0000'
       end
       object Edit10: TEdit
         Left = 743
         Top = 39
         Width = 84
-        Height = 21
+        Height = 19
         ImeMode = imSHanguel
         ImeName = 'Microsoft Office IME 2007'
-        TabOrder = 7
+        TabOrder = 9
         Text = 'Edit10'
       end
       object Memo1: TMemo
@@ -337,28 +356,76 @@ object FormCharge: TFormCharge
         Top = 66
         Width = 820
         Height = 58
+        ImeMode = imSHanguel
         ImeName = 'Microsoft Office IME 2007'
         Lines.Strings = (
           'Memo1')
-        TabOrder = 8
+        TabOrder = 10
       end
       object Edit8: TEdit
         Left = 491
         Top = 39
         Width = 163
-        Height = 21
+        Height = 19
+        ImeMode = imSAlpha
         ImeName = 'Microsoft Office IME 2007'
-        TabOrder = 9
+        TabOrder = 7
         Text = 'abcd123500@aaaaaaa.aa.aa'
       end
       object Edit5: TEdit
         Left = 281
         Top = 39
         Width = 35
-        Height = 21
+        Height = 19
+        ImeMode = imSHanguel
         ImeName = 'Microsoft Office IME 2007'
-        TabOrder = 10
+        TabOrder = 4
         Text = #44284#51109
+      end
+      object Button1: TButton
+        Left = 160
+        Top = 18
+        Width = 19
+        Height = 19
+        Caption = '..'
+        TabOrder = 11
+        OnClick = Button1Click
+      end
+    end
+    object GroupBox2: TGroupBox
+      Left = 677
+      Top = 2
+      Width = 276
+      Height = 33
+      TabOrder = 3
+      object EditFind: TEdit
+        Left = 4
+        Top = 7
+        Width = 149
+        Height = 19
+        ImeMode = imSHanguel
+        ImeName = 'Microsoft Office IME 2007'
+        TabOrder = 0
+        Text = 'EditFind'
+        OnKeyPress = EditFindKeyPress
+      end
+      object ButtonFind: TButton
+        Left = 162
+        Top = 5
+        Width = 50
+        Height = 25
+        Caption = #52286#44592
+        TabOrder = 1
+        OnClick = ButtonFindClick
+      end
+      object ButtonFindCancel: TButton
+        Left = 218
+        Top = 5
+        Width = 50
+        Height = 25
+        Caption = #52712#49548
+        TabOrder = 2
+        OnClick = ButtonFindCancelClick
       end
     end
   end

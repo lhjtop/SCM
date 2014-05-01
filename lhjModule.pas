@@ -29,14 +29,15 @@ const
   MQ = #39; // '
   QQ = #34; // "
   MS = #35; // #
-
 var
   ResultReturn : AnsiString;
   // WorkingTime1,2 : 도장 부스 사용시간 계산표
   WorkingTime1: array[0..7] of Integer=(0,2,9,15,21,27,33,999999);
   WorkingTime2: array[0..11] of Integer=(0,2,5,9,12,16,20,24,27,30,36,999999);
-
-
+  // 차량 신규 입고/수정 편집 플레그 변수
+  EditFlag    : Boolean;
+  // 차량 수정 편집시 ID 전달 변수
+  editID      : ansistring;
 
  implementation
 
@@ -78,8 +79,10 @@ uses Booth, Main1, Security, CoManager;
  begin
    if sTarget=NULL then       // length(trim(str1)) = 0
       Result  := ReturnStr
-   else
-      Result:=trim(sTarget);
+   else begin
+      if length(trim(sTarget)) = 0 then Result := ReturnStr
+                                   else Result :=(sTarget); //Result:=trim(sTarget);
+   end; // if
  end;
 
 //==================================================================

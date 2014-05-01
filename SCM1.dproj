@@ -70,6 +70,15 @@
 			<DCCReference Include="Charge.pas">
 				<Form>FormCharge</Form>
 			</DCCReference>
+			<DCCReference Include="Client.pas">
+				<Form>FormClient</Form>
+			</DCCReference>
+			<DCCReference Include="Parts.pas">
+				<Form>FormParts</Form>
+			</DCCReference>
+			<DCCReference Include="IpGo.pas">
+				<Form>FormIpGo</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
@@ -124,6 +133,7 @@
 						<Source Name="MainSource">SCM1.dpr</Source>
 					</Source>
 					<Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\dclofficexp140.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
 						<Excluded_Packages Name="$(BDS)\bin\dcloffice2k140.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
 					</Excluded_Packages>
 				</Delphi.Personality>

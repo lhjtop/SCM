@@ -92,7 +92,8 @@ type
     procedure N8Click(Sender: TObject);
     procedure N6Click(Sender: TObject);
     procedure N13Click(Sender: TObject);
-
+    procedure N12Click(Sender: TObject);
+    procedure WMHotkey(var msg: TWMHotkey); message WM_Hotkey;
   private
     { Private declarations }
   public
@@ -113,7 +114,7 @@ var
 implementation
 
  uses
-  Booth,LogIn, CoManager, Security, DailyReport, CarManager;
+  Booth,LogIn, CoManager, Security, DailyReport, CarManager, Charge, Client;
 //uses LogInForMain;
 
 {$R *.dfm}
@@ -130,13 +131,15 @@ implementation
 // Return    : 없음
 //==================================================================
 
-procedure TFormMain.ButtonCloseClick(Sender: TObject);
-begin
-  Close;
-end;
-
+//==================================================================
+// Name      : FormCreate
+// Desc      : 초기화
+//==================================================================
 procedure TFormMain.FormCreate(Sender: TObject);
 begin
+  RegisterHOTKey(Handle,1,0,VK_F2); // 배출시설 방지시설 일지
+  RegisterHOTKey(Handle,2,0,VK_F3); // 차량 관리
+  RegisterHOTKey(Handle,3,0,VK_F4); //일계표 일지
   // 메인 폼
   //showmessage ('서버와 연결을 체크해야 함');
 
@@ -147,12 +150,34 @@ begin
 end;
 
 //==================================================================
+// Name      : WMHotkey
+// Desc      : HOT key 처리
+//==================================================================
+procedure TFormMain.WMHotkey(var msg: TWMHotkey);
+begin
+  case msg.HotKey of
+  1: N5Click(self); // 배출시설 방지시설 일지
+  2: N6Click(self); // 차량 관리
+  3: N8Click(self); // 일계표 일지
+  end;
+
+end;
+
+//==================================================================
+// Name      : N12Click
+// Desc      : 거래처 관리
+//==================================================================
+procedure TFormMain.N12Click(Sender: TObject);
+begin
+  FormClient.show;
+end;
+//==================================================================
 // Name      : TMainFrm.N13Click
 // Desc      : 보험 담당 관리
 //==================================================================
 procedure TFormMain.N13Click(Sender: TObject);
 begin
-  FormCharge
+  FormCharge.Show;
 end;
 
 //==================================================================
@@ -254,4 +279,14 @@ Function TFormMain.INI_Read(FileNames,Section,Key: string): string;
 begin
   //Function INI_Read(FileNames,Section,Key: string): string;
 end;
+
+//==================================================================
+// Name      : ButtonCloseClick
+// Desc      : end
+//==================================================================
+procedure TFormMain.ButtonCloseClick(Sender: TObject);
+begin
+  Close;
+end;
+
 end.

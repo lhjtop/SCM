@@ -186,6 +186,8 @@ type
     procedure RadioTerm4Click(Sender: TObject);
     procedure RadioTerm5Click(Sender: TObject);
     procedure Button26Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure NiceGrid1DblClick(Sender: TObject);
   private
     { Private declarations }
     procedure CustomDblClick(Sender : TObject);
@@ -203,6 +205,8 @@ var
   BOHUMLIST1, BOHUMLIST2,GRIDLIST1  : AnsiString;
 
 implementation
+
+uses IpGo;
 
 {$R *.dfm}
 
@@ -345,6 +349,32 @@ begin
   IDs := nil; // id 저장 동적 배열 메모리 해제
   WorkCar(DateToStr(MonthCalendar1.Date));
 end;
+
+//==================================================================
+// Name      : NiceGrid1DblClick
+// Desc      : 수정
+//==================================================================
+procedure TFormCM.NiceGrid1DblClick(Sender: TObject);
+begin
+  EditFlag  := True;
+  if FindFlag then editID :=IDs[NiceGrid1.Row]
+              else editID :=Tcarlist[NiceGrid1.Row].ID;
+  FormIpgo.show;
+  // grid redraw
+end;
+
+
+//==================================================================
+// Name      : Button2Click
+// Desc      : 신규 입고
+//==================================================================
+procedure TFormCM.Button2Click(Sender: TObject);
+begin
+  EditFlag  := False;
+  FormIpgo.show;
+  // grid redraw
+end;
+
 //==================================================================
 // Name      : Button21Click
 // Desc      : 차량 검색 기간 - 시작일
@@ -1273,10 +1303,12 @@ begin
    //showmessage ('KeyDown ' + floattostr(key));
    case Key of
    VK_UP,VK_DOWN,VK_PRIOR,VK_NEXT : begin
-    if FindFlag then DetailView(IDs[NiceGrid1.Row])
-                else DetailView(Tcarlist[NiceGrid1.Row].ID);
+      if FindFlag then DetailView(IDs[NiceGrid1.Row])
+                  else DetailView(Tcarlist[NiceGrid1.Row].ID);
+
    end;
-  end;
+   VK_RETURN :  NiceGrid1DblClick(self);
+  end; // case
 
 end;
 

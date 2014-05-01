@@ -1,0 +1,85 @@
+unit IpGo;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, DB, ADODB, ComCtrls, ExtCtrls, StdCtrls,
+  lhjModule;
+
+type
+  TFormIpGo = class(TForm)
+    Timer1: TTimer;
+    StatusBar1: TStatusBar;
+    ADOConnection1: TADOConnection;
+    ADOQuery1: TADOQuery;
+    DataSource1: TDataSource;
+    LabelTitle: TLabel;
+    GroupBox1: TGroupBox;
+    RadioGroup1: TRadioGroup;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label12: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    CheckBox1: TCheckBox;
+    CheckBox2: TCheckBox;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    Edit4: TEdit;
+    Edit5: TEdit;
+    Edit6: TEdit;
+    Edit7: TEdit;
+    Edit8: TEdit;
+    Edit9: TEdit;
+    Edit10: TEdit;
+    Edit11: TEdit;
+    Edit12: TEdit;
+    Edit13: TEdit;
+    Edit14: TEdit;
+    Edit15: TEdit;
+    ComboBox1: TComboBox;
+    CheckBox3: TCheckBox;
+    procedure Timer1Timer(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormIpGo: TFormIpGo;
+
+implementation
+
+{$R *.dfm}
+
+//==================================================================
+// Name      : TMainFrm.Timer1Timer
+// Desc      : Timer로 시간 표현
+//==================================================================
+procedure TFormIpGo.FormActivate(Sender: TObject);
+begin
+  if EditFlag then LabelTitle.Caption := '입 고 차 량 수 정'
+  else             LabelTitle.Caption := '입 고 차 량 입 력';
+
+end;
+
+procedure TFormIpGo.Timer1Timer(Sender: TObject);
+begin
+  statusbar1.Panels[0].Text:=datetostr(date); //상태바에 날짜 표시
+  statusBar1.Panels[1].Text :=timetostr(time); //상태바에 시간 표시
+end;
+
+end.

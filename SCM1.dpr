@@ -10,20 +10,25 @@ uses
   CoManager in 'CoManager.pas' {FormCoManager},
   DailyReport in 'DailyReport.pas' {FormDailyReport},
   CarManager in 'CarManager.pas' {FormCM},
-  Charge in 'Charge.pas' {FormCharge};
+  Charge in 'Charge.pas' {FormCharge},
+  Client in 'Client.pas' {FormClient},
+  Parts in 'Parts.pas' {FormParts},
+  IpGo in 'IpGo.pas' {FormIpGo};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
+  Application.Title := '공업사 차량 관리 프로그램';
   Application.CreateForm(TFormMain, FormMain);
   Application.CreateForm(TFormBooth, FormBooth);
-  Application.CreateForm(TFormLogIn, FormLogIn);
-  Application.CreateForm(TFormSecurity, FormSecurity);
   Application.CreateForm(TFormCoManager, FormCoManager);
   Application.CreateForm(TFormDailyReport, FormDailyReport);
   Application.CreateForm(TFormCM, FormCM);
   Application.CreateForm(TFormCharge, FormCharge);
+  Application.CreateForm(TFormClient, FormClient);
+  Application.CreateForm(TFormParts, FormParts);
+  Application.CreateForm(TFormIpGo, FormIpGo);
   Application.Run;
 end.
