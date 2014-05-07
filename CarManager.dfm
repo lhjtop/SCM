@@ -312,7 +312,7 @@ object FormCM: TFormCM
           Top = -4
           Width = 218
           Height = 171
-          Date = 41697.412624143520000000
+          Date = 41697.862799618060000000
           ImeName = 'Microsoft Office IME 2007'
           TabOrder = 0
           OnClick = MonthCalendar1Click
@@ -572,6 +572,7 @@ object FormCM: TFormCM
             TabOrder = 0
             OnClick = NiceGrid1Click
             OnDblClick = NiceGrid1DblClick
+            OnMouseDown = NiceGrid1MouseDown
             OnKeyDown = NiceGrid1KeyDown
           end
         end
@@ -1538,8 +1539,8 @@ object FormCM: TFormCM
       'a2011'
     LoginPrompt = False
     Provider = 'Microsoft.Jet.OLEDB.4.0'
-    Left = 56
-    Top = 634
+    Left = 58
+    Top = 624
   end
   object ADOQuery1: TADOQuery
     Connection = ADOConnection1
@@ -1550,5 +1551,21 @@ object FormCM: TFormCM
   object DataSource1: TDataSource
     Left = 186
     Top = 632
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 304
+    Top = 328
+    object Pop_Delivery: TMenuItem
+      Caption = #52636#44256#52376#47532
+    end
+    object N2: TMenuItem
+      Caption = '-'
+    end
+    object Pop_Request: TMenuItem
+      Caption = #52397#44396
+    end
+    object Pop_Receive: TMenuItem
+      Caption = #51077#44552
+    end
   end
 end

@@ -79,6 +79,7 @@ type
     ButtonClose: TButton;
     N54: TMenuItem;
     N55: TMenuItem;
+    N56: TMenuItem;
     procedure N2Click(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -88,7 +89,11 @@ type
     procedure N33Click(Sender: TObject);
     procedure ButtonCloseClick(Sender: TObject);
     procedure N55Click(Sender: TObject);
-
+    procedure N8Click(Sender: TObject);
+    procedure N6Click(Sender: TObject);
+    procedure N13Click(Sender: TObject);
+    procedure N12Click(Sender: TObject);
+    procedure WMHotkey(var msg: TWMHotkey); message WM_Hotkey;
   private
     { Private declarations }
   public
@@ -103,12 +108,13 @@ const
 var
   FormMain: TFormMain;
   FormSecurity : TFormMain;
+  //FormDailyReport : TFormMain;
   ResultReturn : Integer;
 
 implementation
 
  uses
-  Booth,LogIn, CoManager, Security;
+  Booth,LogIn, CoManager, Security, DailyReport, CarManager, Charge, Client;
 //uses LogInForMain;
 
 {$R *.dfm}
@@ -125,13 +131,15 @@ implementation
 // Return    : 없음
 //==================================================================
 
-procedure TFormMain.ButtonCloseClick(Sender: TObject);
-begin
-  Close;
-end;
-
+//==================================================================
+// Name      : FormCreate
+// Desc      : 초기화
+//==================================================================
 procedure TFormMain.FormCreate(Sender: TObject);
 begin
+  RegisterHOTKey(Handle,1,0,VK_F2); // 배출시설 방지시설 일지
+  RegisterHOTKey(Handle,2,0,VK_F3); // 차량 관리
+  RegisterHOTKey(Handle,3,0,VK_F4); //일계표 일지
   // 메인 폼
   //showmessage ('서버와 연결을 체크해야 함');
 
@@ -142,13 +150,36 @@ begin
 end;
 
 //==================================================================
-// Name      : TMainFrm.N2Click
-// Desc      : end
+// Name      : WMHotkey
+// Desc      : HOT key 처리
 //==================================================================
-procedure TFormMain.N2Click(Sender: TObject);    // end
+procedure TFormMain.WMHotkey(var msg: TWMHotkey);
 begin
-  close;
+  case msg.HotKey of
+  1: N5Click(self); // 배출시설 방지시설 일지
+  2: N6Click(self); // 차량 관리
+  3: N8Click(self); // 일계표 일지
+  end;
+
 end;
+
+//==================================================================
+// Name      : N12Click
+// Desc      : 거래처 관리
+//==================================================================
+procedure TFormMain.N12Click(Sender: TObject);
+begin
+  FormClient.show;
+end;
+//==================================================================
+// Name      : TMainFrm.N13Click
+// Desc      : 보험 담당 관리
+//==================================================================
+procedure TFormMain.N13Click(Sender: TObject);
+begin
+  FormCharge.Show;
+end;
+
 //==================================================================
 // Name      : TMainFrm.N5Click
 // Desc      : 사용자 전환
@@ -175,6 +206,25 @@ begin
   if ResultReturn='OK' then }FormBooth.Show;
 
 end;
+//==================================================================
+// Name      : N6Click
+// Desc      : 차량 관리
+//==================================================================
+procedure TFormMain.N6Click(Sender: TObject);
+begin
+  // 차량관리
+  FormCM.show;
+end;
+
+//==================================================================
+// Name      : TFormMain.N8Click
+// Desc      : 일계표 일지
+//==================================================================
+procedure TFormMain.N8Click(Sender: TObject);
+begin
+  // 일계표
+  FormDailyReport.Show;
+end;
 
 //==================================================================
 // Name      : TFormMain.N55Click
@@ -193,6 +243,15 @@ begin
   FormSecurity.Free;
   if ResultReturn='OK' then} FormCoManager.ShowModal;
 
+end;
+
+//==================================================================
+// Name      : TMainFrm.N2Click
+// Desc      : end
+//==================================================================
+procedure TFormMain.N2Click(Sender: TObject);    // end
+begin
+  close;
 end;
 
 //==================================================================
@@ -220,4 +279,14 @@ Function TFormMain.INI_Read(FileNames,Section,Key: string): string;
 begin
   //Function INI_Read(FileNames,Section,Key: string): string;
 end;
+
+//==================================================================
+// Name      : ButtonCloseClick
+// Desc      : end
+//==================================================================
+procedure TFormMain.ButtonCloseClick(Sender: TObject);
+begin
+  Close;
+end;
+
 end.

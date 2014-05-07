@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ComCtrls, ExtCtrls, StdCtrls, NiceGrid, StrUtils, ClipBrd, DateUtils,
   lhjModule, DB, ADODB, IniFiles,
-  ComObj, OleCtrls, Excel2000;
+  ComObj, OleCtrls, Excel2000, Menus;
 type
   TFormCM = class(TForm)
     PageControl1: TPageControl;
@@ -141,6 +141,11 @@ type
     GroupBox7: TGroupBox;
     GroupBox8: TGroupBox;
     GroupBox6: TGroupBox;
+    PopupMenu1: TPopupMenu;
+    Pop_Delivery: TMenuItem;
+    N2: TMenuItem;
+    Pop_Request: TMenuItem;
+    Pop_Receive: TMenuItem;
     procedure Grid_Init(Index : Integer);
     Procedure Text_Init(Index : Integer);
     procedure Timer1Timer(Sender: TObject);
@@ -188,6 +193,8 @@ type
     procedure Button26Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure NiceGrid1DblClick(Sender: TObject);
+    procedure NiceGrid1MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
   private
     { Private declarations }
     procedure CustomDblClick(Sender : TObject);
@@ -1313,6 +1320,15 @@ begin
 end;
 
 
+
+procedure TFormCM.NiceGrid1MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  if Button = MBRight then begin
+    PopupMenu1.Popup(Mouse.CursorPos.X, Mouse.CursorPos.Y);
+
+  end;
+end;
 
 //==================================================================
 // Name      : Reset_CarList
