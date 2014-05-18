@@ -155,9 +155,9 @@ end;
 procedure TFormMain.WMHotkey(var msg: TWMHotkey);
 begin
   case msg.HotKey of
-  1: N5Click(self); // 배출시설 방지시설 일지
-  2: N6Click(self); // 차량 관리
-  3: N8Click(self); // 일계표 일지
+  1: N5Click(self); // F2 배출시설 방지시설 일지
+  2: N6Click(self); // F3 차량 관리
+  3: N8Click(self); // F4 일계표 일지
   end;
 
 end;

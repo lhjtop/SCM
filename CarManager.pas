@@ -27,14 +27,8 @@ type
     Button3: TButton;
     Button4: TButton;
     Button5: TButton;
-    Button6: TButton;
     Button7: TButton;
-    Button8: TButton;
     Button9: TButton;
-    Button10: TButton;
-    Button11: TButton;
-    Button12: TButton;
-    Button13: TButton;
     Button14: TButton;
     ButtonEnd: TButton;
     NiceGrid6: TNiceGrid;
@@ -86,11 +80,6 @@ type
     GroupBoxILBan: TGroupBox;
     Edit15: TEdit;
     CheckBox4: TCheckBox;
-    Edit17: TEdit;
-    Label2: TLabel;
-    Label3: TLabel;
-    Edit18: TEdit;
-    Edit19: TEdit;
     GroupBoxFind: TGroupBox;
     RadioGroup2: TRadioGroup;
     GroupBox18: TGroupBox;
@@ -146,6 +135,17 @@ type
     N2: TMenuItem;
     Pop_Request: TMenuItem;
     Pop_Receive: TMenuItem;
+    Label6: TLabel;
+    Edit20: TEdit;
+    Edit21: TEdit;
+    Label19: TLabel;
+    Label2: TLabel;
+    Edit17: TEdit;
+    Label3: TLabel;
+    Edit18: TEdit;
+    Edit19: TEdit;
+    Label20: TLabel;
+    Shape2: TShape;
     procedure Grid_Init(Index : Integer);
     Procedure Text_Init(Index : Integer);
     procedure Timer1Timer(Sender: TObject);
@@ -195,6 +195,7 @@ type
     procedure NiceGrid1DblClick(Sender: TObject);
     procedure NiceGrid1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+
   private
     { Private declarations }
     procedure CustomDblClick(Sender : TObject);
@@ -260,11 +261,11 @@ begin
   Text_Init(10); // 차량 세부정보 초기화
   Grid_Init(1);  // 차량 현황 - 차량현황
   Grid_Init(13); // 차량현황 - 부품
-  BOHUMLIST1  :=  'ID, 차량번호, 차량명, 운전자, 연락처, 거래처, ' +
-                  '사업자, 세금계산서, 사진경로, 서류경로, 메모 ' +
-                  ',입고일, 출고예정, 출고일, 등록증 ' +
-                  ', 주행거리, 최초등록일, 칼라, 대차, 렌트카 ' +
-                  ', 차대번호 ';
+  BOHUMLIST1  :=  'ID, 차량번호, 차량명, 운전자, 연락처, 거래처 ' +
+                  ', 사업자, 세금계산서, 사진경로, 서류경로, 메모 ' +  // 6
+                  ',입고일, 출고예정, 출고일, 등록증, 주행거리 ' +     // 11
+                  ', 최초등록일, 칼라, 대차, 렌트카, 차대번호 ' +      // 16
+                  ', 주민번호, 주소 ';                                 // 21
   BOHUMLIST2  := 'ID, 보험사, 담보, 과실, 접수번호, 면책금' +
                  ',정률구분, 담당자, 청구일, 청구금, 입금일' +
                  ', 입금액, 할인액, 서비스, 영업비, 메모, ' +
@@ -274,7 +275,12 @@ begin
                   '차량정보.차량명, 차량정보.입고일, 차량정보.출고예정, ' +
                   '차량정보.출고일 ';
 
-  MonthCalendar1.Date:= Now;   // 오늘날짜로 초기화
+
+  //uToDate := iifs( (length(trim(uToDate)) = 0) , datetostr(Now), uToDate) ;
+  if length(trim(uToDate)) = 0 then begin
+    uToDate := datetostr(Now);
+  end;
+  MonthCalendar1.Date:= strtodate(uToDate);   // 오늘날짜로 초기화
   LabelDate.Caption:=DateView(MonthCalendar1.Date);
   ADOQuery1.Connection.LoginPrompt:=False;
 
@@ -364,8 +370,8 @@ end;
 procedure TFormCM.NiceGrid1DblClick(Sender: TObject);
 begin
   EditFlag  := True;
-  if FindFlag then editID :=IDs[NiceGrid1.Row]
-              else editID :=Tcarlist[NiceGrid1.Row].ID;
+  if FindFlag=True then editIDs :=IDs[NiceGrid1.Row]
+                   else editIDs :=Tcarlist[NiceGrid1.Row].ID;
   FormIpgo.show;
   // grid redraw
 end;
@@ -410,7 +416,7 @@ begin
   seldate:=ifempty(editdate41.Text,datetostr(now));
   xx := GroupBoxFind.Left + GroupBox18.Left + Button22.Left;
   yy := GroupBox18.Top + GroupBox18.Top + Button22.Top;
-  Calendar_view(2,xx, yy);
+  Calendar_view(2,xx, yy); ////<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 end;
 
@@ -759,7 +765,7 @@ begin
 end;
 //==================================================================
 // Name      : CustomDblClick
-// Desc      : 보험사 뷰어 - ListBox select process
+// Desc      : 부품사 뷰어 - ListBox select process
 //==================================================================
 procedure TFormCM.CustomDblClick(Sender: TObject);
 begin
@@ -1022,7 +1028,7 @@ begin
       if bNULL(sDate) or bNULL(eDate) then begin
         sSql := 'SELECT DISTINCT ' + GRIDLIST1 + tmpstr + ' From 차량정보 ' +
              'left outer join 보험 on 차량정보.ID=보험.ID ' +
-             'WHERE 거래처 LIKE ' + QQ + '' + cFinder + '' + QQ  +
+             'WHERE 거래처 LIKE ' + QQ + cFinder + QQ  +
              ' order by 입고일 DESC;';
       end else begin
         sSql := 'SELECT DISTINCT ' + GRIDLIST1 + tmpstr + ' From 차량정보 ' +
@@ -1035,12 +1041,12 @@ begin
       if bNULL(sDate) or bNULL(eDate) then begin
         sSql := 'SELECT DISTINCT ' + GRIDLIST1 + tmpstr + ' From 차량정보 ' +
              'left outer join 보험 on 차량정보.ID=보험.ID ' +
-             'WHERE 보험.보험사 LIKE ' + QQ + '' + cFinder + '' + QQ  +
+             'WHERE 보험.보험사 LIKE ' + QQ + cFinder + QQ  +
              ' order by 입고일 DESC;';
       end else begin
         sSql := 'SELECT DISTINCT ' + GRIDLIST1 + tmpstr + ' From 차량정보 ' +
              'left outer join 보험 on 차량정보.ID=보험.ID ' +
-             'WHERE 보험.보험사 LIKE ' + QQ + '' + cFinder + '' + QQ  +
+             'WHERE 보험.보험사 LIKE ' + QQ + cFinder + QQ  +
              ' order by 입고일 DESC;';
       end; // if
 
@@ -1060,14 +1066,14 @@ begin
               'left outer join 보험 on 차량정보.ID=보험.ID ' +
               'WHERE ' + ssqls[i] + ' LIKE ' + QQ + '%' +
               cFinder + '%' + QQ  + ' order by 입고일 DESC;';
-clipboard.AsText:=ssqls[i];   //   Ctrl - C    복사  copy  uses => ClipBrd
+//clipboard.AsText:=ssqls[i];   //   Ctrl - C    복사  copy  uses => ClipBrd
         end; // for
         ssqls[6]  := 'SELECT DISTINCT ' + GRIDLIST1 + tmpstr +
               ' From 차량정보 ' +
               'left outer join 보험 on 차량정보.ID=보험.ID ' +
               'WHERE ' + ssqls[6] + ' LIKE ' + QQ + '%' +
               cFinder + '%' + QQ  + ' order by 입고일 DESC;';
-clipboard.AsText:=ssqls[6];   //   Ctrl - C    복사  copy  uses => ClipBrd
+//clipboard.AsText:=ssqls[6];   //   Ctrl - C    복사  copy  uses => ClipBrd
      end // if
       else begin
         for i := 0 to 5 do begin
@@ -1280,13 +1286,13 @@ end;
 //==================================================================
 procedure TFormCM.MonthCalendar1Click(Sender: TObject);
 var
-  ToDate : AnsiString;
+
   ACanvas: TCanvas;
 begin
   //Text_Init;
-  ToDate:=DateToStr(MonthCalendar1.Date);
+  uToDate:=DateToStr(MonthCalendar1.Date);
   LabelDate.Caption:=DateView(MonthCalendar1.Date);
-  WorkCar(ToDate);
+  WorkCar(uToDate);
 end;
 
 //==================================================================
@@ -1599,6 +1605,8 @@ begin
         if bNULL(edit15.Text) then edit15.Color :=clGradientInactiveCaption
                               else edit15.Color :=$CC99FF;
         edit5.Text  := ifNULL(Item[20].Value,' '); // 차대번호
+        edit20.Text := ifNULL(Item[ 21].Value,' '); // 주민번호
+        edit21.Text := ifNULL(Item[22].Value,' '); // 주소
        end;   // with
    end; // if
   ADOQuery1.Active:=False;
@@ -1662,7 +1670,7 @@ begin
           end; // if
           NiceGrid5[07,iRow] := ifNULL(Item[15].Value,''); // 메모
           NiceGrid5[09,iRow] := ifNULL(Item[24].Value,''); // 영업비 지출일
-          NiceGrid5[10,iRow] := ifempty(Item[14].Value,''); // 영업비
+          NiceGrid5[10,iRow] := ifNULL(Item[14].Value,''); // 영업비
           //edit17.Text := '부품 + 공임 = '; // 총 수리비 청구액
           //txtSub(7) = ConvAmount(txtSub(7)) + DisCount(1) '청구금 계
           //txtSub(8) = ConvAmount(txtSub(8)) + DisCount(2) '입금 계
@@ -1681,8 +1689,8 @@ begin
           oldDBParts[1] :=StrToFloat(ifNULL(Item[22].Value,'0'));  // 유리
           oldDBParts[2] :=StrToFloat(ifNULL(Item[23].Value,'0'));  // 실란트
           dParts := olddbparts[0]+olddbparts[1]+olddbparts[2];
-          if (dParts)>0 then
-          begin
+          nicegrid3.Clear;
+          if (dParts)>0 then begin
             NiceGrid3.RowCount := 3;
             NiceGrid3[00,00] := '(old)' + ifempty(Item[21].Value,''); // 부품 사
             NiceGrid3[01,00] := MyAmount(oldDBParts[0]); // amount
@@ -1691,7 +1699,7 @@ begin
             NiceGrid3[00,02] := '(old)실란트';
             NiceGrid3[01,02] := MyAmount(oldDBParts[2]);
             Nicegrid3.Columns[1].Footer := MyAmount(dParts);
-          end;
+          end; // if
         end;  // with
         ADOQuery1.Next;
       end; // while

@@ -37,8 +37,9 @@ var
   // 차량 신규 입고/수정 편집 플레그 변수
   EditFlag    : Boolean;
   // 차량 수정 편집시 ID 전달 변수
-  editID      : ansistring;
-
+  editIDs     : ansistring;
+  // 차량관리 해당 일자
+  uToDate     : AnsiString;
  implementation
 
 uses Booth, Main1, Security, CoManager;
